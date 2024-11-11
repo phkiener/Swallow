@@ -1,0 +1,14 @@
+# IDEs and tools
+.idea/
+.vs/
+.vscode/
+
+# Local files
+*.user
+*.DS_STORE
+*.*~
+
+# Build output
+[bB]in/
+[oO]bj/
+[pP]publish/
