@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="../../Library.props"/>
+
+  <PropertyGroup>
+    <PackageId>Swallow.Validation.Core</PackageId>
+    <RootNamespace>Swallow.Validation</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Update="Microsoft.SourceLink.GitLab" Version="8.0.0" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,97 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{D18D8156-0523-4F5C-81F0-553855588435}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Assets", "Assets", "{87614215-0EB1-4A21-9B49-3F49BC47EAFC}"
+	ProjectSection(SolutionItems) = preProject
+		assets\swallow.svg = assets\swallow.svg
+		assets\swallow-icon-rect.svg = assets\swallow-icon-rect.svg
+		assets\swallow-icon-round.svg = assets\swallow-icon-round.svg
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Additional items", "Additional items", "{BB731707-F7C9-4247-9851-10D4D2C9F4CA}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		.gitattributes = .gitattributes
+		.gitignore = .gitignore
+		LICENSE.txt = LICENSE.txt
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Swallow.Validation", "Swallow.Validation", "{609411C6-B8FE-44E6-B2AE-6FBC5481AEF9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Swallow.Validation.Core", "Swallow.Validation\src\Swallow.Validation.Core\Swallow.Validation.Core.csproj", "{330AFE71-9C02-4416-AAE6-51BB49BC1DD1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Swallow.Validation.Assertions", "Swallow.Validation\src\Swallow.Validation.Assertions\Swallow.Validation.Assertions.csproj", "{68E33D90-1645-4113-8316-93B2E8C21651}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Swallow.Validation.ServiceCollection", "Swallow.Validation\src\Swallow.Validation.ServiceCollection\Swallow.Validation.ServiceCollection.csproj", "{5C6E9720-32E2-4EC4-8BE8-D4D665782E9A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Swallow.Validation.Assertions.Test", "Swallow.Validation\test\Swallow.Validation.Assertions.Test\Swallow.Validation.Assertions.Test.csproj", "{AC00AF7D-CAF5-4670-A6A0-B2170F94D942}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Swallow.Validation.Core.Test", "Swallow.Validation\test\Swallow.Validation.Core.Test\Swallow.Validation.Core.Test.csproj", "{FC8C91EB-1376-478C-A26C-F0C2883EF5BB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Swallow.Validation.ServiceCollection.Test", "Swallow.Validation\test\Swallow.Validation.ServiceCollection.Test\Swallow.Validation.ServiceCollection.Test.csproj", "{2302734C-0078-4113-B97A-698A6121B4BA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Swallow.Validation.TestUtils", "Swallow.Validation\test\Swallow.Validation.TestUtils\Swallow.Validation.TestUtils.csproj", "{04A76AAA-762F-467D-8974-439DC2DAAC44}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Additional items", "Additional items", "{6C91F920-7A56-485C-952A-9E466C564965}"
+	ProjectSection(SolutionItems) = preProject
+		Swallow.Validation\Library.props = Swallow.Validation\Library.props
+		Swallow.Validation\README.md = Swallow.Validation\README.md
+		Swallow.Validation\RELEASE_NOTES.md = Swallow.Validation\RELEASE_NOTES.md
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{87614215-0EB1-4A21-9B49-3F49BC47EAFC} = {D18D8156-0523-4F5C-81F0-553855588435}
+		{BB731707-F7C9-4247-9851-10D4D2C9F4CA} = {D18D8156-0523-4F5C-81F0-553855588435}
+		{330AFE71-9C02-4416-AAE6-51BB49BC1DD1} = {609411C6-B8FE-44E6-B2AE-6FBC5481AEF9}
+		{68E33D90-1645-4113-8316-93B2E8C21651} = {609411C6-B8FE-44E6-B2AE-6FBC5481AEF9}
+		{5C6E9720-32E2-4EC4-8BE8-D4D665782E9A} = {609411C6-B8FE-44E6-B2AE-6FBC5481AEF9}
+		{AC00AF7D-CAF5-4670-A6A0-B2170F94D942} = {609411C6-B8FE-44E6-B2AE-6FBC5481AEF9}
+		{FC8C91EB-1376-478C-A26C-F0C2883EF5BB} = {609411C6-B8FE-44E6-B2AE-6FBC5481AEF9}
+		{2302734C-0078-4113-B97A-698A6121B4BA} = {609411C6-B8FE-44E6-B2AE-6FBC5481AEF9}
+		{04A76AAA-762F-467D-8974-439DC2DAAC44} = {609411C6-B8FE-44E6-B2AE-6FBC5481AEF9}
+		{6C91F920-7A56-485C-952A-9E466C564965} = {609411C6-B8FE-44E6-B2AE-6FBC5481AEF9}
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{330AFE71-9C02-4416-AAE6-51BB49BC1DD1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{330AFE71-9C02-4416-AAE6-51BB49BC1DD1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{330AFE71-9C02-4416-AAE6-51BB49BC1DD1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{330AFE71-9C02-4416-AAE6-51BB49BC1DD1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{68E33D90-1645-4113-8316-93B2E8C21651}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{68E33D90-1645-4113-8316-93B2E8C21651}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{68E33D90-1645-4113-8316-93B2E8C21651}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{68E33D90-1645-4113-8316-93B2E8C21651}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5C6E9720-32E2-4EC4-8BE8-D4D665782E9A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C6E9720-32E2-4EC4-8BE8-D4D665782E9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C6E9720-32E2-4EC4-8BE8-D4D665782E9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C6E9720-32E2-4EC4-8BE8-D4D665782E9A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AC00AF7D-CAF5-4670-A6A0-B2170F94D942}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AC00AF7D-CAF5-4670-A6A0-B2170F94D942}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AC00AF7D-CAF5-4670-A6A0-B2170F94D942}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AC00AF7D-CAF5-4670-A6A0-B2170F94D942}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FC8C91EB-1376-478C-A26C-F0C2883EF5BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FC8C91EB-1376-478C-A26C-F0C2883EF5BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FC8C91EB-1376-478C-A26C-F0C2883EF5BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FC8C91EB-1376-478C-A26C-F0C2883EF5BB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2302734C-0078-4113-B97A-698A6121B4BA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2302734C-0078-4113-B97A-698A6121B4BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2302734C-0078-4113-B97A-698A6121B4BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2302734C-0078-4113-B97A-698A6121B4BA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{04A76AAA-762F-467D-8974-439DC2DAAC44}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{04A76AAA-762F-467D-8974-439DC2DAAC44}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{04A76AAA-762F-467D-8974-439DC2DAAC44}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{04A76AAA-762F-467D-8974-439DC2DAAC44}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
