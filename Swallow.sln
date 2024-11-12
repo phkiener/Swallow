@@ -68,6 +68,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Swallow.Refactor.Testing", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Swallow.Refactor.Test", "Swallow.Refactor\test\Swallow.Refactor.Test\Swallow.Refactor.Test.csproj", "{D0F2AEA1-AA08-449B-882F-7B812AC930DF}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{D4942870-66B1-4D2D-9036-02F398143BA2}"
+	ProjectSection(SolutionItems) = preProject
+		build\Library.props = build\Library.props
+		build\Test.props = build\Test.props
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -94,6 +100,7 @@ Global
 		{040501B5-1EB1-421B-8A17-445D5039C137} = {8CF2D885-614E-46AD-A4AA-4A8E9757EDB3}
 		{381F9856-055E-4C2E-A680-F975CEB1D35B} = {8CF2D885-614E-46AD-A4AA-4A8E9757EDB3}
 		{D0F2AEA1-AA08-449B-882F-7B812AC930DF} = {8CF2D885-614E-46AD-A4AA-4A8E9757EDB3}
+		{D4942870-66B1-4D2D-9036-02F398143BA2} = {D18D8156-0523-4F5C-81F0-553855588435}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{330AFE71-9C02-4416-AAE6-51BB49BC1DD1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
