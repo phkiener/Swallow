@@ -1,0 +1,63 @@
+<Project>
+  <PropertyGroup Label="pack options">
+    <IsPackable>true</IsPackable>
+    <DebugType>embedded</DebugType>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+    <SatelliteResourceLanguages>en-US</SatelliteResourceLanguages>
+
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <NoWarn>$(NoWarn);CS1591</NoWarn>
+
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+  </PropertyGroup>
+
+  <PropertyGroup Label="metadata">
+    <PackageId>$(AssemblyName)</PackageId>
+    <PackageVersion>$(AssemblyVersion)</PackageVersion>
+
+    <Description>
+      A tool to automatically refactor large swaths of code - the natural continuation of "doing it all by hand" and "tinkering with regexes".
+      You can define a rewriting process and have it executed on many files in a solution - repeatable, testable, predictable.
+    </Description>
+    <PackageTags>tool;cli;refactor;roslyn;solution;extendable;hackable;plugins</PackageTags>
+
+    <Authors>Philipp Kiener</Authors>
+    <Copyright>
+      2023-2024 Philipp Kiener, 2023 Digitec Galaxus AG
+    </Copyright>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+
+    <PackageProjectUrl>https://gitlab.com/phkiener/swallow.refactor/</PackageProjectUrl>
+    <RepositoryUrl>https://gitlab.com/phkiener/swallow.refactor</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+
+    <PackageIcon>logo.png</PackageIcon>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageReleaseNotes>See RELEASE_NOTES.md for release notes</PackageReleaseNotes>
+  </PropertyGroup>
+
+  <ItemGroup Label="source link">
+    <PackageReference Include="Microsoft.SourceLink.GitLab" PrivateAssets="All" />
+  </ItemGroup>
+
+  <ItemGroup Label="included files">
+    <None Include="$(MSBuildThisFileDirectory)/logo.png" Pack="true" PackagePath="/" Visible="false" />
+    <None Include="$(MSBuildThisFileDirectory)/LICENSE.txt" Pack="true" PackagePath="/" Visible="false" />
+    <None Include="$(MSBuildThisFileDirectory)/README.md" Pack="true" PackagePath="/" Visible="false" />
+    <None Include="$(MSBuildThisFileDirectory)/RELEASE_NOTES.md" Pack="true" PackagePath="/" Visible="false" />
+  </ItemGroup>
+
+  <Target Name="CheckRequiredProperties" BeforeTargets="Pack">
+    <Error Condition="'$(Description)' == ''" Text="Description must be specified" />
+    <Error Condition="'$(PackageTags)' == ''" Text="PackageTags must be specified" />
+    <Error Condition="'$(AssemblyVersion)' == '1.0.0'" Text="AssemblyVersion must be specified" />
+  </Target>
+
+  <ItemGroup Label="roslyn specific">
+    <!-- Microsoft.CodeAnalysis.Workspaces.MSBuild 4.9.2 ships the compiler itself - we don't want to display these files in an IDE -->
+    <Content Update="@(Content)">
+      <Visible Condition="%(NuGetPackageId) == 'Microsoft.CodeAnalysis.Workspaces.MSBuild'">false</Visible>
+    </Content>
+  </ItemGroup>
+</Project>

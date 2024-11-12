@@ -1,0 +1,26 @@
+set windows-shell := [ "powershell.exe", "-c" ]
+
+PACK_OUTPUT := "packages"
+ASSEMBLY_NAME := "Swallow.Refactor"
+
+default:
+    just --list
+
+_restore:
+    dotnet restore
+
+test: _restore
+    dotnet build --no-restore -c Debug
+    dotnet test --no-restore --no-build -c Debug
+
+package version: _restore test
+    dotnet build --no-restore -c Release -p:Version={{version}}
+    dotnet pack --no-restore --no-build -c Release -o {{PACK_OUTPUT}} -p:Version={{version}}
+
+install: (package "99.0.0")
+    dotnet tool install --global --no-cache --add-source packages/ {{ASSEMBLY_NAME}}
+
+uninstall:
+    dotnet tool uninstall --global {{ASSEMBLY_NAME}}
+
+reinstall: uninstall install
