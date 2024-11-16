@@ -4,22 +4,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{D18D8156-0523-4F5C-81F0-553855588435}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		.gitattributes = .gitattributes
+		.gitignore = .gitignore
+		icon.png = icon.png
+		LICENSE.txt = LICENSE.txt
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Assets", "Assets", "{87614215-0EB1-4A21-9B49-3F49BC47EAFC}"
 	ProjectSection(SolutionItems) = preProject
 		assets\swallow.svg = assets\swallow.svg
 		assets\swallow-icon-rect.svg = assets\swallow-icon-rect.svg
 		assets\swallow-icon-round.svg = assets\swallow-icon-round.svg
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Additional items", "Additional items", "{BB731707-F7C9-4247-9851-10D4D2C9F4CA}"
-	ProjectSection(SolutionItems) = preProject
-		.editorconfig = .editorconfig
-		.gitattributes = .gitattributes
-		.gitignore = .gitignore
-		LICENSE.txt = LICENSE.txt
-		README.md = README.md
-		icon.png = icon.png
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Swallow.Validation", "Swallow.Validation", "{609411C6-B8FE-44E6-B2AE-6FBC5481AEF9}"
@@ -85,7 +82,6 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{87614215-0EB1-4A21-9B49-3F49BC47EAFC} = {D18D8156-0523-4F5C-81F0-553855588435}
-		{BB731707-F7C9-4247-9851-10D4D2C9F4CA} = {D18D8156-0523-4F5C-81F0-553855588435}
 		{330AFE71-9C02-4416-AAE6-51BB49BC1DD1} = {609411C6-B8FE-44E6-B2AE-6FBC5481AEF9}
 		{68E33D90-1645-4113-8316-93B2E8C21651} = {609411C6-B8FE-44E6-B2AE-6FBC5481AEF9}
 		{5C6E9720-32E2-4EC4-8BE8-D4D665782E9A} = {609411C6-B8FE-44E6-B2AE-6FBC5481AEF9}

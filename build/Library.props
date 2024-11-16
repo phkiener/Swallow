@@ -1,3 +1,41 @@
 <Project>
+  <PropertyGroup Label="Package metadata">
+    <IsPackable>true</IsPackable>
+    <BeforePack>_ValidateSettings</BeforePack>
 
+    <Authors>Philipp Kiener</Authors>
+    <Copyright>2019-2024 Philipp Kiener</Copyright>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+
+    <RepositoryType>git</RepositoryType>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <RepositoryUrl>https://github.com/phkiener/Swallow</RepositoryUrl>
+
+    <PackageIcon>icon.png</PackageIcon>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageProjectUrl>https://github.com/phkiener/Swallow</PackageProjectUrl>
+  </PropertyGroup>
+
+  <PropertyGroup Label="Build settings">
+    <WarningsAsErrors>true</WarningsAsErrors>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <DebugType>embedded</DebugType>
+    <EmbedAllSources>true</EmbedAllSources>
+  </PropertyGroup>
+
+  <PropertyGroup Label="Release build settings" Condition="$(Configuration) == 'Release'">
+    <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+
+  <ItemGroup Label="Items included by default">
+    <None Include="$(MSBuildThisFileDirectory)../icon.png" Pack="true" PackagePath="/" Visible="false" />
+    <None Include="$(MSBuildThisFileDirectory)../LICENSE.txt" Pack="true" PackagePath="/" Visible="false" />
+    <None Include="$(MSBuildProjectDirectory)../../README.md" Pack="true" PackagePath="/" Visible="false" />
+  </ItemGroup>
+
+  <Target Name="_ValidateSettings">
+    <Error Text="Project &quot;$(MSBuildProjectName)&quot; is missing a description" Code="Metadata" File="$(MSBuildProjectFile)" Condition="$(Description) == ''" />
+    <Error Text="Project &quot;$(MSBuildProjectName)&quot; is missing the package tags" Code="Metadata" File="$(MSBuildProjectFile)" Condition="$(PackageTags) == ''" />
+  </Target>
 </Project>
