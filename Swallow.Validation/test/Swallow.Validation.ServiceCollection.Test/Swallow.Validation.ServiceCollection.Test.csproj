@@ -1,26 +1,17 @@
 <Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
-    <RootNamespace>Swallow.Validation.ServiceCollection</RootNamespace>
-    <IsTestProject>true</IsTestProject>
-    <WarningsAsErrors>true</WarningsAsErrors>
-    <IsPackable>false</IsPackable>
-  </PropertyGroup>
+  <Import Project="../../../build/Test.props" />
 
-  <ItemGroup>
-    <PackageReference Include="coverlet.msbuild" Version="6.0.0">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="FluentAssertions" Version="6.12.0" />
-    <PackageReference Include="nunit" Version="4.0.1" />
-    <PackageReference Include="NUnit3TestAdapter" Version="4.5.0" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
-  </ItemGroup>
+  <PropertyGroup>
+    <RootNamespace>Swallow.Validation.ServiceCollection</RootNamespace>
+  </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\Swallow.Validation.Assertions\Swallow.Validation.Assertions.csproj"/>
     <ProjectReference Include="..\..\src\Swallow.Validation.ServiceCollection\Swallow.Validation.ServiceCollection.csproj"/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentAssertions" Version="6.12.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
   </ItemGroup>
 </Project>
