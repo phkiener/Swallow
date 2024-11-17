@@ -35,7 +35,6 @@
   </PropertyGroup>
 
   <ItemGroup Label="Items included by default">
-    <None Include="$(IconFilePath)" Pack="true" PackagePath="/" Visible="false" />
     <None Include="$(ReadmeFilePath)" Pack="true" PackagePath="/" Visible="false" />
     <None Include="$(LicenseFilePath)" Pack="true" PackagePath="/" Visible="false" />
   </ItemGroup>
@@ -43,5 +42,6 @@
   <Target Name="_ValidateSettings">
     <Error Text="Project &quot;$(MSBuildProjectName)&quot; is missing a description" Code="Metadata" File="$(MSBuildProjectFile)" Condition="$(Description) == ''" />
     <Error Text="Project &quot;$(MSBuildProjectName)&quot; is missing the package tags" Code="Metadata" File="$(MSBuildProjectFile)" Condition="$(PackageTags) == ''" />
+    <Error Text="Project &quot;$(MSBuildProjectName)&quot;'s README is not a markdown file" Code="Metadata" File="$(ReadmeFilePath)" Condition="$([System.IO.Path]::GetExtension('$(ReadmeFilePath)')) != '.md'" />
   </Target>
 </Project>
