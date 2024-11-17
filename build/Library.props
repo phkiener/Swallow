@@ -28,10 +28,16 @@
     <Deterministic>true</Deterministic>
   </PropertyGroup>
 
+  <PropertyGroup Label="Default file paths">
+    <IconFilePath Condition="$(IconFilePath) == ''">$(MSBuildThisFileDirectory)../icon.png</IconFilePath>
+    <ReadmeFilePath Condition="$(ReadmeFilePath) == ''">$(MSBuildProjectDirectory)../../README.md</ReadmeFilePath>
+    <LicenseFilePath Condition="$(LicenseFilePath) == ''">$(MSBuildThisFileDirectory)../LICENSE.txt</LicenseFilePath>
+  </PropertyGroup>
+
   <ItemGroup Label="Items included by default">
-    <None Include="$(MSBuildThisFileDirectory)../icon.png" Pack="true" PackagePath="/" Visible="false" />
-    <None Include="$(MSBuildThisFileDirectory)../LICENSE.txt" Pack="true" PackagePath="/" Visible="false" />
-    <None Include="$(MSBuildProjectDirectory)../../README.md" Pack="true" PackagePath="/" Visible="false" />
+    <None Include="$(IconFilePath)" Pack="true" PackagePath="/" Visible="false" />
+    <None Include="$(ReadmeFilePath)" Pack="true" PackagePath="/" Visible="false" />
+    <None Include="$(LicenseFilePath)" Pack="true" PackagePath="/" Visible="false" />
   </ItemGroup>
 
   <Target Name="_ValidateSettings">
