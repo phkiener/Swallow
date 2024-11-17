@@ -43,5 +43,6 @@
     <Error Text="Project &quot;$(MSBuildProjectName)&quot; is missing a description" Code="Metadata" File="$(MSBuildProjectFile)" Condition="$(Description) == ''" />
     <Error Text="Project &quot;$(MSBuildProjectName)&quot; is missing the package tags" Code="Metadata" File="$(MSBuildProjectFile)" Condition="$(PackageTags) == ''" />
     <Error Text="Project &quot;$(MSBuildProjectName)&quot;'s README is not a markdown file" Code="Metadata" File="$(ReadmeFilePath)" Condition="$([System.IO.Path]::GetExtension('$(ReadmeFilePath)')) != '.md'" />
+    <Error Text="Project &quot;$(MSBuildProjectName)&quot;'s LICENSE is not a plain text file" Code="Metadata" File="$(LicenseFilePath)" Condition="$([System.IO.Path]::GetExtension('$(LicenseFilePath)')) != '.txt'" />
   </Target>
 </Project>
