@@ -1,5 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
-  <Import Project="../../Package.props" />
+  <Import Project="../../../build/Publish.props" />
+
   <ItemGroup>
     <PackageReference Include="NUnit" />
     <PackageReference Include="Spectre.Console.Cli" />

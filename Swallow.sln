@@ -48,10 +48,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Additional items", "Additio
 	ProjectSection(SolutionItems) = preProject
 		Swallow.Refactor\Directory.Build.props = Swallow.Refactor\Directory.Build.props
 		Swallow.Refactor\Directory.Packages.props = Swallow.Refactor\Directory.Packages.props
-		Swallow.Refactor\justfile = Swallow.Refactor\justfile
-		Swallow.Refactor\Package.props = Swallow.Refactor\Package.props
+		Swallow.Refactor\Publish.props = Swallow.Refactor\Publish.props
 		Swallow.Refactor\README.md = Swallow.Refactor\README.md
 		Swallow.Refactor\RELEASE_NOTES.md = Swallow.Refactor\RELEASE_NOTES.md
+		Swallow.Refactor\LICENSE.txt = Swallow.Refactor\LICENSE.txt
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Swallow.Refactor", "Swallow.Refactor\src\Swallow.Refactor\Swallow.Refactor.csproj", "{78D4C2E0-5364-4D10-966B-D3948FDC84FC}"
@@ -68,7 +68,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Swallow.Refactor.Test", "Sw
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{D4942870-66B1-4D2D-9036-02F398143BA2}"
 	ProjectSection(SolutionItems) = preProject
-		build\Library.props = build\Library.props
+		build\Publish.props = build\Publish.props
 		build\Test.props = build\Test.props
 	EndProjectSection
 EndProject
