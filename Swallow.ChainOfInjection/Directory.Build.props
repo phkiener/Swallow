@@ -1,0 +1,15 @@
+<Project>
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="$(IsPackable) == 'true'">
+    <Copyright>2020-2024 Philipp Kiener</Copyright>
+     <PackageTags>dependency-injection;chain-of-responsibility;swallow</PackageTags>
+     <Description>
+       A tiny package for an abstract base to inject a chain of responsibility into a DI-container
+     </Description>
+  </PropertyGroup>
+</Project>

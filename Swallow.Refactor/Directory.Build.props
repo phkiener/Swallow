@@ -11,7 +11,7 @@
     <SatelliteResourceLanguages>en-US</SatelliteResourceLanguages>
 
     <Copyright>2023-2024 Philipp Kiener, 2023 Digitec Galaxus AG</Copyright>
-    <PackageTags>tool;cli;refactor;roslyn;solution;extendable;hackable;plugins</PackageTags>
+    <PackageTags>tool;cli;refactor;roslyn;solution;extendable;hackable;plugins;swallow</PackageTags>
     <Description>
       A tool to automatically refactor large swaths of code - the natural continuation of "doing it all by hand" and "tinkering with regexes".
       You can define a rewriting process and have it executed on many files in a solution - repeatable, testable, predictable.

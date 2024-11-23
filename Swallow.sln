@@ -9,7 +9,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{D18D81
 		.gitattributes = .gitattributes
 		.gitignore = .gitignore
 		icon.png = icon.png
-		LICENSE.txt = LICENSE.txt
 		README.md = README.md
 	EndProjectSection
 EndProject
@@ -42,6 +41,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Additional items", "Additio
 		Swallow.Validation\RELEASE_NOTES.md = Swallow.Validation\RELEASE_NOTES.md
 		Swallow.Validation\Directory.Build.props = Swallow.Validation\Directory.Build.props
 		Swallow.Validation\Directory.Packages.props = Swallow.Validation\Directory.Packages.props
+		Swallow.Validation\LICENSE.txt = Swallow.Validation\LICENSE.txt
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Swallow.Refactor", "Swallow.Refactor", "{8CF2D885-614E-46AD-A4AA-4A8E9757EDB3}"
@@ -83,6 +83,29 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{37ABB01F-0
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application", "{0C4794EF-D785-4D47-8487-AE0C9A7BA7E0}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Swallow.ChainOfInjection", "Swallow.ChainOfInjection", "{3DCF34CA-F715-4166-A118-63C414478646}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Library", "Library", "{1560F699-8E1F-40F7-A249-AE50398E4DF0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{B7B30828-B4EC-49E4-B8F7-B98D22D38FAB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Additional items", "Additional items", "{5CC7F210-77BC-41E7-B095-B3641B54A1C9}"
+	ProjectSection(SolutionItems) = preProject
+		Swallow.ChainOfInjection\Directory.Build.props = Swallow.ChainOfInjection\Directory.Build.props
+		Swallow.ChainOfInjection\Directory.Packages.props = Swallow.ChainOfInjection\Directory.Packages.props
+		Swallow.ChainOfInjection\README.md = Swallow.ChainOfInjection\README.md
+		Swallow.ChainOfInjection\RELEASE_NOTES.md = Swallow.ChainOfInjection\RELEASE_NOTES.md
+		Swallow.ChainOfInjection\LICENSE.txt = Swallow.ChainOfInjection\LICENSE.txt
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Swallow.ChainOfInjection", "Swallow.ChainOfInjection\src\Swallow.ChainOfInjection\Swallow.ChainOfInjection.csproj", "{FD33D669-947D-4FA9-81D9-F41D9C1AFA06}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Swallow.ChainOfInjection.ServiceCollection", "Swallow.ChainOfInjection\src\Swallow.ChainOfInjection.ServiceCollection\Swallow.ChainOfInjection.ServiceCollection.csproj", "{AA124864-66F5-420E-AA19-1EDB33568516}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Swallow.ChainOfInjection.SimpleInjector", "Swallow.ChainOfInjection\src\Swallow.ChainOfInjection.SimpleInjector\Swallow.ChainOfInjection.SimpleInjector.csproj", "{88B8692C-1F50-4289-BD8D-8FF6487FC65C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Swallow.ChainOfInjection.Test", "Swallow.ChainOfInjection\test\Swallow.ChainOfInjection.Test\Swallow.ChainOfInjection.Test.csproj", "{B9E05AA7-AD5D-40C9-8269-9FF691E31676}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -114,6 +137,13 @@ Global
 		{381F9856-055E-4C2E-A680-F975CEB1D35B} = {C98A9929-DA97-4962-98EA-20CD939490C9}
 		{70CC914B-AB90-4135-AFCB-4E046FC8B99B} = {C98A9929-DA97-4962-98EA-20CD939490C9}
 		{D0F2AEA1-AA08-449B-882F-7B812AC930DF} = {37ABB01F-021D-4942-9614-385CB037534A}
+		{1560F699-8E1F-40F7-A249-AE50398E4DF0} = {3DCF34CA-F715-4166-A118-63C414478646}
+		{B7B30828-B4EC-49E4-B8F7-B98D22D38FAB} = {3DCF34CA-F715-4166-A118-63C414478646}
+		{5CC7F210-77BC-41E7-B095-B3641B54A1C9} = {3DCF34CA-F715-4166-A118-63C414478646}
+		{FD33D669-947D-4FA9-81D9-F41D9C1AFA06} = {1560F699-8E1F-40F7-A249-AE50398E4DF0}
+		{AA124864-66F5-420E-AA19-1EDB33568516} = {1560F699-8E1F-40F7-A249-AE50398E4DF0}
+		{88B8692C-1F50-4289-BD8D-8FF6487FC65C} = {1560F699-8E1F-40F7-A249-AE50398E4DF0}
+		{B9E05AA7-AD5D-40C9-8269-9FF691E31676} = {B7B30828-B4EC-49E4-B8F7-B98D22D38FAB}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{330AFE71-9C02-4416-AAE6-51BB49BC1DD1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -168,5 +198,21 @@ Global
 		{D0F2AEA1-AA08-449B-882F-7B812AC930DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D0F2AEA1-AA08-449B-882F-7B812AC930DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D0F2AEA1-AA08-449B-882F-7B812AC930DF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FD33D669-947D-4FA9-81D9-F41D9C1AFA06}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD33D669-947D-4FA9-81D9-F41D9C1AFA06}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD33D669-947D-4FA9-81D9-F41D9C1AFA06}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD33D669-947D-4FA9-81D9-F41D9C1AFA06}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AA124864-66F5-420E-AA19-1EDB33568516}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA124864-66F5-420E-AA19-1EDB33568516}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA124864-66F5-420E-AA19-1EDB33568516}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA124864-66F5-420E-AA19-1EDB33568516}.Release|Any CPU.Build.0 = Release|Any CPU
+		{88B8692C-1F50-4289-BD8D-8FF6487FC65C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{88B8692C-1F50-4289-BD8D-8FF6487FC65C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{88B8692C-1F50-4289-BD8D-8FF6487FC65C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{88B8692C-1F50-4289-BD8D-8FF6487FC65C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B9E05AA7-AD5D-40C9-8269-9FF691E31676}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B9E05AA7-AD5D-40C9-8269-9FF691E31676}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B9E05AA7-AD5D-40C9-8269-9FF691E31676}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B9E05AA7-AD5D-40C9-8269-9FF691E31676}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
