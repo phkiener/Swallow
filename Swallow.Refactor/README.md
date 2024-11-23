@@ -74,3 +74,12 @@ brrr -p|--plugin SomeAssembly.dll;SomeOtherAssembly.dll list
 
 Using this, you can extend the basic behaviour in many ways, like defining additional commands to be executed or  registering
 additional `IDocumentRewriter`s or `ITargetedRewriter`s.
+
+## BRRRackages
+
+| Package                                                                                                                                                                                                                 | Description                                                                      |
+|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------|
+| [![Swallow.Refactor.Abstractions](https://img.shields.io/nuget/v/Swallow.Validation?style=for-the-badge&logo=nuget&label=Swallow.Refactor.Abstractions)](https://www.nuget.org/packages/Swallow.Refactor.Abstractions/) | Common interfaces for all BRRR libraries                                         |
+| [![Swallow.Refactor.Core](https://img.shields.io/nuget/v/Swallow.Validation?style=for-the-badge&logo=nuget&label=Swallow.Refactor.Core)](https://www.nuget.org/packages/Swallow.Refactor.Core/)                         | The integration with Roslyn, containing rewriters, refactors and other utilities |
+| [![Swallow.Refactor.Execution](https://img.shields.io/nuget/v/Swallow.Validation?style=for-the-badge&logo=nuget&label=Swallow.Refactor.Execution)](https://www.nuget.org/packages/Swallow.Refactor.Execution/)          | Integration library to add custom commands to the tool via plugins               |
+| [![Swallow.Refactor.Testing](https://img.shields.io/nuget/v/Swallow.Validation?style=for-the-badge&logo=nuget&label=Swallow.Refactor.Testing)](https://www.nuget.org/packages/Swallow.Refactor.Testing/)                | Helper classes to write tests for refactors, rewriters and other things.         |

@@ -3,8 +3,22 @@
     <TargetFramework>net9.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+
+    <NoWarn>$(NoWarn);CS1591</NoWarn>
   </PropertyGroup>
 
+  <PropertyGroup Condition="$(IsPackable) == 'true'">
+    <SatelliteResourceLanguages>en-US</SatelliteResourceLanguages>
+
+    <Copyright>2023-2024 Philipp Kiener, 2023 Digitec Galaxus AG</Copyright>
+    <PackageTags>tool;cli;refactor;roslyn;solution;extendable;hackable;plugins</PackageTags>
+    <Description>
+      A tool to automatically refactor large swaths of code - the natural continuation of "doing it all by hand" and "tinkering with regexes".
+      You can define a rewriting process and have it executed on many files in a solution - repeatable, testable, predictable.
+    </Description>
+  </PropertyGroup>
+
+  <!-- These three are deserialization of unknown payloads (JSON and certificates) which the BRRR doesn't really do. -->
   <ItemGroup>
     <NuGetAuditSuppress Include="https://github.com/advisories/GHSA-8g4q-xg66-9fp4" />
     <NuGetAuditSuppress Include="https://github.com/advisories/GHSA-447r-wph3-92pm" />

@@ -1,14 +1,26 @@
 # Release Notes
 
+## 4.0.0
+
+- Upgrade to .NET 9 and all dependencies, most notably Roslyn to 4.11.0.
+- Use the new icon!
+- Update source link to use the new monorepo on GitHub
+
+### Core
+
+- Allow faster parallel compilation of a whole solution via `SolutionCompiler`
+
+---
+
 ## 3.1.0
 
-Upgrade all dependencies, most notably Roslyn (`Microsoft.CodeAnalysis.*`) to 4.9.2.
+- Upgrade all dependencies, most notably Roslyn to 4.9.2.
 
 ---
 
 ## 3.0.0
 
-Upgrade to .NET 8 and add another kind of rewriter: the `ITargetedRewriter`.
+- Upgrade to .NET 8 and add another kind of rewriter: the `ITargetedRewriter`.
 
 ### Just the big-picture stuff, please
 

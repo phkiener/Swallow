@@ -4,7 +4,7 @@
     <RoslynVersion>4.11.0</RoslynVersion>
   </PropertyGroup>
   <ItemGroup>
-    <PackageVersion Include="FluentAssertions" Version="6.12.0" />
+    <PackageVersion Include="coverlet.msbuild" Version="6.0.2" />
     <PackageVersion Include="Microsoft.Build.Locator" Version="1.7.8" />
     <PackageVersion Include="Microsoft.CodeAnalysis.CSharp" Version="$(RoslynVersion)" />
     <PackageVersion Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="$(RoslynVersion)" />
@@ -18,6 +18,5 @@
     <PackageVersion Include="Spectre.Console" Version="0.49.1" />
     <PackageVersion Include="Spectre.Console.Cli" Version="0.49.1" />
     <PackageVersion Include="Spectre.Console.Testing" Version="0.49.1" />
-    <PackageVersion Include="coverlet.msbuild" Version="6.0.2" />
   </ItemGroup>
 </Project>
