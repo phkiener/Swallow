@@ -1,16 +1,27 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <Import Project="../../../build/Test.props" />
 
   <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
     <RootNamespace>Swallow.Validation</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Swallow.Validation.Assertions\Swallow.Validation.Assertions.csproj"/>
-    <ProjectReference Include="..\Swallow.Validation.TestUtils\Swallow.Validation.TestUtils.csproj"/>
+    <ProjectReference Include="..\..\src\Swallow.Validation.Assertions\Swallow.Validation.Assertions.csproj" />
+    <ProjectReference Include="..\Swallow.Validation.TestUtils\Swallow.Validation.TestUtils.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="FluentAssertions" Version="6.12.0" />
+    <PackageReference Include="FluentAssertions" />
+    <PackageReference Include="coverlet.msbuild" >
+    <PrivateAssets>all</PrivateAssets>
+    <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+  </PackageReference>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" />
+    <PackageReference Include="nunit" />
+    <PackageReference Include="NUnit3TestAdapter" />
+    <PackageReference Include="NUnit.Analyzers">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
 </Project>

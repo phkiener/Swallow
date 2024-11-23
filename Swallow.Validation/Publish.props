@@ -1,0 +1,9 @@
+<Project>
+  <PropertyGroup>
+    <Description>
+      A lightweight, fluent-style validation library
+    </Description>
+    <PackageTags>validation;fluent;lightweight</PackageTags>
+    <Copyright>2019-2024 Philipp Kiener</Copyright>
+  </PropertyGroup>
+</Project>

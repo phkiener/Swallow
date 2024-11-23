@@ -1,28 +1,7 @@
 <Project>
-  <PropertyGroup Label="Customizable settings">
-    <LicenseFileName>LICENSE.txt</LicenseFileName>
-    <ReadmeFileName>README.md</ReadmeFileName>
-    <IconFileName>icon.png</IconFileName>
-
+  <PropertyGroup Label="Directory settings">
     <RepositoryRoot>$(MSBuildThisFileDirectory)../</RepositoryRoot>
     <ProjectRoot>$(MSBuildProjectDirectory)/../../</ProjectRoot>
-  </PropertyGroup>
-
-  <PropertyGroup Label="Package metadata">
-    <IsPackable>true</IsPackable>
-    <BeforePack>_ValidateSettings</BeforePack>
-
-    <Authors>Philipp Kiener</Authors>
-    <Copyright>2019-2024 Philipp Kiener</Copyright>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
-
-    <RepositoryType>git</RepositoryType>
-    <PublishRepositoryUrl>true</PublishRepositoryUrl>
-    <RepositoryUrl>https://github.com/phkiener/Swallow</RepositoryUrl>
-
-    <PackageIcon>$(IconFileName)</PackageIcon>
-    <PackageReadmeFile>$(ReadmeFileName)</PackageReadmeFile>
-    <PackageProjectUrl>https://github.com/phkiener/Swallow</PackageProjectUrl>
   </PropertyGroup>
 
   <PropertyGroup Label="Build settings">
@@ -32,23 +11,42 @@
     <EmbedAllSources>true</EmbedAllSources>
   </PropertyGroup>
 
+  <PropertyGroup Label="Package metadata">
+    <IsPackable>true</IsPackable>
+    <BeforePack>_ValidateSettings</BeforePack>
+
+    <Authors>Philipp Kiener</Authors>
+    <PackageProjectUrl>https://github.com/phkiener/Swallow</PackageProjectUrl>
+
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/phkiener/Swallow</RepositoryUrl>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+
+    <PackageIcon>$(IconFileName)</PackageIcon>
+    <PackageReadmeFile>$(ReadmeFileName)</PackageReadmeFile>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+  </PropertyGroup>
+
   <PropertyGroup Label="Release build settings" Condition="$(Configuration) == 'Release'">
     <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
     <Deterministic>true</Deterministic>
   </PropertyGroup>
 
-  <PropertyGroup Label="Default file paths">
+  <PropertyGroup Label="Default files configuration">
+    <IconFileName>icon.png</IconFileName>
     <IconFilePath>$(RepositoryRoot)$(IconFileName)</IconFilePath>
     <IconFilePath Condition="EXISTS('$(ProjectRoot)$(IconFileName)')">$(ProjectRoot)$(IconFileName)</IconFilePath>
 
+    <ReadmeFileName>README.md</ReadmeFileName>
     <ReadmeFilePath>$(RepositoryRoot)$(ReadmeFileName)</ReadmeFilePath>
     <ReadmeFilePath Condition="EXISTS('$(ProjectRoot)$(ReadmeFileName)')">$(ProjectRoot)$(ReadmeFileName)</ReadmeFilePath>
 
+    <LicenseFileName>LICENSE.txt</LicenseFileName>
     <LicenseFilePath>$(RepositoryRoot)$(LicenseFileName)</LicenseFilePath>
     <LicenseFilePath Condition="EXISTS('$(ProjectRoot)$(LicenseFileName)')">$(ProjectRoot)$(LicenseFileName)</LicenseFilePath>
   </PropertyGroup>
 
-  <ItemGroup Label="Items included by default">
+  <ItemGroup Label="Default files">
     <None Include="$(IconFilePath)" Pack="true" PackagePath="/" Visible="false" />
     <None Include="$(ReadmeFilePath)" Pack="true" PackagePath="/" Visible="false" />
     <None Include="$(LicenseFilePath)" Pack="true" PackagePath="/" Visible="false" />
@@ -60,11 +58,10 @@
 
     <Error Text="Project &quot;$(MSBuildProjectName)&quot; is missing the package tags"
            Code="Metadata" File="$(MSBuildProjectFile)" Condition="$(PackageTags) == ''" />
+
+    <Error Text="Project &quot;$(MSBuildProjectName)&quot; is missing a copyright statement"
+           Code="Metadata" File="$(MSBuildProjectFile)" Condition="$(Copyright) == ''" />
   </Target>
 
-  <PropertyGroup Label="Project-specific overrides">
-    <ProjectPublish>$(ProjectRoot)Publish.props</ProjectPublish>
-  </PropertyGroup>
-
-  <Import Project="$(ProjectPublish)" Condition="EXISTS('$(ProjectPublish)')" />
+  <Import Project="$(ProjectRoot)Publish.props" Condition="EXISTS('$(ProjectRoot)Publish.props')" />
 </Project>

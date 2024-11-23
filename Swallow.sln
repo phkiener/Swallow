@@ -40,6 +40,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Additional items", "Additio
 	ProjectSection(SolutionItems) = preProject
 		Swallow.Validation\README.md = Swallow.Validation\README.md
 		Swallow.Validation\RELEASE_NOTES.md = Swallow.Validation\RELEASE_NOTES.md
+		Swallow.Validation\Directory.Build.props = Swallow.Validation\Directory.Build.props
+		Swallow.Validation\Directory.Packages.props = Swallow.Validation\Directory.Packages.props
+		Swallow.Validation\Publish.props = Swallow.Validation\Publish.props
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Swallow.Refactor", "Swallow.Refactor", "{8CF2D885-614E-46AD-A4AA-4A8E9757EDB3}"
@@ -69,7 +72,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{D4942870-66B1-4D2D-9036-02F398143BA2}"
 	ProjectSection(SolutionItems) = preProject
 		build\Publish.props = build\Publish.props
-		build\Test.props = build\Test.props
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Library", "Library", "{2EB1332F-2177-47C5-8743-96A6FAC5800A}"
