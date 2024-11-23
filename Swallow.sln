@@ -10,6 +10,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{D18D81
 		.gitignore = .gitignore
 		icon.png = icon.png
 		LICENSE.txt = LICENSE.txt
+		README.md = README.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Assets", "Assets", "{87614215-0EB1-4A21-9B49-3F49BC47EAFC}"
@@ -37,7 +38,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Swallow.Validation.TestUtil
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Additional items", "Additional items", "{6C91F920-7A56-485C-952A-9E466C564965}"
 	ProjectSection(SolutionItems) = preProject
-		Swallow.Validation\Library.props = Swallow.Validation\Library.props
 		Swallow.Validation\README.md = Swallow.Validation\README.md
 		Swallow.Validation\RELEASE_NOTES.md = Swallow.Validation\RELEASE_NOTES.md
 	EndProjectSection
