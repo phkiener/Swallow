@@ -4,11 +4,10 @@
   <PropertyGroup>
     <AssemblyName>Swallow.Validation</AssemblyName>
     <RootNamespace>Swallow.Validation</RootNamespace>
-    <TargetFramework>net8.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Swallow.Validation.Core\Swallow.Validation.Core.csproj"/>
+    <ProjectReference Include="..\Swallow.Validation.Core\Swallow.Validation.Core.csproj" />
   </ItemGroup>
 
 </Project>

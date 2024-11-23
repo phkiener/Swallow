@@ -42,7 +42,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Additional items", "Additio
 		Swallow.Validation\RELEASE_NOTES.md = Swallow.Validation\RELEASE_NOTES.md
 		Swallow.Validation\Directory.Build.props = Swallow.Validation\Directory.Build.props
 		Swallow.Validation\Directory.Packages.props = Swallow.Validation\Directory.Packages.props
-		Swallow.Validation\Publish.props = Swallow.Validation\Publish.props
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Swallow.Refactor", "Swallow.Refactor", "{8CF2D885-614E-46AD-A4AA-4A8E9757EDB3}"

@@ -38,8 +38,7 @@
     <IconFilePath Condition="EXISTS('$(ProjectRoot)$(IconFileName)')">$(ProjectRoot)$(IconFileName)</IconFilePath>
 
     <ReadmeFileName>README.md</ReadmeFileName>
-    <ReadmeFilePath>$(RepositoryRoot)$(ReadmeFileName)</ReadmeFilePath>
-    <ReadmeFilePath Condition="EXISTS('$(ProjectRoot)$(ReadmeFileName)')">$(ProjectRoot)$(ReadmeFileName)</ReadmeFilePath>
+    <ReadmeFilePath>$(ProjectRoot)$(ReadmeFileName)</ReadmeFilePath>
 
     <LicenseFileName>LICENSE.txt</LicenseFileName>
     <LicenseFilePath>$(RepositoryRoot)$(LicenseFileName)</LicenseFilePath>
@@ -61,6 +60,9 @@
 
     <Error Text="Project &quot;$(MSBuildProjectName)&quot; is missing a copyright statement"
            Code="Metadata" File="$(MSBuildProjectFile)" Condition="$(Copyright) == ''" />
+
+    <Error Text="Project &quot;$(MSBuildProjectName)&quot; is missing a README file"
+           Code="Metadata" File="$(MSBuildProjectFile)" Condition="NOT(EXISTS('$(ReadmeFilePath)'))" />
   </Target>
 
   <Import Project="$(ProjectRoot)Publish.props" Condition="EXISTS('$(ProjectRoot)Publish.props')" />

@@ -2,5 +2,15 @@
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="$(IsPackable) == 'true'">
+    <Copyright>2019-2024 Philipp Kiener</Copyright>
+     <PackageTags>validation;fluent;extensible;lightweight;swallow</PackageTags>
+     <Description>
+         A lightweight, fluent and extensible validation library that allows you to specify validations right where you need them.
+         No extra classes needed, strongly typed errors and extensibility built right into the core.
+     </Description>
   </PropertyGroup>
 </Project>

@@ -4,6 +4,8 @@
 
 Upgrade all dependencies, most notably Roslyn (`Microsoft.CodeAnalysis.*`) to 4.9.2.
 
+---
+
 ## 3.0.0
 
 Upgrade to .NET 8 and add another kind of rewriter: the `ITargetedRewriter`.

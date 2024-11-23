@@ -1,21 +1,39 @@
-# 7.0.0
+# Release Notes
+
+## 8.0.0
+
+- Use `Microsoft.Extensions.DependencyInjection.Abstractions` and `Microsoft.Extensions.DependencyInjection` 9.0.0
+- Use the new icon!
+- Update source link to use the new monorepo on GitHub
+
+---
+
+## 7.0.0
 
 - Update package and all dependencies for .NET 8
 
-# 6.0.1
+---
+
+## 6.0.1
 
 - No functional change, just removed the now-obsolete GitLab-pages link from the nuget package properties
 
-# 6.0.0
+---
+
+## 6.0.0
 
 - Update package and all dependencies for .NET 7
 - New logo, yay!
 
-# 5.0.1
+---
+
+## 5.0.1
 
 - Remove nullability annotations for reference types
 
-# 5.0.0
+---
+
+## 5.0.0
 
 - Enable nullability annotations for the whole package
 - `error`-parameter of `IAsserter<>.Check` is now `[NotNullWhen(false)] out ValidationError? error`
@@ -31,23 +49,31 @@ Validator.Check()
     .That(myValue!).IsNotEmpty();
 ```
 
-# 4.2.0
+---
+
+## 4.2.0
 
 - Add overload for `IAssertable<string>.Matches()` accepting a `Regex` directly
 - Add new assertion `IAssertable<string>.IsNotOnlyWhitespace`
 
-# 4.1.1
+---
+
+## 4.1.1
 
 - Fix `IsLessThan` and `IsLessThanOrEqual` extensions to produce the correct error message
     - It falsely claimed "Foo must be greater than 1, but was 2." before - not it will correctly produce "Foo must be less than 1, but was 2."
 
-# 4.1.0
+---
+
+## 4.1.0
 
 - Add assertion-overloads for all `DateTime` (like `IsAfter` or `IsUtc`) and comparison assertions (`IsLessThan`, `IsGreaterThan`, `IsInRange` and
   others)
     - These assertions will *always* fail for null values, except `IsNotEqualTo` - which will always pass for null values
 
-# 4.0.0
+---
+
+## 4.0.0
 
 - Name of asserted value is now determined via `CallerArgumentExpression`-Attribute for overloads of `That()` accepting `T` and `Func<T>` (thanks
   Marco for that hint!)
@@ -71,6 +97,8 @@ If you've only referenced `Swallow.Validation.Core` in your projects, you might 
 includes both Core and `Swallow.Validation.Assertions`. If you're already referencing `Swallow.Validation`, you'll only need to adjust your usings.
 And you can finally drop all the `nameof()`s in your `That()`-calls, yay!
 
-# Before 4.0.0
+---
+
+## Before 4.0.0
 
 Forever lost to the bottomless abyss that is time...
