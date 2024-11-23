@@ -3,6 +3,7 @@
 ## 5.0.0
 
 - Update `Microsoft.Extensions.DependencyInjection.Abstractions` to 9.0.0
+- Update `SimpleInjector` to 5.5.0
 
 ---
 

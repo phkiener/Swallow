@@ -60,10 +60,10 @@
            Code="Metadata" File="$(MSBuildProjectFile)" Condition="$(Copyright) == ''" />
 
     <Error Text="Project &quot;$(MSBuildProjectName)&quot; is missing a README file"
-           Code="Metadata" File="$(MSBuildProjectFile)" Condition="NOT(EXISTS('$(ReadmeFilePath)'))" />
+           Code="Metadata" File="$(MSBuildProjectFile)" Condition="!EXISTS('$(ReadmeFilePath)')" />
 
     <Error Text="Project &quot;$(MSBuildProjectName)&quot; is missing a LICENSE file"
-           Code="Metadata" File="$(MSBuildProjectFile)" Condition="NOT(EXISTS('$(LicenseFilePath)'))" />
+           Code="Metadata" File="$(MSBuildProjectFile)" Condition="!EXISTS('$(LicenseFilePath)')" />
   </Target>
 
   <Import Project="$(ProjectRoot)Publish.props" Condition="EXISTS('$(ProjectRoot)Publish.props')" />

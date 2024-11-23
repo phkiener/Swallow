@@ -5,7 +5,7 @@
     <Nullable>disable</Nullable>
   </PropertyGroup>
 
-  <PropertyGroup Condition="$(IsPackable) == 'true'">
+  <PropertyGroup>
     <Copyright>2019-2024 Philipp Kiener</Copyright>
      <PackageTags>validation;fluent;extensible;lightweight;swallow</PackageTags>
      <Description>
