@@ -55,11 +55,6 @@ This will make `brrr` be a globally executable tool. To uninstall it again, you 
 dotnet tool uninstall --global Swallow.Refactor
 ```
 
-#### Note for users of _just_
-
-If you've got [just](https://github.com/casey/just) installed, you can use `just install`, `just uninstall` or `just reinstall`!
-Take a look at the [justfile](justfile), there're some neat things for you.
-
 ### Installing via NuGet
 
 The tool is published on [NuGet](https://www.nuget.org/packages/Swallow.Refactor) as well. To install it from there, you can use the following command:
