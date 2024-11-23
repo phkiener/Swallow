@@ -50,10 +50,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Additional items", "Additio
 	ProjectSection(SolutionItems) = preProject
 		Swallow.Refactor\Directory.Build.props = Swallow.Refactor\Directory.Build.props
 		Swallow.Refactor\Directory.Packages.props = Swallow.Refactor\Directory.Packages.props
-		Swallow.Refactor\Publish.props = Swallow.Refactor\Publish.props
 		Swallow.Refactor\README.md = Swallow.Refactor\README.md
 		Swallow.Refactor\RELEASE_NOTES.md = Swallow.Refactor\RELEASE_NOTES.md
 		Swallow.Refactor\LICENSE.txt = Swallow.Refactor\LICENSE.txt
+		Swallow.Refactor\Directory.Build.targets = Swallow.Refactor\Directory.Build.targets
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Swallow.Refactor", "Swallow.Refactor\src\Swallow.Refactor\Swallow.Refactor.csproj", "{78D4C2E0-5364-4D10-966B-D3948FDC84FC}"
