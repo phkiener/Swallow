@@ -3,7 +3,7 @@ using Swallow.TaskRunner.Serialization;
 
 namespace Swallow.TaskRunner.Commands;
 
-public sealed class InvokeTask : ICommand
+public sealed class ListTasks : ICommand
 {
     public async Task<int> RunAsync(ICommandContext console, string[] args)
     {
@@ -16,13 +16,11 @@ public sealed class InvokeTask : ICommand
         await using var fileStream = File.OpenRead(manifestFilePath);
         var manifest = await ManifestReader.ReadAsync(fileStream, console.CancellationToken);
 
-        var taskName = string.Join(" ", args);
-        var task = manifest.FindTask(taskName);
-        if (task is null)
+        foreach (var task in manifest.Tasks.Keys)
         {
-            throw new InvalidOperationException($"No task '{taskName}' found.");
+            await console.Output.WriteLineAsync(task);
         }
 
-        return await task.RunAsync(console);
+        return 0;
     }
 }

@@ -18,4 +18,9 @@ public sealed class Manifest
     {
         definedTasks[name] = task;
     }
+
+    public ITask? FindTask(string name)
+    {
+        return definedTasks.GetValueOrDefault(name);
+    }
 }

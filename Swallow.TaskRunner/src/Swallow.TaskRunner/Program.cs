@@ -13,6 +13,7 @@ static (ICommand Command, string[] Args) Resolve(string[] args)
     {
         [] => (new DisplayHelp(), []),
         ["new-manifest"] => (new CreateManifest(), []),
+        ["list"] => (new ListTasks(), []),
         ["-v", ..] or ["--version", ..] => (new DisplayVersion(), []),
         ["-h", ..] or ["--help", ..] => (new DisplayHelp(), []),
         _ => (new InvokeTask(), args)
