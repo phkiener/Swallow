@@ -12,7 +12,7 @@ public static class ManifestWriter
 
     public static async Task WriteAsync(Manifest manifest, string path, CancellationToken cancellationToken)
     {
-        await using var fileStream = File.OpenWrite(path);
+        await using var fileStream = File.Open(path, FileMode.Create);
         await WriteAsync(manifest, fileStream, cancellationToken);
     }
 

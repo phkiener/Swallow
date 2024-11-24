@@ -42,4 +42,4 @@ to the _current directory_. When invoking `dotnet task`, it will look for this m
 - [ ] Nested names for tasks ("my-stuff other-stuff foo")
 - [ ] Parameters for tasks
 - [ ] Specifying default tasks
-- [ ] Adding/removing tasks via CLI
+- [x] Adding/removing tasks via CLI

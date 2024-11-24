@@ -23,4 +23,9 @@ public sealed class Manifest
     {
         return definedTasks.GetValueOrDefault(name);
     }
+
+    public void RemoveTask(string name)
+    {
+        definedTasks.Remove(name);
+    }
 }
