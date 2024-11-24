@@ -15,6 +15,11 @@ public sealed class TestCommandContext : ICommandContext, IDisposable
     public TextWriter Error { get; } = new StringWriter();
     public string CurrentDirectory { get; }
 
+    public Task<int> Execute(string command)
+    {
+        throw new NotImplementedException();
+    }
+
     public string WrittenOutput => Output.ToString() ?? "";
     public string WrittenError=> Error.ToString() ?? "";
 
