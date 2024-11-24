@@ -6,7 +6,7 @@ namespace Swallow.TaskRunner;
 public sealed class Manifest
 {
     private static readonly JsonSerializerOptions SerializerOptions = new() { WriteIndented = true };
-    private Dictionary<string, ITask> tasks = new() { ["test"] = new ShellTask("echo 'Hello World!'") };
+    private Dictionary<string, ITask> tasks = new(StringComparer.OrdinalIgnoreCase);
 
     public int Version => 1;
     public IReadOnlyDictionary<string, ITask> Tasks => tasks.AsReadOnly();
@@ -14,6 +14,16 @@ public sealed class Manifest
     public static Manifest Create()
     {
         return new Manifest();
+    }
+
+    public void AddShellTask(string name, string command)
+    {
+        tasks[name] = new ShellTask(command);
+    }
+
+    public void AddShellSequence(string name, params IEnumerable<string> commands)
+    {
+        tasks[name] = new ShellSequence(commands);
     }
 
     public async Task WriteToAsync(Stream stream, CancellationToken cancellationToken)

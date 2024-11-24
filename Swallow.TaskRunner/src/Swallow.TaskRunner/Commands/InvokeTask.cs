@@ -1,4 +1,6 @@
-﻿namespace Swallow.TaskRunner.Commands;
+﻿using Swallow.TaskRunner.Serialization;
+
+namespace Swallow.TaskRunner.Commands;
 
 public sealed class InvokeTask : ICommand
 {
@@ -11,7 +13,7 @@ public sealed class InvokeTask : ICommand
         }
 
         await using var fileStream = File.OpenRead(manifestFilePath);
-        var manifest = await Manifest.ReadFromAsync(fileStream, console.CancellationToken);
+        var manifest = await ManifestReader.ReadAsync(fileStream, console.CancellationToken);
 
         var task = manifest.Tasks[string.Join(" ", args)];
         return await task.RunAsync(console);
