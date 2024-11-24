@@ -36,9 +36,9 @@ to the _current directory_. When invoking `dotnet task`, it will look for this m
 
 ## Roadmap
 
-- [ ] Running plain shell commands
+- [x] Running plain shell commands
 - [ ] Running "abstract" commands like "copy", "remove" that work across shells
-- [ ] Sequential tasks, i.e. many commands in order (with proper cancellation!)
+- [x] Sequential tasks, i.e. many commands in order (with proper cancellation!)
 - [ ] Nested names for tasks ("my-stuff other-stuff foo")
 - [ ] Parameters for tasks
 - [ ] Specifying default tasks
