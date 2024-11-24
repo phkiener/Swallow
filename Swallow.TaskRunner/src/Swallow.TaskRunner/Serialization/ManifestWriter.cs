@@ -1,4 +1,5 @@
-﻿using System.Text.Json;
+﻿using System.Text.Encodings.Web;
+using System.Text.Json;
 using Swallow.TaskRunner.Abstractions;
 using Swallow.TaskRunner.Tasks;
 
@@ -6,7 +7,14 @@ namespace Swallow.TaskRunner.Serialization;
 
 public static class ManifestWriter
 {
-    private static readonly JsonSerializerOptions SerializerOptions = new() { WriteIndented = true };
+    private static readonly JsonSerializerOptions SerializerOptions = new() { WriteIndented = true, Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping };
+
+
+    public static async Task WriteAsync(Manifest manifest, string path, CancellationToken cancellationToken)
+    {
+        await using var fileStream = File.OpenWrite(path);
+        await WriteAsync(manifest, fileStream, cancellationToken);
+    }
 
     public static async Task WriteAsync(Manifest manifest, Stream stream, CancellationToken cancellationToken)
     {

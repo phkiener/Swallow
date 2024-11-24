@@ -14,6 +14,7 @@ static (ICommand Command, string[] Args) Resolve(string[] args)
         [] => (new DisplayHelp(), []),
         ["new-manifest"] => (new CreateManifest(), []),
         ["list"] => (new ListTasks(), []),
+        ["add", var name, ..var rest] => (new AddTask(), [name, ..rest]),
         ["-v", ..] or ["--version", ..] => (new DisplayVersion(), []),
         ["-h", ..] or ["--help", ..] => (new DisplayHelp(), []),
         _ => (new InvokeTask(), args)

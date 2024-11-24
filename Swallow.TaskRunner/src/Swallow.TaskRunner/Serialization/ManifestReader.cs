@@ -30,6 +30,12 @@ public static class ManifestReader
         return filePath;
     }
 
+    public static async Task<Manifest> ReadAsync(string path, CancellationToken cancellationToken)
+    {
+        await using var fileStream = File.OpenRead(path);
+        return await ReadAsync(fileStream, cancellationToken);
+    }
+
     public static async Task<Manifest> ReadAsync(Stream stream, CancellationToken cancellationToken)
     {
         var jsonDocument = await JsonDocument.ParseAsync(stream, readerOptions, cancellationToken);
@@ -64,13 +70,13 @@ public static class ManifestReader
             return new SequenceTask(subtasks);
         }
 
-        if (value.IsObject())
+        if (!value.IsString())
         {
             throw new InvalidOperationException("Unknown task type.");
         }
 
-        var command = value.GetRawText();
-        return new ShellTask(command);
+        var command = value.GetString();
+        return new ShellTask(command!);
     }
 }
 
@@ -79,6 +85,8 @@ file static class JsonExtensions
     public static bool IsObject(this JsonElement element) => element.ValueKind == JsonValueKind.Object;
 
     public static bool IsArray(this JsonElement element) => element.ValueKind == JsonValueKind.Array;
+
+    public static bool IsString(this JsonElement element) => element.ValueKind == JsonValueKind.String;
 
     public static bool HasProperty(this JsonElement element, string propertyName, string expected, out string actual)
     {

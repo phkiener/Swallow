@@ -13,8 +13,7 @@ public sealed class InvokeTask : ICommand
             throw new InvalidOperationException("No manifest file found.");
         }
 
-        await using var fileStream = File.OpenRead(manifestFilePath);
-        var manifest = await ManifestReader.ReadAsync(fileStream, console.CancellationToken);
+        var manifest = await ManifestReader.ReadAsync(manifestFilePath, console.CancellationToken);
 
         var taskName = string.Join(" ", args);
         var task = manifest.FindTask(taskName);

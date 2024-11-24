@@ -1,9 +1,10 @@
 ﻿using Swallow.TaskRunner.Abstractions;
 using Swallow.TaskRunner.Serialization;
+using Swallow.TaskRunner.Tasks;
 
 namespace Swallow.TaskRunner.Commands;
 
-public sealed class ListTasks : ICommand
+public sealed class AddTask : ICommand
 {
     public async Task<int> RunAsync(ICommandContext console, string[] args)
     {
@@ -15,10 +16,10 @@ public sealed class ListTasks : ICommand
 
         var manifest = await ManifestReader.ReadAsync(manifestFilePath, console.CancellationToken);
 
-        foreach (var task in manifest.Tasks.Keys)
-        {
-            await console.Output.WriteLineAsync(task);
-        }
+        var commands = args[1..].Select(static arg => new ShellTask(arg)).Cast<ITask>().ToList();
+        manifest.AddTask(args[0], commands is [var single] ? single : new SequenceTask(commands));
+
+        await ManifestWriter.WriteAsync(manifest, manifestFilePath, console.CancellationToken);
 
         return 0;
     }
