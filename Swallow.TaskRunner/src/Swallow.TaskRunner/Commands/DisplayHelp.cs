@@ -2,7 +2,7 @@
 
 public sealed class DisplayHelp : ICommand
 {
-    public Task<int> Run(ICommandContext console, string[] args)
+    public Task<int> RunAsync(ICommandContext console, string[] args)
     {
         throw new NotImplementedException();
     }

@@ -1,9 +1,10 @@
-﻿using Swallow.TaskRunner.Commands;
+﻿using Swallow.TaskRunner;
+using Swallow.TaskRunner.Commands;
 
 var (command, commandArguments) = Resolve(args);
 var context = new ConsoleContext();
 
-return await command.Run(context, commandArguments);
+return await command.RunAsync(context, commandArguments);
 
 static (ICommand Command, string[] Args) Resolve(string[] args)
 {

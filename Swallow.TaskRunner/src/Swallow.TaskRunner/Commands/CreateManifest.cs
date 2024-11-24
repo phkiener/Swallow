@@ -1,10 +1,8 @@
-﻿using System.Text.Json;
-
-namespace Swallow.TaskRunner.Commands;
+﻿namespace Swallow.TaskRunner.Commands;
 
 public sealed class CreateManifest : ICommand
 {
-    public async Task<int> Run(ICommandContext console, string[] args)
+    public async Task<int> RunAsync(ICommandContext console, string[] args)
     {
         var directory = Path.Combine(console.CurrentDirectory, ".config");
         Directory.CreateDirectory(directory);
@@ -16,7 +14,9 @@ public sealed class CreateManifest : ICommand
         }
 
         await using var fileStream = File.Create(filePath);
-        await JsonSerializer.SerializeAsync(fileStream, new { });
+
+        var manifest = Manifest.Create();
+        await manifest.WriteToAsync(fileStream);
 
         await console.Output.WriteLineAsync($"Created new task manifest in {filePath}");
 

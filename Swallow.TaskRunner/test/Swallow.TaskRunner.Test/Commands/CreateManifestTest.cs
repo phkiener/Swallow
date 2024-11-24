@@ -11,21 +11,24 @@ public sealed class CreateManifestTest
     public async Task CreatesNewManifest()
     {
         using var context = TestCommandContext.Create();
-        await command.Run(context, []);
+        await command.RunAsync(context, []);
 
         var expectedFile = Path.Combine(context.CurrentDirectory, ".config", "dotnet-tasks.json");
         Assert.Contains(expectedFile, context.WrittenOutput);
         Assert.Contains("Created new task manifest", context.WrittenOutput);
 
-        Assert.True(File.Exists(expectedFile), "Manifest file was not created");
+        await using var fileStream = File.OpenRead(expectedFile);
+        var manifest = Manifest.ReadFromAsync(fileStream);
+
+        Assert.NotNull(manifest);
     }
 
     [Fact]
-    public async Task DoesNothing_WhenManifestExists_InCurrentDirectory()
+    public async Task RunningTwice_WorksWithoutExceptions()
     {
         using var context = TestCommandContext.Create();
-        await command.Run(context, []);
-        await command.Run(context, []);
+        await command.RunAsync(context, []);
+        await command.RunAsync(context, []);
 
         Assert.Contains("Task manifest already exists", context.WrittenOutput);
     }
