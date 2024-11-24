@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{D18D8156-0523-4F5C-81F0-553855588435}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Additional items", "Additional items", "{D18D8156-0523-4F5C-81F0-553855588435}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
 		.gitattributes = .gitattributes
@@ -126,6 +126,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Swallow.TaskRunner", "Swall
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Swallow.TaskRunner.Test", "Swallow.TaskRunner\test\Swallow.TaskRunner.Test\Swallow.TaskRunner.Test.csproj", "{C0743275-4B5F-4D46-85CF-A92A513BF387}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{498E9810-8224-4411-BFBB-BFFE6B975EFE}"
+	ProjectSection(SolutionItems) = preProject
+		shared\DebuggerCancellationTokenSource.cs = shared\DebuggerCancellationTokenSource.cs
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -169,6 +174,7 @@ Global
 		{95D6FA99-984C-4256-8953-12F0DFD1C9B0} = {697B83FF-1407-48B1-8FAA-F36014CC1E17}
 		{A147338C-9C51-4FF4-AC5B-FA7626FFECE1} = {D6ABB68C-FDB1-474A-A4C0-93DB836CB8F7}
 		{C0743275-4B5F-4D46-85CF-A92A513BF387} = {95D6FA99-984C-4256-8953-12F0DFD1C9B0}
+		{498E9810-8224-4411-BFBB-BFFE6B975EFE} = {D18D8156-0523-4F5C-81F0-553855588435}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{330AFE71-9C02-4416-AAE6-51BB49BC1DD1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
