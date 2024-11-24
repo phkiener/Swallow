@@ -16,9 +16,9 @@ public sealed class Manifest
         return new Manifest();
     }
 
-    public async Task WriteToAsync(Stream stream)
+    public async Task WriteToAsync(Stream stream, CancellationToken cancellationToken)
     {
-        await JsonSerializer.SerializeAsync(stream, this, SerializerOptions);
+        await JsonSerializer.SerializeAsync(stream, this, SerializerOptions, cancellationToken);
     }
 
     public static string? FindManifestFile(ICommandContext context)
@@ -40,9 +40,9 @@ public sealed class Manifest
         return filePath;
     }
 
-    public static async Task<Manifest> ReadFromAsync(Stream stream)
+    public static async Task<Manifest> ReadFromAsync(Stream stream, CancellationToken cancellationToken)
     {
-        var manifest = await JsonSerializer.DeserializeAsync<Manifest>(stream);
+        var manifest = await JsonSerializer.DeserializeAsync<Manifest>(stream, cancellationToken: cancellationToken);
         return manifest ?? throw new InvalidOperationException("Failed to deserialize manifest.");
     }
 }

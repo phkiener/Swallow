@@ -11,7 +11,7 @@ public sealed class InvokeTask : ICommand
         }
 
         await using var fileStream = File.OpenRead(manifestFilePath);
-        var manifest = await Manifest.ReadFromAsync(fileStream);
+        var manifest = await Manifest.ReadFromAsync(fileStream, console.CancellationToken);
 
         var task = manifest.Tasks[string.Join(" ", args)];
         return await task.RunAsync(console);

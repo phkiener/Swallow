@@ -16,7 +16,7 @@ public sealed class CreateManifest : ICommand
         await using var fileStream = File.Create(filePath);
 
         var manifest = Manifest.Create();
-        await manifest.WriteToAsync(fileStream);
+        await manifest.WriteToAsync(fileStream, console.CancellationToken);
 
         await console.Output.WriteLineAsync($"Created new task manifest in {filePath}");
 

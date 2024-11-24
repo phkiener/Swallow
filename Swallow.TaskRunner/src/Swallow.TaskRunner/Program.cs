@@ -2,7 +2,7 @@
 using Swallow.TaskRunner.Commands;
 
 var (command, commandArguments) = Resolve(args);
-var context = new ConsoleContext();
+using var context = new ConsoleContext();
 
 return await command.RunAsync(context, commandArguments);
 

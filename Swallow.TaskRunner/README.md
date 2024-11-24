@@ -19,6 +19,21 @@ MSBuild is to this what a anti-material missle launcher is to a slingshot. Yes, 
 Install the tool and initialize a new manifest by running `dotnet task new-manifest`. This will create a file `.config/dotnet-tasks.json` relative
 to the _current directory_. When invoking `dotnet task`, it will look for this manifest going upwards, starting from the current directory.
 
+### The task manifest
+
+```json
+{
+  "Version": 1,
+  "shell-command": "echo 'This is some text I can print out'",
+  "shell-sequence": [
+    "echo 'Do this first'",
+    "echo 'Do this second'",
+    "exit 255",
+    "echo 'Never do this!"
+  ]
+}
+```
+
 ## Roadmap
 
 - [ ] Running plain shell commands

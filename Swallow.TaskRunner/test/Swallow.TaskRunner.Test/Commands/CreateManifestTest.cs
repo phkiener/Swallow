@@ -18,7 +18,7 @@ public sealed class CreateManifestTest
         Assert.Contains("Created new task manifest", context.WrittenOutput);
 
         await using var fileStream = File.OpenRead(expectedFile);
-        var manifest = Manifest.ReadFromAsync(fileStream);
+        var manifest = Manifest.ReadFromAsync(fileStream, context.CancellationToken);
 
         Assert.NotNull(manifest);
     }

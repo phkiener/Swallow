@@ -14,6 +14,7 @@ public sealed class TestCommandContext : ICommandContext, IDisposable
     public TextWriter Output { get; } = new StringWriter();
     public TextWriter Error { get; } = new StringWriter();
     public string CurrentDirectory { get; }
+    public CancellationToken CancellationToken => CancellationToken.None;
 
     public Task<int> Execute(string command)
     {
@@ -21,7 +22,7 @@ public sealed class TestCommandContext : ICommandContext, IDisposable
     }
 
     public string WrittenOutput => Output.ToString() ?? "";
-    public string WrittenError=> Error.ToString() ?? "";
+    public string WrittenError => Error.ToString() ?? "";
 
     public void Dispose()
     {

@@ -2,11 +2,18 @@
 
 namespace Swallow.TaskRunner.Commands;
 
-public sealed class ConsoleContext : ICommandContext
+public sealed class ConsoleContext : ICommandContext, IDisposable
 {
+    private readonly CancellationTokenSource cancellationTokenSource = new();
     public TextWriter Output => Console.Out;
     public TextWriter Error => Console.Error;
     public string CurrentDirectory => Environment.CurrentDirectory;
+    public CancellationToken CancellationToken => cancellationTokenSource.Token;
+
+    public ConsoleContext()
+    {
+        Console.CancelKeyPress += (_, _) => cancellationTokenSource.Cancel();
+    }
 
     public async Task<int> Execute(string command)
     {
@@ -14,7 +21,7 @@ public sealed class ConsoleContext : ICommandContext
         var process = new Process { StartInfo = new ProcessStartInfo(shell, $"-c \"{command}\"") };
         process.Start();
 
-        await process.WaitForExitAsync();
+        await process.WaitForExitAsync(CancellationToken);
         return process.ExitCode;
     }
 
@@ -37,5 +44,10 @@ public sealed class ConsoleContext : ICommandContext
             PlatformID.Other => "sh",
             _ => throw new NotSupportedException($"Cannot automatically determine shell on {Environment.OSVersion.Platform}")
         };
+    }
+
+    public void Dispose()
+    {
+        cancellationTokenSource.Dispose();
     }
 }
