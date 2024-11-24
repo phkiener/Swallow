@@ -1,4 +1,5 @@
 ﻿using System.Text.Json;
+using Swallow.TaskRunner.Abstractions;
 using Swallow.TaskRunner.Tasks;
 
 namespace Swallow.TaskRunner.Serialization;

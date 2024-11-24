@@ -1,4 +1,6 @@
-﻿namespace Swallow.TaskRunner.Commands;
+﻿using Swallow.TaskRunner.Abstractions;
+
+namespace Swallow.TaskRunner.Commands;
 
 public sealed class DisplayHelp : ICommand
 {

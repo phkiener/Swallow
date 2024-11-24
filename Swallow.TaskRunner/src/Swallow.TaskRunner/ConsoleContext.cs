@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
+using Swallow.TaskRunner.Abstractions;
 
-namespace Swallow.TaskRunner.Commands;
+namespace Swallow.TaskRunner;
 
 public sealed class ConsoleContext : ICommandContext, IDisposable
 {

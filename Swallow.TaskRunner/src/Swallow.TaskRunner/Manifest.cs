@@ -1,4 +1,6 @@
-﻿namespace Swallow.TaskRunner;
+﻿using Swallow.TaskRunner.Abstractions;
+
+namespace Swallow.TaskRunner;
 
 public sealed class Manifest
 {

@@ -1,4 +1,4 @@
-﻿namespace Swallow.TaskRunner;
+﻿namespace Swallow.TaskRunner.Abstractions;
 
 public interface ICommandContext
 {

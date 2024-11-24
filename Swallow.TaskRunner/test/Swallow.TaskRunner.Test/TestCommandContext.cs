@@ -1,4 +1,6 @@
-﻿namespace Swallow.TaskRunner.Test;
+﻿using Swallow.TaskRunner.Abstractions;
+
+namespace Swallow.TaskRunner.Test;
 
 public sealed class TestCommandContext : ICommandContext, IDisposable
 {

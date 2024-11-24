@@ -1,4 +1,6 @@
-﻿namespace Swallow.TaskRunner.Tasks;
+﻿using Swallow.TaskRunner.Abstractions;
+
+namespace Swallow.TaskRunner.Tasks;
 
 public class SequenceTask(params IEnumerable<ITask> tasks) : ITask
 {
