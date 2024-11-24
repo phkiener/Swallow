@@ -1,0 +1,15 @@
+<Project>
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <Copyright>2024 Philipp Kiener</Copyright>
+     <PackageTags>tool;cli;task;run;makefile;swallow</PackageTags>
+     <Description>
+       A "task runner" to run common operations via commandline. The alternative to launch profiles when solely working on the CLI.
+     </Description>
+  </PropertyGroup>
+</Project>

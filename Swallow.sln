@@ -107,6 +107,23 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Swallow.ChainOfInjection.Si
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Swallow.ChainOfInjection.Test", "Swallow.ChainOfInjection\test\Swallow.ChainOfInjection.Test\Swallow.ChainOfInjection.Test.csproj", "{B9E05AA7-AD5D-40C9-8269-9FF691E31676}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Swallow.TaskRunner", "Swallow.TaskRunner", "{697B83FF-1407-48B1-8FAA-F36014CC1E17}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Additional items", "Additional items", "{6DF980F0-CAC2-4696-BA67-2B6B760E17DB}"
+	ProjectSection(SolutionItems) = preProject
+		Swallow.TaskRunner\Directory.Build.props = Swallow.TaskRunner\Directory.Build.props
+		Swallow.TaskRunner\Directory.Packages.props = Swallow.TaskRunner\Directory.Packages.props
+		Swallow.TaskRunner\LICENSE.txt = Swallow.TaskRunner\LICENSE.txt
+		Swallow.TaskRunner\README.md = Swallow.TaskRunner\README.md
+		Swallow.TaskRunner\RELEASE_NOTES.md = Swallow.TaskRunner\RELEASE_NOTES.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application", "{D6ABB68C-FDB1-474A-A4C0-93DB836CB8F7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{95D6FA99-984C-4256-8953-12F0DFD1C9B0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Swallow.TaskRunner", "Swallow.TaskRunner\src\Swallow.TaskRunner\Swallow.TaskRunner.csproj", "{A147338C-9C51-4FF4-AC5B-FA7626FFECE1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -145,6 +162,10 @@ Global
 		{AA124864-66F5-420E-AA19-1EDB33568516} = {1560F699-8E1F-40F7-A249-AE50398E4DF0}
 		{88B8692C-1F50-4289-BD8D-8FF6487FC65C} = {1560F699-8E1F-40F7-A249-AE50398E4DF0}
 		{B9E05AA7-AD5D-40C9-8269-9FF691E31676} = {B7B30828-B4EC-49E4-B8F7-B98D22D38FAB}
+		{6DF980F0-CAC2-4696-BA67-2B6B760E17DB} = {697B83FF-1407-48B1-8FAA-F36014CC1E17}
+		{D6ABB68C-FDB1-474A-A4C0-93DB836CB8F7} = {697B83FF-1407-48B1-8FAA-F36014CC1E17}
+		{95D6FA99-984C-4256-8953-12F0DFD1C9B0} = {697B83FF-1407-48B1-8FAA-F36014CC1E17}
+		{A147338C-9C51-4FF4-AC5B-FA7626FFECE1} = {D6ABB68C-FDB1-474A-A4C0-93DB836CB8F7}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{330AFE71-9C02-4416-AAE6-51BB49BC1DD1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -215,5 +236,9 @@ Global
 		{B9E05AA7-AD5D-40C9-8269-9FF691E31676}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B9E05AA7-AD5D-40C9-8269-9FF691E31676}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B9E05AA7-AD5D-40C9-8269-9FF691E31676}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A147338C-9C51-4FF4-AC5B-FA7626FFECE1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A147338C-9C51-4FF4-AC5B-FA7626FFECE1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A147338C-9C51-4FF4-AC5B-FA7626FFECE1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A147338C-9C51-4FF4-AC5B-FA7626FFECE1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
