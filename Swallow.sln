@@ -124,6 +124,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{95D6FA99-9
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Swallow.TaskRunner", "Swallow.TaskRunner\src\Swallow.TaskRunner\Swallow.TaskRunner.csproj", "{A147338C-9C51-4FF4-AC5B-FA7626FFECE1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Swallow.TaskRunner.Test", "Swallow.TaskRunner\test\Swallow.TaskRunner.Test\Swallow.TaskRunner.Test.csproj", "{C0743275-4B5F-4D46-85CF-A92A513BF387}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -166,6 +168,7 @@ Global
 		{D6ABB68C-FDB1-474A-A4C0-93DB836CB8F7} = {697B83FF-1407-48B1-8FAA-F36014CC1E17}
 		{95D6FA99-984C-4256-8953-12F0DFD1C9B0} = {697B83FF-1407-48B1-8FAA-F36014CC1E17}
 		{A147338C-9C51-4FF4-AC5B-FA7626FFECE1} = {D6ABB68C-FDB1-474A-A4C0-93DB836CB8F7}
+		{C0743275-4B5F-4D46-85CF-A92A513BF387} = {95D6FA99-984C-4256-8953-12F0DFD1C9B0}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{330AFE71-9C02-4416-AAE6-51BB49BC1DD1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -240,5 +243,9 @@ Global
 		{A147338C-9C51-4FF4-AC5B-FA7626FFECE1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A147338C-9C51-4FF4-AC5B-FA7626FFECE1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A147338C-9C51-4FF4-AC5B-FA7626FFECE1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C0743275-4B5F-4D46-85CF-A92A513BF387}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C0743275-4B5F-4D46-85CF-A92A513BF387}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C0743275-4B5F-4D46-85CF-A92A513BF387}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C0743275-4B5F-4D46-85CF-A92A513BF387}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

@@ -2,5 +2,5 @@
 
 public interface ICommand
 {
-    public Task<int> Run(CommandContext console, string[] args);
+    public Task<int> Run(ICommandContext console, string[] args);
 }

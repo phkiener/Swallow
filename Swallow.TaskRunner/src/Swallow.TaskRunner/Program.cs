@@ -1,7 +1,8 @@
 ﻿using Swallow.TaskRunner.Commands;
 
 var (command, commandArguments) = Resolve(args);
-var context = new CommandContext(Console.Out, Console.Error);
+var context = new ConsoleContext();
+
 return await command.Run(context, commandArguments);
 
 static (ICommand Command, string[] Args) Resolve(string[] args)
