@@ -6,7 +6,7 @@ public sealed class InvokeTask : ICommand
 {
     public async Task<int> RunAsync(ICommandContext console, string[] args)
     {
-        var manifestFilePath = Manifest.FindManifestFile(console);
+        var manifestFilePath = ManifestReader.FindManifestFile(console.CurrentDirectory);
         if (manifestFilePath is null)
         {
             throw new InvalidOperationException("No manifest file found.");

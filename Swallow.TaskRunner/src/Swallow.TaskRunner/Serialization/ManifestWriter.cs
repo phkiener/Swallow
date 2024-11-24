@@ -23,7 +23,7 @@ public static class ManifestWriter
         return task switch
         {
             ShellTask shell => shell.Commandline,
-            ShellSequence sequence => sequence.Commands,
+            SequenceTask sequence => sequence.Tasks.Select(Transform).ToList(),
             _ => throw new ArgumentException($"Unknown task type {task.GetType()}.")
         };
     }

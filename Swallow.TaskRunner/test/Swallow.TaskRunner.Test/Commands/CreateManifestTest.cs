@@ -1,4 +1,5 @@
 ﻿using Swallow.TaskRunner.Commands;
+using Swallow.TaskRunner.Serialization;
 using Xunit;
 
 namespace Swallow.TaskRunner.Test.Commands;
@@ -18,7 +19,7 @@ public sealed class CreateManifestTest
         Assert.Contains("Created new task manifest", context.WrittenOutput);
 
         await using var fileStream = File.OpenRead(expectedFile);
-        var manifest = Manifest.ReadFromAsync(fileStream, context.CancellationToken);
+        var manifest = ManifestReader.ReadAsync(fileStream, context.CancellationToken);
 
         Assert.NotNull(manifest);
     }

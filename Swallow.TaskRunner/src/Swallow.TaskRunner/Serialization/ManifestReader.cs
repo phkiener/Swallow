@@ -1,4 +1,5 @@
 ﻿using System.Text.Json;
+using Swallow.TaskRunner.Tasks;
 
 namespace Swallow.TaskRunner.Serialization;
 
@@ -8,6 +9,25 @@ public static class ManifestReader
 
     private const string VersionProperty = "Version";
     private static readonly string[] reservedProperties = [VersionProperty];
+
+    public static string? FindManifestFile(string directory)
+    {
+        var currentDirectory = directory;
+        var filePath = Path.Combine(currentDirectory, ".config", "dotnet-tasks.json");
+
+        while (!File.Exists(filePath))
+        {
+            var parentDirectory = Directory.GetParent(currentDirectory);
+            if (parentDirectory is null)
+            {
+                return null;
+            }
+
+            currentDirectory = parentDirectory.FullName;
+        }
+
+        return filePath;
+    }
 
     public static async Task<Manifest> ReadAsync(Stream stream, CancellationToken cancellationToken)
     {
@@ -26,19 +46,30 @@ public static class ManifestReader
 
         var manifest = Manifest.Create();
 
-        foreach (var property in jsonDocument.RootElement.EnumerateObject().ExceptBy(reservedProperties, static prop => prop.Name))
+        foreach (var property in root.EnumerateObject().ExceptBy(reservedProperties, static prop => prop.Name))
         {
-            if (property.Value.IsArray())
-            {
-                manifest.AddShellSequence(property.Name, property.Value.EnumerateArray().Select(static element => element.GetRawText()));
-            }
-            else
-            {
-                manifest.AddShellTask(property.Name, property.Value.GetRawText());
-            }
+            var task = ReadTask(property.Value);
+            manifest.AddTask(property.Name, task);
         }
 
         return manifest;
+    }
+
+    private static ITask ReadTask(JsonElement value)
+    {
+        if (value.IsArray())
+        {
+            var subtasks = value.EnumerateArray().Select(ReadTask);
+            return new SequenceTask(subtasks);
+        }
+
+        if (value.IsObject())
+        {
+            throw new InvalidOperationException("Unknown task type.");
+        }
+
+        var command = value.GetRawText();
+        return new ShellTask(command);
     }
 }
 
