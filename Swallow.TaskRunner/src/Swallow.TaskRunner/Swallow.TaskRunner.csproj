@@ -6,9 +6,5 @@
     <PackAsTool>true</PackAsTool>
     <ToolCommandName>task</ToolCommandName>
   </PropertyGroup>
-  
-  <ItemGroup>
-    <Compile Include="../../../shared/DebuggerCancellationTokenSource.cs" LinkBase="Shared/" />
-  </ItemGroup>
 
 </Project>

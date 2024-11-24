@@ -18,7 +18,7 @@ public sealed class ConsoleContext : ICommandContext, IDisposable
 
     public async Task<int> Execute(string command)
     {
-        var shell = GetShell();
+        var shell = Environment.GetEnvironmentVariable("SHELL") ?? GetDefaultShellForPlatform(Environment.OSVersion.Platform);
         var process = new Process { StartInfo = new ProcessStartInfo(shell, $"-c \"{command}\"") };
         process.Start();
 
@@ -26,15 +26,9 @@ public sealed class ConsoleContext : ICommandContext, IDisposable
         return process.ExitCode;
     }
 
-    private static string GetShell()
+    private static string GetDefaultShellForPlatform(PlatformID platform)
     {
-        var environmentVariable = Environment.GetEnvironmentVariable("SHELL");
-        if (environmentVariable is not null)
-        {
-            return environmentVariable;
-        }
-
-        return Environment.OSVersion.Platform switch
+        return platform switch
         {
             PlatformID.Win32S => "pwsh",
             PlatformID.Win32Windows => "pwsh",
@@ -43,7 +37,7 @@ public sealed class ConsoleContext : ICommandContext, IDisposable
             PlatformID.Unix => "sh",
             PlatformID.MacOSX => "sh",
             PlatformID.Other => "sh",
-            _ => throw new NotSupportedException($"Cannot automatically determine shell on {Environment.OSVersion.Platform}")
+            _ => throw new NotSupportedException($"Cannot automatically determine shell on {platform}")
         };
     }
 
