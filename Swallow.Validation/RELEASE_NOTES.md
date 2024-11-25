@@ -2,7 +2,6 @@
 
 ## 8.0.0
 
-- Use `Microsoft.Extensions.DependencyInjection.Abstractions` and `Microsoft.Extensions.DependencyInjection` 9.0.0
 - Use the new icon!
 - Update source link to use the new monorepo on GitHub
 

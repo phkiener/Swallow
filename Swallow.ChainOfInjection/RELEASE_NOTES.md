@@ -4,6 +4,8 @@
 
 - Update `Microsoft.Extensions.DependencyInjection.Abstractions` to 9.0.0
 - Update `SimpleInjector` to 5.5.0
+- Use the new icon!
+- Update source link to use the new monorepo on GitHub
 
 ---
 
