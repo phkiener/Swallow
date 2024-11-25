@@ -9,11 +9,13 @@ public sealed class DisplayHelp : ICommand
         await console.Output.WriteLineAsync("dotnet task - Shortcuts for CLI commands");
         await console.Output.WriteLineAsync();
         await console.Output.WriteLineAsync("Usage:");
-        await console.Output.WriteLineAsync("  dotnet task new-manifest    - Create a new manifest in the current location");
-        await console.Output.WriteLineAsync("  dotnet task list            - List all tasks found in the current manifest");
-        await console.Output.WriteLineAsync("  dotnet task <name>          - Invoke the task called <name> from the current manifest");
-        await console.Output.WriteLineAsync("  dotnet task [-h|--help]     - Print this help text");
-        await console.Output.WriteLineAsync("  dotnet task [-v|--version]  - Print version information");
+        await console.Output.WriteLineAsync("  dotnet task new-manifest      - Create a new manifest in the current location");
+        await console.Output.WriteLineAsync("  dotnet task list              - List all tasks found in the current manifest");
+        await console.Output.WriteLineAsync("  dotnet task add <name> <cmd>  - Add a new task called <name> that will invoke one or more given commands");
+        await console.Output.WriteLineAsync("  dotnet task remove <name>     - Remove the task called <name>");
+        await console.Output.WriteLineAsync("  dotnet task <name>            - Invoke the task called <name> from the current manifest");
+        await console.Output.WriteLineAsync("  dotnet task [-h|--help]       - Print this help text");
+        await console.Output.WriteLineAsync("  dotnet task [-v|--version]    - Print version information");
         await console.Output.WriteLineAsync();
         await console.Output.WriteLineAsync("Task manifest:");
         await console.Output.WriteLineAsync("  The manifest is assumed to be found at .config/dotnet-tasks.json.");

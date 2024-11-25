@@ -16,8 +16,8 @@ MSBuild is to this what a anti-material missle launcher is to a slingshot. Yes, 
 
 ## Getting started
 
-Install the tool and initialize a new manifest by running `dotnet task new-manifest`. This will create a file `.config/dotnet-tasks.json` relative
-to the _current directory_. When invoking `dotnet task`, it will look for this manifest going upwards, starting from the current directory.
+Install it as a local tool and initialize a new manifest by running `dotnet task new-manifest`. This will create a file `.config/dotnet-tasks.json`
+relative to the _current directory_. When invoking `dotnet task`, it will look for this manifest going upwards, starting from the current directory.
 
 ### The task manifest
 
@@ -37,9 +37,9 @@ to the _current directory_. When invoking `dotnet task`, it will look for this m
 ## Roadmap
 
 - [x] Running plain shell commands
-- [ ] Running "abstract" commands like "copy", "remove" that work across shells
+- [x] Adding/removing tasks via CLI
 - [x] Sequential tasks, i.e. many commands in order (with proper cancellation!)
+- [ ] Running "abstract" commands like "copy", "remove" that work across shells
 - [ ] Nested names for tasks ("my-stuff other-stuff foo")
 - [ ] Parameters for tasks
 - [ ] Specifying default tasks
-- [x] Adding/removing tasks via CLI
