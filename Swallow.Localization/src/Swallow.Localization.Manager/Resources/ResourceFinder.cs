@@ -35,7 +35,7 @@ public static partial class ResourceFinder
 
     }
 
-    [GeneratedRegex(@"^(?<Scope>[a-zA-Z\-\.]*)\.([a-zA-Z0-9\-]+)\.resx$")]
+    [GeneratedRegex(@"^(?<Scope>[a-zA-Z\-\.]*)(\.([a-zA-Z0-9\-]+))?\.resx$")]
     private static partial Regex ResourceNameRegex();
 
 }

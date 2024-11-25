@@ -67,12 +67,6 @@ public sealed class ListResources
             {
                 return singleSolution;
             }
-
-            var projectFiles = Directory.GetFiles(fileOrPath, "*.csproj");
-            if (projectFiles is [var singleProject])
-            {
-                return singleProject;
-            }
         }
 
         if (recurseUpwards)
