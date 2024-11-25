@@ -11,6 +11,23 @@
     <EmbedAllSources>true</EmbedAllSources>
   </PropertyGroup>
 
+  <PropertyGroup Label="Default files configuration">
+    <IconFileName>icon.png</IconFileName>
+    <IconFilePath>$(RepositoryRoot)$(IconFileName)</IconFilePath>
+
+    <ReadmeFileName>README.md</ReadmeFileName>
+    <ReadmeFilePath>$(ProjectRoot)$(ReadmeFileName)</ReadmeFilePath>
+
+    <LicenseFileName>LICENSE.txt</LicenseFileName>
+    <LicenseFilePath>$(ProjectRoot)$(LicenseFileName)</LicenseFilePath>
+  </PropertyGroup>
+
+  <ItemGroup Label="Default files">
+    <None Include="$(IconFilePath)" Pack="true" PackagePath="/" Visible="false" />
+    <None Include="$(ReadmeFilePath)" Pack="true" PackagePath="/" Visible="false" />
+    <None Include="$(LicenseFilePath)" Pack="true" PackagePath="/" Visible="false" />
+  </ItemGroup>
+
   <PropertyGroup Label="Package metadata">
     <IsPackable>true</IsPackable>
     <BeforePack>_ValidateSettings</BeforePack>
@@ -31,23 +48,6 @@
     <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
     <Deterministic>true</Deterministic>
   </PropertyGroup>
-
-  <PropertyGroup Label="Default files configuration">
-    <IconFileName>icon.png</IconFileName>
-    <IconFilePath>$(RepositoryRoot)$(IconFileName)</IconFilePath>
-
-    <ReadmeFileName>README.md</ReadmeFileName>
-    <ReadmeFilePath>$(ProjectRoot)$(ReadmeFileName)</ReadmeFilePath>
-
-    <LicenseFileName>LICENSE.txt</LicenseFileName>
-    <LicenseFilePath>$(ProjectRoot)$(LicenseFileName)</LicenseFilePath>
-  </PropertyGroup>
-
-  <ItemGroup Label="Default files">
-    <None Include="$(IconFilePath)" Pack="true" PackagePath="/" Visible="false" />
-    <None Include="$(ReadmeFilePath)" Pack="true" PackagePath="/" Visible="false" />
-    <None Include="$(LicenseFilePath)" Pack="true" PackagePath="/" Visible="false" />
-  </ItemGroup>
 
   <Target Name="_ValidateSettings">
     <Error Text="Project &quot;$(MSBuildProjectName)&quot; is missing a description"
