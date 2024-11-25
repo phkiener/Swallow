@@ -140,6 +140,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Additional items", "Additio
 		Swallow.Localization\LICENSE.txt = Swallow.Localization\LICENSE.txt
 		Swallow.Localization\README.md = Swallow.Localization\README.md
 		Swallow.Localization\RELEASE_NOTES.md = Swallow.Localization\RELEASE_NOTES.md
+		Swallow.Localization\Directory.Build.targets = Swallow.Localization\Directory.Build.targets
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application", "{AB7B6A97-E2C8-448F-A663-9B9370B22380}"
