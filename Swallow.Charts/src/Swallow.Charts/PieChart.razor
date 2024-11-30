@@ -1,0 +1,12 @@
+﻿@typeparam TKey
+@typeparam TValue
+
+<svg @attributes="AdditionalAttributes" viewBox="0 0 2 2">
+    <g class="chart pie-chart" transform="translate(1, 1) scale(.9, -.9)">
+        @foreach (var slice in slices)
+        {
+            <path stroke="black" stroke-width="0.05" fill="none"
+                  d="M 0 0 L @slice.Start.X @slice.Start.Y A 1 1 @slice.Angle 1 1 @slice.End.X @slice.End.Y" />
+        }
+    </g>
+</svg>
