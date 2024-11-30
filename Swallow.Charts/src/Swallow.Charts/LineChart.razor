@@ -5,12 +5,14 @@
     <g class="chart line-chart" transform="scale(1, -1)" transform-origin="center">
         @foreach (var series in Data)
         {
-            @for (var i = 0; i < series.Values.Count(); ++i)
-            {
-                var value = series.Values.ElementAt(i).Value;
+            var coordinates = series.Values.Select(static (point, index) => new Coordinate(index + 1, int.CreateChecked(point.Value))).ToArray();
 
-                <circle r="0.2" cx="@(i + 1)" cy="@value" />
+            @foreach (var coordinate in coordinates)
+            {
+                <circle class="dot" r="0.2" cx="@(coordinate.X)" cy="@coordinate.Y" />
             }
+
+            <path stroke="black" stroke-width="0.1" d="M @(string.Join(" L", coordinates.Select(static c => $"{c.X} {c.Y}")))" />
         }
     </g>
 </svg>
