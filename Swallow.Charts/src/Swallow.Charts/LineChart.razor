@@ -1,0 +1,16 @@
+﻿@typeparam TKey
+@typeparam TValue
+
+<svg @attributes="AdditionalAttributes" viewBox="0 0 @(valueCount + 2) @maxValue">
+    <g class="chart line-chart" transform="scale(1, -1)" transform-origin="center">
+        @foreach (var series in Data)
+        {
+            @for (var i = 0; i < series.Values.Count(); ++i)
+            {
+                var value = series.Values.ElementAt(i).Value;
+
+                <circle r="0.2" cx="@(i + 1)" cy="@value" />
+            }
+        }
+    </g>
+</svg>

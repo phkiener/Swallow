@@ -1,0 +1,13 @@
+﻿@page "/line-chart"
+
+<h3>Line Charts</h3>
+
+<LineChart Data="[daysLeftInMonth]" width="400" height="400" />
+
+@code {
+
+    private readonly DataSeries<int, int> daysLeftInMonth = new(
+        Name: "Days left in Month",
+        Values: Enumerable.Range(1, 30).Select(static i => new KeyValuePair<int, int>(i, 30 - i)));
+
+}
