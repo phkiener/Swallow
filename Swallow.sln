@@ -155,6 +155,23 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Swallow.Localization.Exampl
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{33C81D48-BD28-41E5-9F3C-A092AA304958}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Swallow.Charts", "Swallow.Charts", "{7F16C38F-C45D-4BB7-BDCD-30BC8E63F460}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Additional items", "Additional items", "{865CF2F3-543E-4D4C-8598-3A822C53D1D1}"
+	ProjectSection(SolutionItems) = preProject
+		Swallow.Charts\Directory.Build.props = Swallow.Charts\Directory.Build.props
+		Swallow.Charts\Directory.Packages.props = Swallow.Charts\Directory.Packages.props
+		Swallow.Charts\LICENSE.txt = Swallow.Charts\LICENSE.txt
+		Swallow.Charts\README.md = Swallow.Charts\README.md
+		Swallow.Charts\RELEASE_NOTES.md = Swallow.Charts\RELEASE_NOTES.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Library", "Library", "{D84AD701-80F5-4A02-A2CE-F5A4952FDFD1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Example", "Example", "{514F68D6-5306-45BE-97F4-FBA39D129DD4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Swallow.Charts.Example", "Swallow.Charts\example\Swallow.Charts.Example\Swallow.Charts.Example.csproj", "{A4ED73A7-6086-44A2-A807-2CED866FBE55}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -206,6 +223,10 @@ Global
 		{E2670925-8078-4770-90DB-FB03BF45775D} = {05CF20A6-BD7C-4F8A-89BD-59516A78F609}
 		{33C81D48-BD28-41E5-9F3C-A092AA304958} = {FEDF35AE-0E46-44E5-ADA4-063F945303C9}
 		{514C49EC-6A19-4944-86E3-F3AE110946A7} = {33C81D48-BD28-41E5-9F3C-A092AA304958}
+		{865CF2F3-543E-4D4C-8598-3A822C53D1D1} = {7F16C38F-C45D-4BB7-BDCD-30BC8E63F460}
+		{D84AD701-80F5-4A02-A2CE-F5A4952FDFD1} = {7F16C38F-C45D-4BB7-BDCD-30BC8E63F460}
+		{514F68D6-5306-45BE-97F4-FBA39D129DD4} = {7F16C38F-C45D-4BB7-BDCD-30BC8E63F460}
+		{A4ED73A7-6086-44A2-A807-2CED866FBE55} = {514F68D6-5306-45BE-97F4-FBA39D129DD4}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{330AFE71-9C02-4416-AAE6-51BB49BC1DD1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -296,5 +317,9 @@ Global
 		{514C49EC-6A19-4944-86E3-F3AE110946A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{514C49EC-6A19-4944-86E3-F3AE110946A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{514C49EC-6A19-4944-86E3-F3AE110946A7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A4ED73A7-6086-44A2-A807-2CED866FBE55}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A4ED73A7-6086-44A2-A807-2CED866FBE55}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A4ED73A7-6086-44A2-A807-2CED866FBE55}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A4ED73A7-6086-44A2-A807-2CED866FBE55}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
