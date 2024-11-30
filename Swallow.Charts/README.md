@@ -8,3 +8,12 @@ Charts for Blazor. Simple as that. But it has a twist: These charts do not use a
 really possible when using a `<canvas>`. So instead, all of these charts render to an `<svg>`, which means they're a first-class citizen in the DOM.
 
 Cool, right? Yeah, that's what I thought.
+
+## Roadmap
+
+- [x] Line chart
+- [x] Pie chart
+- [ ] Bar chart
+- [ ] Theming / coloring
+- [ ] Legend / labels
+- [ ] Multiple lines
