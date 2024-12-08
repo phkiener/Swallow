@@ -3,6 +3,11 @@ using Microsoft.AspNetCore.Components;
 
 namespace Swallow.Charts;
 
+public enum Interpolation
+{
+    Linear, StepStart, StepEnd
+}
+
 /// <summary>
 /// A chart representing one or more <see cref="DataSeries{TKey,TValue}"/> as lines.
 /// </summary>
@@ -15,6 +20,9 @@ public sealed partial class LineChart<TKey, TValue> : ComponentBase
     [Parameter]
     [EditorRequired]
     public required IEnumerable<DataSeries<TKey, TValue>> Data { get; set; }
+
+    [Parameter]
+    public Interpolation Interpolation { get; set; } = Interpolation.Linear;
 
     [Parameter(CaptureUnmatchedValues = true)]
     public IDictionary<string, object?> AdditionalAttributes { get; set; } = new Dictionary<string, object?>();

@@ -12,12 +12,34 @@
 
                 @foreach (var coordinate in coordinates)
                 {
-                    <circle class="dot" r="0.2" cx="@(coordinate.X)" cy="@coordinate.Y" />
+                    @RenderDataPoint(coordinate)
                 }
 
-                <path stroke="black" stroke-width="0.1" d="M @(string.Join(" L", coordinates.Select(static c => $"{c.X} {c.Y}")))" />
+                @foreach (var pair in coordinates.Zip(coordinates.Skip(1)))
+                {
+                    @RenderInterpolation(pair.First, pair.Second)
+                }
             </g>
-
         }
     </g>
 </svg>
+
+@code {
+
+    private RenderFragment RenderDataPoint(Coordinate position)
+    {
+        return @<circle class="dot" r="0.2" cx="@(position.X)" cy="@position.Y"/>;
+    }
+
+    private RenderFragment RenderInterpolation(Coordinate from, Coordinate to)
+    {
+        return Interpolation switch
+        {
+            Interpolation.Linear => @<path stroke="black" stroke-width="0.1" fill="none" d="M @(from.X) @(from.Y) L @(to.X) @(to.Y)"/>,
+            Interpolation.StepStart => @<path stroke="black" stroke-width="0.1" fill="none" d="M @(from.X) @(from.Y) V @(to.Y) H @(to.X)"/>,
+            Interpolation.StepEnd => @<path stroke="black" stroke-width="0.1" fill="none" d="M @(from.X) @(from.Y) H @(to.X) V @(to.Y)"/>,
+            _ => throw new ArgumentOutOfRangeException()
+        };
+    }
+
+}
