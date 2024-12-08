@@ -39,7 +39,7 @@ public sealed partial class PieChart<TKey, TValue> : ComponentBase
             seenRadians += radians;
             var end = new DoubleCoordinate(X: Math.Round(Math.Sin(seenRadians), 3), Y: Math.Round(Math.Cos(seenRadians), 3));
 
-            var slice = new PieSlice(start, end, angle);
+            var slice = new PieSlice(start, end, angle, point.Value);
             inProgress.Add(slice);
             lastPoint = slice.End;
         }
@@ -49,7 +49,7 @@ public sealed partial class PieChart<TKey, TValue> : ComponentBase
 
     private readonly record struct DoubleCoordinate(double X, double Y);
 
-    private readonly record struct PieSlice(DoubleCoordinate Start, DoubleCoordinate End, double Angle);
+    private readonly record struct PieSlice(DoubleCoordinate Start, DoubleCoordinate End, double Angle, TValue Value);
 }
 
 

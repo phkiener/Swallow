@@ -2,24 +2,15 @@
 
 <h3>Pie Charts</h3>
 
-<PieChart Data="daysPerMonth" width="400" height="400" />
+<PieChart Data="data" width="400" height="400" />
 
 @code {
-    private readonly DataSeries<string, int> daysPerMonth = new(
-        Name: "Percentage of year",
-        Values: new Dictionary<string, int>
-        {
-            ["January"] = 31,
-            ["February"] = 28,
-            ["March"] = 31,
-            ["April"] = 30,
-            ["May"] = 31,
-            ["June"] = 30,
-            ["July"] = 31,
-            ["August"] = 31,
-            ["September"] = 30,
-            ["October"] = 31,
-            ["November"] = 30,
-            ["December"] = 31,
-        });
+    private DataSeries<int, int> data = new("Data", []);
+
+    protected override void OnInitialized()
+    {
+        data = new DataSeries<int, int>(
+            "Data",
+            Enumerable.Range(0, Random.Shared.Next(2, 8)).Select(static x => new KeyValuePair<int, int>(x, Random.Shared.Next(1, 10))));
+    }
 }

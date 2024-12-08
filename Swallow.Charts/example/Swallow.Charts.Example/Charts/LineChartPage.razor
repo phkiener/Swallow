@@ -2,12 +2,17 @@
 
 <h3>Line Charts</h3>
 
-<LineChart Data="[daysLeftInMonth]" Interpolation="Interpolation.StepStart" width="400" height="400" />
+<LineChart Data="[data]" Interpolation="Interpolation.StepEnd" width="400" height="400" />
 
 @code {
 
-    private readonly DataSeries<int, int> daysLeftInMonth = new(
-        Name: "Days left in Month",
-        Values: Enumerable.Range(1, 30).Select(static i => new KeyValuePair<int, int>(i, 30 - i)));
+    private DataSeries<int, int> data = new("Data", []);
+
+    protected override void OnInitialized()
+    {
+        data = new DataSeries<int, int>(
+            "Data",
+            Enumerable.Range(0, Random.Shared.Next(15, 50)).Select(static x => new KeyValuePair<int, int>(x, Random.Shared.Next(0, 50))));
+    }
 
 }

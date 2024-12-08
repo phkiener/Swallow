@@ -6,6 +6,7 @@
         @foreach (var slice in slices)
         {
             <path stroke="black" stroke-width="0.05" fill="none"
+                  data-value="@slice.Value"
                   d="M 0 0 L @slice.Start.X @slice.Start.Y A 1 1 @slice.Angle 1 1 @slice.End.X @slice.End.Y" />
         }
     </g>
