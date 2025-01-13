@@ -72,6 +72,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{D4942870
 	ProjectSection(SolutionItems) = preProject
 		build\Publish.props = build\Publish.props
 		build\Build-Package.ps1 = build\Build-Package.ps1
+		build\build-package.sh = build\build-package.sh
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Library", "Library", "{2EB1332F-2177-47C5-8743-96A6FAC5800A}"

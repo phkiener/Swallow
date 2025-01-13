@@ -45,6 +45,7 @@ internal static class Program
         app.Configure(c => c.PropagateExceptions());
         app.Configure(c => c.ValidateExamples());
         app.Configure(c => c.UseStrictParsing());
+        app.Configure(c => c.UseAssemblyInformationalVersion());
 
         return app;
     }
