@@ -10,7 +10,7 @@
   <PropertyGroup>
     <SatelliteResourceLanguages>en-US</SatelliteResourceLanguages>
 
-    <Copyright>2023-2024 Philipp Kiener, 2023 Digitec Galaxus AG</Copyright>
+    <Copyright>2023-2025 Philipp Kiener, 2023 Digitec Galaxus AG</Copyright>
     <PackageTags>tool;cli;refactor;roslyn;solution;extendable;hackable;plugins;swallow</PackageTags>
     <Description>
       A tool to automatically refactor large swaths of code - the natural continuation of "doing it all by hand" and "tinkering with regexes".

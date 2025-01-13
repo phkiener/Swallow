@@ -1,5 +1,11 @@
 # Release Notes
 
+## 4.0.1
+
+- Re-add the `-v` and `--version` options that have gone missing
+
+---
+
 ## 4.0.0
 
 - Upgrade to .NET 9 and all dependencies, most notably Roslyn to 4.11.0.
