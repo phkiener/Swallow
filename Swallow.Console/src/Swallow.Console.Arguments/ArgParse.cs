@@ -35,10 +35,34 @@ public static class ArgParse
             }
 
             var name = args[i][2..];
-            var matchingProperty = properties.FirstOrDefault(p => p.PropertyType == typeof(bool) && p.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
-            if (matchingProperty is not null)
+            var matchingProperty = properties.FirstOrDefault(p => p.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
+            if (matchingProperty is null)
+            {
+                initializers = setters;
+                return args[i..];
+            }
+
+            if (matchingProperty.PropertyType == typeof(bool))
             {
                 setters.Add(instance => matchingProperty.SetValue(instance, true));
+                continue;
+            }
+
+            if (i + 1 >= args.Length)
+            {
+                throw new InvalidOperationException($"Missing value for option {matchingProperty.Name}");
+            }
+
+            i += 1;
+
+            if (TryConvert(args[i], matchingProperty.PropertyType, out object? value))
+            {
+
+                setters.Add(instance => matchingProperty.SetValue(instance, value));
+            }
+            else
+            {
+                throw new InvalidOperationException($"Cannot set value for option {matchingProperty.Name}");
             }
         }
 
@@ -79,7 +103,7 @@ public static class ArgParse
 
     private static bool TryConvert(string argument, Type targetType, out object? value)
     {
-        if (targetType == typeof(int))
+        if (targetType == typeof(int) || targetType == typeof(int?))
         {
             if (int.TryParse(argument, out var result))
             {

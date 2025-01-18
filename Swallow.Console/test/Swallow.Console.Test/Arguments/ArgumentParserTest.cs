@@ -51,4 +51,16 @@ public sealed class ArgumentParserTest
         Assert.That(options, Is.EqualTo(new ArgumentAndOptions("bla") { Enable = true }));
     }
 
+    private sealed record ArgumentAndvaluedOptions(string Argument)
+    {
+        public int? Age { get; init; }
+    }
+
+    [Test]
+    public void ArgumentAndValuedOptionsCanBeParsed()
+    {
+        var options = ArgParse.Parse<ArgumentAndvaluedOptions>(["--age", "12", "bla"]);
+        Assert.That(options, Is.EqualTo(new ArgumentAndvaluedOptions("bla") { Age = 12 }));
+    }
+
 }
