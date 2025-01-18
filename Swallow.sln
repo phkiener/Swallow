@@ -175,6 +175,20 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Swallow.Charts.Example", "S
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Swallow.Charts", "Swallow.Charts\src\Swallow.Charts\Swallow.Charts.csproj", "{2CFC8E30-C5FA-4D6B-9E59-D3E002FD9322}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Swallow.Console", "Swallow.Console", "{0A8C2F0F-9046-444D-A878-4AB3BF3EC754}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Additional items", "Additional items", "{74E48BAF-8E65-428A-9E24-E8862EB34B82}"
+	ProjectSection(SolutionItems) = preProject
+		Swallow.Console\Directory.Build.props = Swallow.Console\Directory.Build.props
+		Swallow.Console\Directory.Build.targets = Swallow.Console\Directory.Build.targets
+		Swallow.Console\Directory.Packages.props = Swallow.Console\Directory.Packages.props
+		Swallow.Console\LICENSE.txt = Swallow.Console\LICENSE.txt
+		Swallow.Console\README.md = Swallow.Console\README.md
+		Swallow.Console\RELEASE_NOTES.md = Swallow.Console\RELEASE_NOTES.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Library", "Library", "{E7FD1CBB-F239-4DC0-81E6-6E77F3190607}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -231,6 +245,8 @@ Global
 		{514F68D6-5306-45BE-97F4-FBA39D129DD4} = {7F16C38F-C45D-4BB7-BDCD-30BC8E63F460}
 		{A4ED73A7-6086-44A2-A807-2CED866FBE55} = {514F68D6-5306-45BE-97F4-FBA39D129DD4}
 		{2CFC8E30-C5FA-4D6B-9E59-D3E002FD9322} = {D84AD701-80F5-4A02-A2CE-F5A4952FDFD1}
+		{74E48BAF-8E65-428A-9E24-E8862EB34B82} = {0A8C2F0F-9046-444D-A878-4AB3BF3EC754}
+		{E7FD1CBB-F239-4DC0-81E6-6E77F3190607} = {0A8C2F0F-9046-444D-A878-4AB3BF3EC754}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{330AFE71-9C02-4416-AAE6-51BB49BC1DD1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
