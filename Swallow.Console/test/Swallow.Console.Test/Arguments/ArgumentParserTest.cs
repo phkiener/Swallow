@@ -8,8 +8,7 @@ public sealed class ArgumentParserTest
     [Test]
     public void EmptyOptionsCanBeParsed()
     {
-        var options = ArgParse.Parse<EmptyOptions>([]);
-        Assert.That(options, Is.EqualTo(new EmptyOptions()));
+        AssertParse([], new EmptyOptions());
     }
 
     private sealed record SingleArgument(string Value);
@@ -17,8 +16,7 @@ public sealed class ArgumentParserTest
     [Test]
     public void SingleArgumentCanBeParsed()
     {
-        var options = ArgParse.Parse<SingleArgument>(["a"]);
-        Assert.That(options, Is.EqualTo(new SingleArgument("a")));
+        AssertParse(["a"], new SingleArgument("a"));
     }
 
     private sealed record SingleIntArgument(int Value);
@@ -26,8 +24,7 @@ public sealed class ArgumentParserTest
     [Test]
     public void SingleArgumentWithTypeConversionCanBeParsed()
     {
-        var options = ArgParse.Parse<SingleIntArgument>(["123"]);
-        Assert.That(options, Is.EqualTo(new SingleIntArgument(123)));
+        AssertParse(["123"], new SingleIntArgument(123));
     }
 
     private sealed record MultipleArguments(int Value, string OtherValue);
@@ -35,8 +32,7 @@ public sealed class ArgumentParserTest
     [Test]
     public void MultipleArgumentsCanBeParsed()
     {
-        var options = ArgParse.Parse<MultipleArguments>(["404", "Not Found"]);
-        Assert.That(options, Is.EqualTo(new MultipleArguments(404, "Not Found")));
+        AssertParse(["404", "Not Found"], new MultipleArguments(404, "Not Found"));
     }
 
     private sealed record ArgumentAndOptions(string Argument)
@@ -47,8 +43,7 @@ public sealed class ArgumentParserTest
     [Test]
     public void ArgumentAndOptionsCanBeParsed()
     {
-        var options = ArgParse.Parse<ArgumentAndOptions>(["--enable", "bla"]);
-        Assert.That(options, Is.EqualTo(new ArgumentAndOptions("bla") { Enable = true }));
+        AssertParse(["--enable", "bla"], new ArgumentAndOptions("bla") { Enable = true });
     }
 
     private sealed record ArgumentAndvaluedOptions(string Argument)
@@ -59,8 +54,13 @@ public sealed class ArgumentParserTest
     [Test]
     public void ArgumentAndValuedOptionsCanBeParsed()
     {
-        var options = ArgParse.Parse<ArgumentAndvaluedOptions>(["--age", "12", "bla"]);
-        Assert.That(options, Is.EqualTo(new ArgumentAndvaluedOptions("bla") { Age = 12 }));
+        AssertParse(["--age", "12", "bla"], new ArgumentAndvaluedOptions("bla") { Age = 12 });
+    }
+
+    private static void AssertParse<TOptions>(string[] args, TOptions expected)
+    {
+        var parsed = ArgParse.Parse<TOptions>(args);
+        Assert.That(parsed, Is.EqualTo(expected));
     }
 
 }
