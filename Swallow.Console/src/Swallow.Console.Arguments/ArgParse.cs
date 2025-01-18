@@ -1,15 +1,59 @@
+using System.Diagnostics.CodeAnalysis;
+
 namespace Swallow.Console.Arguments;
 
 public static class ArgParse
 {
-    public static T Parse<T>(string[] args)
+    private const DynamicallyAccessedMemberTypes ReflectedParts = DynamicallyAccessedMemberTypes.PublicConstructors
+                                                                  | DynamicallyAccessedMemberTypes.PublicProperties;
+
+    public static T Parse<[DynamicallyAccessedMembers(ReflectedParts)] T>(string[] args)
+    {
+        var remainingArgs = ParseOptions<T>(args, out var initializers);
+        _ = ParseArguments<T>(remainingArgs, out var constructorArguments);
+
+        var instance = (T)Activator.CreateInstance(typeof(T), constructorArguments)!;
+        foreach (var initializer in initializers)
+        {
+            initializer.Invoke(instance);
+        }
+
+        return instance;
+    }
+
+    private static string[] ParseOptions<[DynamicallyAccessedMembers(ReflectedParts)] T>(string[] args, out IReadOnlyList<Action<T>> initializers)
+    {
+        var properties = typeof(T).GetProperties().Where(static p => p.CanWrite).ToArray();
+
+        var setters = new List<Action<T>>();
+        for (var i = 0; i < args.Length; ++i)
+        {
+            if (!args[i].StartsWith("--"))
+            {
+                initializers = setters;
+                return args[i..];
+            }
+
+            var name = args[i][2..];
+            var matchingProperty = properties.FirstOrDefault(p => p.PropertyType == typeof(bool) && p.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
+            if (matchingProperty is not null)
+            {
+                setters.Add(instance => matchingProperty.SetValue(instance, true));
+            }
+        }
+
+        initializers = setters;
+        return [];
+    }
+
+    private static string[] ParseArguments<[DynamicallyAccessedMembers(ReflectedParts)] T>(string[] args, out object?[] arguments)
     {
         var constructors = typeof(T).GetConstructors().OrderByDescending(static c => c.GetParameters().Length);
 
         foreach (var constructor in constructors)
         {
             var parameters = constructor.GetParameters();
-            var arguments = new object?[parameters.Length];
+            var candidateArguments = new object?[parameters.Length];
             var isMatch = true;
 
             for (var i = 0; i < parameters.Length; i++)
@@ -20,12 +64,13 @@ public static class ArgParse
                     break;
                 }
 
-                arguments[i] = value;
+                candidateArguments[i] = value;
             }
 
             if (isMatch)
             {
-                return (T)constructor.Invoke(arguments);
+                arguments = candidateArguments;
+                return args[candidateArguments.Length..];
             }
         }
 

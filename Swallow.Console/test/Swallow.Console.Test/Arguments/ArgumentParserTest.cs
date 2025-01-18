@@ -39,4 +39,16 @@ public sealed class ArgumentParserTest
         Assert.That(options, Is.EqualTo(new MultipleArguments(404, "Not Found")));
     }
 
+    private sealed record ArgumentAndOptions(string Argument)
+    {
+        public bool Enable { get; init; } = false;
+    }
+
+    [Test]
+    public void ArgumentAndOptionsCanBeParsed()
+    {
+        var options = ArgParse.Parse<ArgumentAndOptions>(["--enable", "bla"]);
+        Assert.That(options, Is.EqualTo(new ArgumentAndOptions("bla") { Enable = true }));
+    }
+
 }
