@@ -30,4 +30,13 @@ public sealed class ArgumentParserTest
         Assert.That(options, Is.EqualTo(new SingleIntArgument(123)));
     }
 
+    private sealed record MultipleArguments(int Value, string OtherValue);
+
+    [Test]
+    public void MultipleArgumentsCanBeParsed()
+    {
+        var options = ArgParse.Parse<MultipleArguments>(["404", "Not Found"]);
+        Assert.That(options, Is.EqualTo(new MultipleArguments(404, "Not Found")));
+    }
+
 }
