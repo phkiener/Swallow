@@ -3,64 +3,42 @@ namespace Swallow.Console.Arguments;
 [TestFixture]
 public sealed class ArgumentParserTest
 {
+    [Test]
+    public void EmptyOptionsCanBeParsed() => new EmptyOptions().ShouldParseFrom([]);
     private sealed record EmptyOptions;
 
     [Test]
-    public void EmptyOptionsCanBeParsed()
-    {
-        AssertParse([], new EmptyOptions());
-    }
-
+    public void SingleArgumentCanBeParsed() => new SingleArgument("a").ShouldParseFrom(["a"]);
     private sealed record SingleArgument(string Value);
 
     [Test]
-    public void SingleArgumentCanBeParsed()
-    {
-        AssertParse(["a"], new SingleArgument("a"));
-    }
-
+    public void SingleArgumentWithTypeConversionCanBeParsed() => new SingleIntArgument(123).ShouldParseFrom(["123"]);
     private sealed record SingleIntArgument(int Value);
 
     [Test]
-    public void SingleArgumentWithTypeConversionCanBeParsed()
-    {
-        AssertParse(["123"], new SingleIntArgument(123));
-    }
-
+    public void MultipleArgumentsCanBeParsed() => new MultipleArguments(404, "Not Found").ShouldParseFrom(["404", "Not Found"]);
     private sealed record MultipleArguments(int Value, string OtherValue);
 
     [Test]
-    public void MultipleArgumentsCanBeParsed()
-    {
-        AssertParse(["404", "Not Found"], new MultipleArguments(404, "Not Found"));
-    }
-
+    public void ArgumentAndOptionsCanBeParsed() => new ArgumentAndOptions("bla") { Enable = true }.ShouldParseFrom(["--enable", "bla"]);
     private sealed record ArgumentAndOptions(string Argument)
     {
         public bool Enable { get; init; } = false;
     }
 
     [Test]
-    public void ArgumentAndOptionsCanBeParsed()
-    {
-        AssertParse(["--enable", "bla"], new ArgumentAndOptions("bla") { Enable = true });
-    }
-
+    public void ArgumentAndValuedOptionsCanBeParsed() => new ArgumentAndvaluedOptions("bla") { Age = 12 }.ShouldParseFrom(["--age", "12", "bla"]);
     private sealed record ArgumentAndvaluedOptions(string Argument)
     {
         public int? Age { get; init; }
     }
+}
 
-    [Test]
-    public void ArgumentAndValuedOptionsCanBeParsed()
-    {
-        AssertParse(["--age", "12", "bla"], new ArgumentAndvaluedOptions("bla") { Age = 12 });
-    }
-
-    private static void AssertParse<TOptions>(string[] args, TOptions expected)
+file static class Extensions
+{
+    public static void ShouldParseFrom<TOptions>(this TOptions expected, string[] args)
     {
         var parsed = ArgParse.Parse<TOptions>(args);
         Assert.That(parsed, Is.EqualTo(expected));
     }
-
 }
