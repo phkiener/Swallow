@@ -9,6 +9,8 @@ internal sealed record Option(string Name, char? ShortName, Type Type, PropertyI
 
 internal sealed record Argument(Type Type);
 
+internal sealed record Subcommand(string Name, Type Type);
+
 internal static class Introspection
 {
     public static Switch[] FindSwitches(Type type)
@@ -45,9 +47,18 @@ internal static class Introspection
 
     public static Argument[] FindArguments(Type type)
     {
-        var constructor = type.GetConstructors().Single();
+        var constructor = type.GetConstructors().SingleOrDefault();
+        if (constructor is null)
+        {
+            return [];
+        }
 
         return constructor.GetParameters().Select(static p => new Argument(p.ParameterType)).ToArray();
+    }
+
+    public static Subcommand[] FindSubcommands(Type type)
+    {
+        return type.GetNestedTypes().Select(static t => new Subcommand(ToKebapCase(t.Name), t)).ToArray();
     }
 
     private static string ToKebapCase(string pascalCase)

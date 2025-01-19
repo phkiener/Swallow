@@ -4,20 +4,25 @@ namespace Swallow.Console.Arguments.Parsing;
 
 public sealed class ArgumentParser(IReadOnlyList<IBinder> binders)
 {
-    public T Parse<T>(string[] args)
-    {
-        var switches = Introspection.FindSwitches(typeof(T));
-        var options = Introspection.FindOptions(typeof(T));
-        var arguments = Introspection.FindArguments(typeof(T));
+    public T Parse<T>(string[] args) => (T)Parse(typeof(T), args);
 
-        var initializers = new List<Action<T>>();
+    private object Parse(Type optionsType, string[] args)
+    {
+        var switches = Introspection.FindSwitches(optionsType);
+        var options = Introspection.FindOptions(optionsType);
+        var arguments = Introspection.FindArguments(optionsType);
+        var subcommands = Introspection.FindSubcommands(optionsType);
+
+        var initializers = new List<Action<object>>();
         var constructorArguments = new List<object?>();
 
         Option? currentOption = null;
         bool inArguments = false;
 
-        foreach (var arg in args)
+        for (var i = 0; i < args.Length; i++)
         {
+            var arg = args[i];
+
             if (arg is "--")
             {
                 inArguments = true;
@@ -60,6 +65,18 @@ public sealed class ArgumentParser(IReadOnlyList<IBinder> binders)
 
             inArguments = true;
 
+            var matchingSubcommand = subcommands.FirstOrDefault(sc => sc.Name == arg);
+            if (matchingSubcommand is not null)
+            {
+                var subcommand = Parse(matchingSubcommand.Type, args[(i + 1)..]);
+                foreach (var initializer in initializers)
+                {
+                    initializer.Invoke(subcommand);
+                }
+
+                return subcommand;
+            }
+
             var currentArgument = arguments[constructorArguments.Count];
             if (!TryConvert(arg, currentArgument.Type, out object? argumentValue))
             {
@@ -69,7 +86,7 @@ public sealed class ArgumentParser(IReadOnlyList<IBinder> binders)
             constructorArguments.Add(argumentValue);
         }
 
-        var instance = (T)Activator.CreateInstance(typeof(T), constructorArguments.ToArray())!;
+        var instance = Activator.CreateInstance(optionsType, constructorArguments.ToArray())!;
         foreach (var initializer in initializers)
         {
             initializer.Invoke(instance);
