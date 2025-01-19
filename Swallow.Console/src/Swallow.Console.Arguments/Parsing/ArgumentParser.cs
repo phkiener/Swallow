@@ -6,96 +6,76 @@ public sealed class ArgumentParser(IReadOnlyList<IBinder> binders)
 {
     public T Parse<T>(string[] args)
     {
-        var remainingArgs = ParseOptions<T>(args, out var initializers);
-        _ = ParseArguments<T>(remainingArgs, out var constructorArguments);
+        var switches = Introspection.FindSwitches(typeof(T));
+        var options = Introspection.FindOptions(typeof(T));
+        var arguments = Introspection.FindArguments(typeof(T));
 
-        var instance = (T)Activator.CreateInstance(typeof(T), constructorArguments)!;
+        var initializers = new List<Action<T>>();
+        var constructorArguments = new List<object?>();
+
+        Option? currentOption = null;
+        bool inArguments = false;
+
+        foreach (var arg in args)
+        {
+            if (arg is "--")
+            {
+                inArguments = true;
+                continue;
+            }
+
+            if (!inArguments)
+            {
+                if (currentOption is not null)
+                {
+                    if (!TryConvert(arg, currentOption.Type, out object? optionValue))
+                    {
+                        throw new InvalidOperationException($"Cannot parse {arg} as {currentOption.Type} for option {currentOption.Property.Name}");
+                    }
+
+                    var option = currentOption;
+                    initializers.Add(obj => option.Property.SetValue(obj, optionValue));
+                    currentOption = null;
+
+                    continue;
+                }
+
+                if (arg.StartsWith("--"))
+                {
+                    var matchingSwitch = switches.FirstOrDefault(s => s.Name == arg[2..]);
+                    if (matchingSwitch is not null)
+                    {
+                        initializers.Add(obj => matchingSwitch.Property.SetValue(obj, true));
+                        continue;
+                    }
+
+                    var matchingOption = options.FirstOrDefault(o => o.Name == arg[2..]);
+                    if (matchingOption is not null)
+                    {
+                        currentOption = matchingOption;
+                        continue;
+                    }
+                }
+            }
+
+            inArguments = true;
+
+            var currentArgument = arguments[constructorArguments.Count];
+            if (!TryConvert(arg, currentArgument.Type, out object? argumentValue))
+            {
+                throw new InvalidOperationException($"Cannot parse {arg} as {currentArgument.Type} for argument {constructorArguments.Count + 1}");
+            }
+
+            constructorArguments.Add(argumentValue);
+        }
+
+        var instance = (T)Activator.CreateInstance(typeof(T), constructorArguments.ToArray())!;
         foreach (var initializer in initializers)
         {
             initializer.Invoke(instance);
         }
 
         return instance;
-    }
-
-    private string[] ParseOptions<T>(string[] args, out IReadOnlyList<Action<T>> initializers)
-    {
-        var properties = typeof(T).GetProperties().Where(static p => p.CanWrite).ToArray();
-
-        var setters = new List<Action<T>>();
-        for (var i = 0; i < args.Length; ++i)
-        {
-            if (!args[i].StartsWith("--"))
-            {
-                initializers = setters;
-                return args[i..];
-            }
-
-            var name = args[i][2..];
-            var matchingProperty = properties.FirstOrDefault(p => p.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
-            if (matchingProperty is null)
-            {
-                initializers = setters;
-                return args[i..];
-            }
-
-            if (matchingProperty.PropertyType == typeof(bool))
-            {
-                setters.Add(instance => matchingProperty.SetValue(instance, true));
-                continue;
-            }
-
-            if (i + 1 >= args.Length)
-            {
-                throw new InvalidOperationException($"Missing value for option {matchingProperty.Name}");
-            }
-
-            i += 1;
-
-            if (TryConvert(args[i], matchingProperty.PropertyType, out object? value))
-            {
-
-                setters.Add(instance => matchingProperty.SetValue(instance, value));
-            }
-            else
-            {
-                throw new InvalidOperationException($"Cannot set value for option {matchingProperty.Name}");
-            }
-        }
-
-        initializers = setters;
-        return [];
-    }
-
-    private string[] ParseArguments<T>(string[] args, out object?[] arguments)
-    {
-        var constructors = typeof(T).GetConstructors().OrderByDescending(static c => c.GetParameters().Length);
-
-        foreach (var constructor in constructors)
-        {
-            var parameters = constructor.GetParameters();
-            var candidateArguments = new object?[parameters.Length];
-            var isMatch = true;
-
-            for (var i = 0; i < parameters.Length; i++)
-            {
-                if (!TryConvert(args[i], parameters[i].ParameterType, out object? value))
-                {
-                    isMatch = false;
-                    break;
-                }
-
-                candidateArguments[i] = value;
-            }
-
-            if (isMatch)
-            {
-                arguments = candidateArguments;
-                return args[candidateArguments.Length..];
-            }
-        }
-
-        throw new InvalidOperationException("No suitable constructor found.");
     }
 
     private bool TryConvert(string argument, Type targetType, out object? value)
