@@ -83,3 +83,11 @@ additional `IDocumentRewriter`s or `ITargetedRewriter`s.
 | [![Swallow.Refactor.Core](https://img.shields.io/nuget/v/Swallow.Refactor.Core?style=for-the-badge&logo=nuget&label=Swallow.Refactor.Core)](https://www.nuget.org/packages/Swallow.Refactor.Core/)                                 | The integration with Roslyn, containing rewriters, refactors and other utilities |
 | [![Swallow.Refactor.Execution](https://img.shields.io/nuget/v/Swallow.Refactor.Execution?style=for-the-badge&logo=nuget&label=Swallow.Refactor.Execution)](https://www.nuget.org/packages/Swallow.Refactor.Execution/)             | Integration library to add custom commands to the tool via plugins               |
 | [![Swallow.Refactor.Testing](https://img.shields.io/nuget/v/Swallow.Refactor.Testing?style=for-the-badge&logo=nuget&label=Swallow.Refactor.Testing)](https://www.nuget.org/packages/Swallow.Refactor.Testing/)                     | Helper classes to write tests for refactors, rewriters and other things.         |
+
+## BRRRRoadmap
+
+Next step is going to be a rather big overhaul. The previous versions were more focused on the CLI tool, providing more and more ways to use it.
+I'll put more focus on the library aspect for the next version - just so that you're not forced to use the tool to get any benefit.
+
+My plan is for BRRR to be a neat wrapper for the Roslyn API, which might be unwieldy at times. The CLI tool is then supposed to be a way to make
+this wrapper scriptable for generalized usage.
