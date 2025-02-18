@@ -215,6 +215,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Example", "Example", "{8EC4
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConvertOnBuild", "Swallow.Build\example\ConvertOnBuild\ConvertOnBuild.csproj", "{0626CA45-3705-4DD5-B16E-E1C0E6B81871}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tooling", "Tooling", "{7A385DAC-E166-4F7B-9770-F5A8967C058A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Swallow.Manager", "tooling\Swallow.Manager\Swallow.Manager.csproj", "{AC544593-CE90-4B9A-BF29-96F856F6E546}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -281,6 +285,7 @@ Global
 		{E263ED12-F617-4DE4-BBE6-23B8EBFE9093} = {BA9AF29A-1103-4C46-88BC-C4C70D2C162F}
 		{8EC4AA5A-0907-42DE-BA05-20E73F2BB1FD} = {F1090F2C-77E5-4783-98FB-47A2AF62E3EF}
 		{0626CA45-3705-4DD5-B16E-E1C0E6B81871} = {8EC4AA5A-0907-42DE-BA05-20E73F2BB1FD}
+		{AC544593-CE90-4B9A-BF29-96F856F6E546} = {7A385DAC-E166-4F7B-9770-F5A8967C058A}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{330AFE71-9C02-4416-AAE6-51BB49BC1DD1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -395,5 +400,9 @@ Global
 		{0626CA45-3705-4DD5-B16E-E1C0E6B81871}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0626CA45-3705-4DD5-B16E-E1C0E6B81871}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0626CA45-3705-4DD5-B16E-E1C0E6B81871}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AC544593-CE90-4B9A-BF29-96F856F6E546}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AC544593-CE90-4B9A-BF29-96F856F6E546}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AC544593-CE90-4B9A-BF29-96F856F6E546}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AC544593-CE90-4B9A-BF29-96F856F6E546}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
