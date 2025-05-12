@@ -8,14 +8,15 @@ public static class Generate
 {
     public static int Run(string directory)
     {
-        var projects = Directory.GetDirectories(directory, "Swallow.*", SearchOption.TopDirectoryOnly)
+        var projectsPath = Path.Combine(directory, "projects");
+        var projects = Directory.GetDirectories(projectsPath, "Swallow.*", SearchOption.TopDirectoryOnly)
             .Select(GetProject)
             .OrderBy(static p => p.Name)
             .ToList();
 
         foreach (var project in projects)
         {
-            var projectPath = Path.Combine(directory, project.Name);
+            var projectPath = Path.Combine(projectsPath, project.Name);
 
             var additionalItems = GetFileFolder(project.AdditionalItems, "Additional items", projectPath);
             var exampleProjects = GetProjectFolder(project.ExampleProjects, "Example", projectPath);

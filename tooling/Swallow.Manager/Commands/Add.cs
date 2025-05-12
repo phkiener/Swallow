@@ -8,7 +8,7 @@ public static class Add
 
     public static int Run(string directory, string name)
     {
-        var projectDirectory = Path.Combine(directory, $"Swallow.{name}");
+        var projectDirectory = Path.Combine(directory, "projects", $"Swallow.{name}");
         if (Directory.Exists(projectDirectory))
         {
             Console.WriteLine($"Project Swallow.{name} already exists");

@@ -8,7 +8,7 @@ param(
     [string]$version
 )
 
-$testProjects = Get-ChildItem -Recurse "$package/test/**/*.csproj"
+$testProjects = Get-ChildItem -Recurse "projects/$package/test/**/*.csproj"
 foreach ($project in $testProjects) {
     dotnet test $project --verbosity quiet
     if ($LASTEXITCODE -ne 0) {
@@ -16,7 +16,7 @@ foreach ($project in $testProjects) {
     }
 }
 
-$packageProjects = Get-ChildItem -Recurse "$package/src/**/*.csproj"
+$packageProjects = Get-ChildItem -Recurse "projects/$package/src/**/*.csproj"
 foreach ($project in $packageProjects) {
     dotnet restore $project --verbosity quiet
     dotnet build --no-restore --configuration Release $project -p:Version=$version --verbosity quiet

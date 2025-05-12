@@ -12,7 +12,7 @@ if [ -z "$version" ]; then
   exit 1;
 fi
 
-find "./$package/test" -name "*.csproj" -print0 |
+find "./projects/$package/test" -name "*.csproj" -print0 |
   while IFS= read -r -d '' testProject; do
     dotnet test $testProject --verbosity quiet
 
@@ -21,7 +21,7 @@ find "./$package/test" -name "*.csproj" -print0 |
     fi
   done
 
-find "./$package/src" -name "*.csproj" -print0 |
+find "./projects/$package/src" -name "*.csproj" -print0 |
   while IFS= read -r -d '' packageProject; do
     dotnet restore $packageProject --verbosity quiet
     dotnet build --no-restore --configuration Release $packageProject -p:Version=$version --verbosity quiet
