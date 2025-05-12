@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Solution>
+  <Folder Name="/Additional items/">
+    <File Path="Directory.Build.props" />
+    <File Path="Directory.Packages.props" />
+    <File Path="Directory.Build.targets" />
+    <File Path="README.md" />
+    <File Path="RELEASE_NOTES.md" />
+    <File Path="LICENSE.txt" />
+  </Folder>
+  <Folder Name="/Library/">
+    <Project Path="src/Swallow.Localization.Manager/Swallow.Localization.Manager.csproj" />
+    <Project Path="src/Swallow.Localization/Swallow.Localization.csproj" />
+  </Folder>
+  <Folder Name="/Test/">
+    <Project Path="test/Swallow.Localization.Example/Swallow.Localization.Example.csproj" />
+  </Folder>
+</Solution>
