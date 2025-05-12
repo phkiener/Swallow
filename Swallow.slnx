@@ -91,6 +91,7 @@
     <Project Path="Swallow.Flux/src/Swallow.Flux/Swallow.Flux.csproj" />
   </Folder>
   <Folder Name="/Swallow.Flux/Test/">
+    <Project Path="Swallow.Flux\test\Swallow.Flux.Test\Swallow.Flux.Test.csproj" Type="Classic C#" />
   </Folder>
   <Folder Name="/Swallow.Localization/" />
   <Folder Name="/Swallow.Localization/Additional items/">

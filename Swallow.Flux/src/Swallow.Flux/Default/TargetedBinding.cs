@@ -19,7 +19,6 @@ internal sealed class TargetedBinding<T> : ITargetedBinding<T>, IDisposable wher
     public ITargetedBinding<T> To<TNotification>(Action<T> reaction) where TNotification : INotification
     {
         subscriptions.Add((typeof(TNotification), reaction));
-        Invoke(reaction);
 
         return this;
     }
