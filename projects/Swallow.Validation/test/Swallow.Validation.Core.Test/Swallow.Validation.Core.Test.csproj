@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <RootNamespace>Swallow.Validation</RootNamespace>
+    <TargetFramework>net9.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>

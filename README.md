@@ -2,15 +2,15 @@
 
 ---
 
-[![Swallow.Validation](https://img.shields.io/nuget/v/Swallow.Validation?style=for-the-badge&logo=nuget&label=Swallow.Validation)](./Swallow.Validation/README.md)
+[![Swallow.Validation](https://img.shields.io/nuget/v/Swallow.Validation?style=for-the-badge&logo=nuget&label=Swallow.Validation)](./projects/Swallow.Validation/README.md)
 &nbsp;
-[![Swallow.Refactor](https://img.shields.io/nuget/v/Swallow.Refactor?style=for-the-badge&logo=nuget&label=Swallow.Refactor)](./Swallow.Refactor/README.md)
+[![Swallow.Refactor](https://img.shields.io/nuget/v/Swallow.Refactor?style=for-the-badge&logo=nuget&label=Swallow.Refactor)](./projects/Swallow.Refactor/README.md)
 &nbsp;
-[![Swallow.ChainOfInjection](https://img.shields.io/nuget/v/Swallow.ChainOfInjection?style=for-the-badge&logo=nuget&label=Swallow.ChainOfInjection)](./Swallow.ChainOfInjection/README.md)
+[![Swallow.ChainOfInjection](https://img.shields.io/nuget/v/Swallow.ChainOfInjection?style=for-the-badge&logo=nuget&label=Swallow.ChainOfInjection)](./projects/Swallow.ChainOfInjection/README.md)
 &nbsp;
-[![Swallow.TaskRunner](https://img.shields.io/nuget/v/Swallow.TaskRunner?style=for-the-badge&logo=nuget&label=Swallow.TaskRunner)](./Swallow.TaskRunner/README.md)
+[![Swallow.TaskRunner](https://img.shields.io/nuget/v/Swallow.TaskRunner?style=for-the-badge&logo=nuget&label=Swallow.TaskRunner)](./projects/Swallow.TaskRunner/README.md)
 &nbsp;
-[![Swallow.Flux](https://img.shields.io/nuget/v/Swallow.Flux?style=for-the-badge&logo=nuget&label=Swallow.Flux)](./Swallow.Flux/README.md)
+[![Swallow.Flux](https://img.shields.io/nuget/v/Swallow.Flux?style=for-the-badge&logo=nuget&label=Swallow.Flux)](./projects/Swallow.Flux/README.md)
 &nbsp;
 ![MIT license](https://img.shields.io/badge/license-mit-brightgreen?style=for-the-badge)
 
@@ -31,16 +31,18 @@ By the way, **Swallow** refers to the [bird](https://en.wikipedia.org/wiki/Swall
 
 ## Projects
 
-* [Swallow.Validation](./Swallow.Validation/README.md) - fluent and extendable validations for your invariants
-* [Swallow.Refactor](./Swallow.Refactor/README.md) - automatic refactoring goes BRRR!
-* [Swallow.ChainOfInjection](./Swallow.ChainOfInjection/README.md) - declarative registration of decorators for `ServiceCollection` and `SimpleInjector`
-* [Swallow.TaskRunner](./Swallow.TaskRunner/README.md) - miss `npm run $MYTASK` or similar tools? How'd you like `dotnet task $MYTASK`?
-* [Swallow.Flux](./Swallow.Flux/README.md) - no-nonsense Flux pattern, completely framework-agnostic
+* [Swallow.Validation](./projects/Swallow.Validation/README.md) - fluent and extendable validations for your invariants
+* [Swallow.Refactor](./projects/Swallow.Refactor/README.md) - automatic refactoring goes BRRR!
+* [Swallow.ChainOfInjection](./projects/Swallow.ChainOfInjection/README.md) - declarative registration of decorators for `ServiceCollection` and `SimpleInjector`
+* [Swallow.TaskRunner](./projects/Swallow.TaskRunner/README.md) - miss `npm run $MYTASK` or similar tools? How'd you like `dotnet task $MYTASK`?
+* [Swallow.Flux](./projects/Swallow.Flux/README.md) - no-nonsense Flux pattern, completely framework-agnostic
 * Work in progress; unstable, unreleased and unfinished
-  * [Swallow.Localization](./Swallow.Localization/README.md) - addition tooling built on `IStringLocalizer`
-  * [Swallow.Console](./Swallow.Console/README.md) - the convenience of ASP.NET - inside your terminal
-  * [Swallow.Charts](./Swallow.Charts/README.md) - statically rendered charts for Blazor applications
-  * [Swallow.Build](./Swallow.Build/README.md) - miscellaneous goodness to smoothen your builds using only MSBuild
+  * [Swallow.Localization](./projects/Swallow.Localization/README.md) - addition tooling built on `IStringLocalizer`
+  * [Swallow.Console](./projects/Swallow.Console/README.md) - the convenience of ASP.NET - inside your terminal
+  * [Swallow.Charts](./projects/Swallow.Charts/README.md) - statically rendered charts for Blazor applications
+  * [Swallow.Build](./projects/Swallow.Build/README.md) - miscellaneous goodness to smoothen your builds using only MSBuild
+* Tooling for the monorepo
+  * [Swallow.Manager](./tooling/Swallow.Manager) - create and publish projects
 
 ## Why should I use these?
 
