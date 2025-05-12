@@ -14,11 +14,15 @@ public static class ServiceCollectionExtensions
     /// </summary>
     /// <param name="services">The <see cref="IServiceCollection"/> on which to register the services</param>
     /// <returns>The given <see cref="IServiceCollection"/> with additional registrations for the Flux services</returns>
+    /// <remarks>
+    /// The <see cref="IBinder"/> is registered as <em>transient</em> by default, which means that each object will get its very own instance of
+    /// a binder. To properly dispose of the subscriptions to notifications, dispose that binder when disposing your object.
+    /// </remarks>
     public static IServiceCollection AddFlux(this IServiceCollection services)
     {
-        services.TryAddScoped<IBinder, DefaultBinder>();
         services.TryAddScoped<IDispatcher, DefaultDispatcher>();
         services.TryAddScoped<IEmitter, DefaultEmitter>();
+        services.TryAddTransient<IBinder, DefaultBinder>();
 
         return services;
     }
