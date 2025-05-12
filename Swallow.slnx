@@ -1,0 +1,170 @@
+<Solution>
+  <Folder Name="/Additional items/">
+    <File Path=".editorconfig" />
+    <File Path=".gitattributes" />
+    <File Path=".gitignore" />
+    <File Path="icon.png" />
+    <File Path="README.md" />
+  </Folder>
+  <Folder Name="/Additional items/Assets/">
+    <File Path="assets/swallow-icon-rect.svg" />
+    <File Path="assets/swallow-icon-round.svg" />
+    <File Path="assets/swallow.svg" />
+  </Folder>
+  <Folder Name="/Additional items/Build/">
+    <File Path="build/Build-Package.ps1" />
+    <File Path="build/build-package.sh" />
+    <File Path="build/Publish.props" />
+  </Folder>
+  <Folder Name="/Additional items/Shared/">
+    <File Path="shared/DebuggerCancellationTokenSource.cs" />
+  </Folder>
+  <Folder Name="/Swallow.Build/" />
+  <Folder Name="/Swallow.Build/Additional items/">
+    <File Path="Swallow.Build/Directory.Build.props" />
+    <File Path="Swallow.Build/Directory.Build.targets" />
+    <File Path="Swallow.Build/Directory.Packages.props" />
+    <File Path="Swallow.Build/LICENSE.txt" />
+    <File Path="Swallow.Build/README.md" />
+    <File Path="Swallow.Build/RELEASE_NOTES.md" />
+  </Folder>
+  <Folder Name="/Swallow.Build/Example/">
+    <Project Path="Swallow.Build/example/ConvertOnBuild/ConvertOnBuild.csproj" />
+  </Folder>
+  <Folder Name="/Swallow.Build/Library/">
+    <Project Path="Swallow.Build/src/Swallow.Build.ImageConvert/Swallow.Build.ImageConvert.csproj" />
+  </Folder>
+  <Folder Name="/Swallow.ChainOfInjection/" />
+  <Folder Name="/Swallow.ChainOfInjection/Additional items/">
+    <File Path="Swallow.ChainOfInjection/Directory.Build.props" />
+    <File Path="Swallow.ChainOfInjection/Directory.Packages.props" />
+    <File Path="Swallow.ChainOfInjection/LICENSE.txt" />
+    <File Path="Swallow.ChainOfInjection/README.md" />
+    <File Path="Swallow.ChainOfInjection/RELEASE_NOTES.md" />
+  </Folder>
+  <Folder Name="/Swallow.ChainOfInjection/Library/">
+    <Project Path="Swallow.ChainOfInjection/src/Swallow.ChainOfInjection.ServiceCollection/Swallow.ChainOfInjection.ServiceCollection.csproj" />
+    <Project Path="Swallow.ChainOfInjection/src/Swallow.ChainOfInjection.SimpleInjector/Swallow.ChainOfInjection.SimpleInjector.csproj" />
+    <Project Path="Swallow.ChainOfInjection/src/Swallow.ChainOfInjection/Swallow.ChainOfInjection.csproj" />
+  </Folder>
+  <Folder Name="/Swallow.ChainOfInjection/Test/">
+    <Project Path="Swallow.ChainOfInjection/test/Swallow.ChainOfInjection.Test/Swallow.ChainOfInjection.Test.csproj" />
+  </Folder>
+  <Folder Name="/Swallow.Charts/" />
+  <Folder Name="/Swallow.Charts/Additional items/">
+    <File Path="Swallow.Charts/Directory.Build.props" />
+    <File Path="Swallow.Charts/Directory.Packages.props" />
+    <File Path="Swallow.Charts/LICENSE.txt" />
+    <File Path="Swallow.Charts/README.md" />
+    <File Path="Swallow.Charts/RELEASE_NOTES.md" />
+  </Folder>
+  <Folder Name="/Swallow.Charts/Example/">
+    <Project Path="Swallow.Charts/example/Swallow.Charts.Example/Swallow.Charts.Example.csproj" />
+  </Folder>
+  <Folder Name="/Swallow.Charts/Library/">
+    <Project Path="Swallow.Charts/src/Swallow.Charts/Swallow.Charts.csproj" />
+  </Folder>
+  <Folder Name="/Swallow.Console/" />
+  <Folder Name="/Swallow.Console/Additional items/">
+    <File Path="Swallow.Console/Directory.Build.props" />
+    <File Path="Swallow.Console/Directory.Build.targets" />
+    <File Path="Swallow.Console/Directory.Packages.props" />
+    <File Path="Swallow.Console/LICENSE.txt" />
+    <File Path="Swallow.Console/README.md" />
+    <File Path="Swallow.Console/RELEASE_NOTES.md" />
+  </Folder>
+  <Folder Name="/Swallow.Console/Library/">
+    <Project Path="Swallow.Console/src/Swallow.Console.Arguments/Swallow.Console.Arguments.csproj" />
+  </Folder>
+  <Folder Name="/Swallow.Console/Test/">
+    <Project Path="Swallow.Console/test/Swallow.Console.Test/Swallow.Console.Test.csproj" />
+  </Folder>
+  <Folder Name="/Swallow.Flux/" />
+  <Folder Name="/Swallow.Flux/Additional items/">
+    <File Path="Swallow.Flux/Directory.Build.props" />
+    <File Path="Swallow.Flux/Directory.Packages.props" />
+    <File Path="Swallow.Flux/LICENSE.txt" />
+    <File Path="Swallow.Flux/README.md" />
+    <File Path="Swallow.Flux/RELEASE_NOTES.md" />
+  </Folder>
+  <Folder Name="/Swallow.Flux/Library/">
+    <Project Path="Swallow.Flux/src/Swallow.Flux/Swallow.Flux.csproj" />
+  </Folder>
+  <Folder Name="/Swallow.Flux/Test/">
+  </Folder>
+  <Folder Name="/Swallow.Localization/" />
+  <Folder Name="/Swallow.Localization/Additional items/">
+    <File Path="Swallow.Localization/Directory.Build.props" />
+    <File Path="Swallow.Localization/Directory.Build.targets" />
+    <File Path="Swallow.Localization/Directory.Packages.props" />
+    <File Path="Swallow.Localization/LICENSE.txt" />
+    <File Path="Swallow.Localization/README.md" />
+    <File Path="Swallow.Localization/RELEASE_NOTES.md" />
+  </Folder>
+  <Folder Name="/Swallow.Localization/Application/">
+    <Project Path="Swallow.Localization/src/Swallow.Localization.Manager/Swallow.Localization.Manager.csproj" />
+  </Folder>
+  <Folder Name="/Swallow.Localization/Library/">
+    <Project Path="Swallow.Localization/src/Swallow.Localization/Swallow.Localization.csproj" />
+  </Folder>
+  <Folder Name="/Swallow.Localization/Test/">
+    <Project Path="Swallow.Localization/test/Swallow.Localization.Example/Swallow.Localization.Example.csproj" />
+  </Folder>
+  <Folder Name="/Swallow.Refactor/" />
+  <Folder Name="/Swallow.Refactor/Additional items/">
+    <File Path="Swallow.Refactor/Directory.Build.props" />
+    <File Path="Swallow.Refactor/Directory.Build.targets" />
+    <File Path="Swallow.Refactor/Directory.Packages.props" />
+    <File Path="Swallow.Refactor/LICENSE.txt" />
+    <File Path="Swallow.Refactor/README.md" />
+    <File Path="Swallow.Refactor/RELEASE_NOTES.md" />
+  </Folder>
+  <Folder Name="/Swallow.Refactor/Application/">
+    <Project Path="Swallow.Refactor/src/Swallow.Refactor/Swallow.Refactor.csproj" />
+  </Folder>
+  <Folder Name="/Swallow.Refactor/Library/">
+    <Project Path="Swallow.Refactor/src/Swallow.Refactor.Abstractions/Swallow.Refactor.Abstractions.csproj" />
+    <Project Path="Swallow.Refactor/src/Swallow.Refactor.Core/Swallow.Refactor.Core.csproj" />
+    <Project Path="Swallow.Refactor/src/Swallow.Refactor.Execution/Swallow.Refactor.Execution.csproj" />
+    <Project Path="Swallow.Refactor/src/Swallow.Refactor.Testing/Swallow.Refactor.Testing.csproj" />
+  </Folder>
+  <Folder Name="/Swallow.Refactor/Test/">
+    <Project Path="Swallow.Refactor/test/Swallow.Refactor.Test/Swallow.Refactor.Test.csproj" />
+  </Folder>
+  <Folder Name="/Swallow.TaskRunner/" />
+  <Folder Name="/Swallow.TaskRunner/Additional items/">
+    <File Path="Swallow.TaskRunner/Directory.Build.props" />
+    <File Path="Swallow.TaskRunner/Directory.Packages.props" />
+    <File Path="Swallow.TaskRunner/LICENSE.txt" />
+    <File Path="Swallow.TaskRunner/README.md" />
+    <File Path="Swallow.TaskRunner/RELEASE_NOTES.md" />
+  </Folder>
+  <Folder Name="/Swallow.TaskRunner/Application/">
+    <Project Path="Swallow.TaskRunner/src/Swallow.TaskRunner/Swallow.TaskRunner.csproj" />
+  </Folder>
+  <Folder Name="/Swallow.TaskRunner/Test/">
+    <Project Path="Swallow.TaskRunner/test/Swallow.TaskRunner.Test/Swallow.TaskRunner.Test.csproj" />
+  </Folder>
+  <Folder Name="/Swallow.Validation/" />
+  <Folder Name="/Swallow.Validation/Additional items/">
+    <File Path="Swallow.Validation/Directory.Build.props" />
+    <File Path="Swallow.Validation/Directory.Packages.props" />
+    <File Path="Swallow.Validation/LICENSE.txt" />
+    <File Path="Swallow.Validation/README.md" />
+    <File Path="Swallow.Validation/RELEASE_NOTES.md" />
+  </Folder>
+  <Folder Name="/Swallow.Validation/Library/">
+    <Project Path="Swallow.Validation/src/Swallow.Validation.Assertions/Swallow.Validation.Assertions.csproj" />
+    <Project Path="Swallow.Validation/src/Swallow.Validation.Core/Swallow.Validation.Core.csproj" />
+    <Project Path="Swallow.Validation/src/Swallow.Validation.ServiceCollection/Swallow.Validation.ServiceCollection.csproj" />
+  </Folder>
+  <Folder Name="/Swallow.Validation/Test/">
+    <Project Path="Swallow.Validation/test/Swallow.Validation.Assertions.Test/Swallow.Validation.Assertions.Test.csproj" />
+    <Project Path="Swallow.Validation/test/Swallow.Validation.Core.Test/Swallow.Validation.Core.Test.csproj" />
+    <Project Path="Swallow.Validation/test/Swallow.Validation.ServiceCollection.Test/Swallow.Validation.ServiceCollection.Test.csproj" />
+    <Project Path="Swallow.Validation/test/Swallow.Validation.TestUtils/Swallow.Validation.TestUtils.csproj" />
+  </Folder>
+  <Folder Name="/Tooling/">
+    <Project Path="tooling/Swallow.Manager/Swallow.Manager.csproj" />
+  </Folder>
+</Solution>
