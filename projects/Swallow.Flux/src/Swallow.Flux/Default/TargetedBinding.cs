@@ -5,7 +5,7 @@ internal sealed class TargetedBinding<T> : ITargetedBinding<T>, IDisposable wher
     private readonly T target;
     private readonly Action<Action>? wrapper;
     private readonly IEmitter emitter;
-    private readonly List<(Type Type, Action<T> Reaction)> subscriptions = [];
+    private readonly List<ISubscription> subscriptions = [];
 
     public TargetedBinding(T target, Action<Action>? wrapper, IEmitter emitter)
     {
@@ -16,9 +16,37 @@ internal sealed class TargetedBinding<T> : ITargetedBinding<T>, IDisposable wher
         emitter.OnEmit += InvokeSubscribers;
     }
 
-    public ITargetedBinding<T> To<TNotification>(Action<T> reaction) where TNotification : INotification
+    public ITargetedBinding<T> To<TNotification>(Action<T> reaction, bool immediatelyInvoke = false) where TNotification : INotification
     {
-        subscriptions.Add((typeof(TNotification), reaction));
+        var subscription = new Subscription<TNotification>((t, _) => reaction(t));
+        subscriptions.Add(subscription);
+
+        if (immediatelyInvoke)
+        {
+            // The notification gets discarded by the lambda anyway, so we can just safely pass null here
+            subscription.Handle(target, null!);
+        }
+
+        return this;
+    }
+
+    public ITargetedBinding<T> To<TNotification>(Action<T, TNotification> reaction) where TNotification : INotification
+    {
+        var subscription = new Subscription<TNotification>(reaction);
+        subscriptions.Add(subscription);
+
+        return this;
+    }
+
+    public ITargetedBinding<T> To<TNotification>(Action<T, TNotification> reaction, bool immediatelyInvoke) where TNotification : INotification, new()
+    {
+        var subscription = new Subscription<TNotification>(reaction);
+        subscriptions.Add(subscription);
+
+        if (immediatelyInvoke)
+        {
+            subscription.Handle(target, new TNotification());
+        }
 
         return this;
     }
@@ -28,23 +56,37 @@ internal sealed class TargetedBinding<T> : ITargetedBinding<T>, IDisposable wher
         emitter.OnEmit -= InvokeSubscribers;
     }
 
-    private void InvokeSubscribers(object? sender, INotification e)
+    private void InvokeSubscribers(object? sender, INotification notification)
     {
-        foreach (var subscription in subscriptions.Where(t => t.Type == e.GetType()))
+        foreach (var subscription in subscriptions.Where(s => s.CanHandle(notification)))
         {
-            Invoke(subscription.Reaction);
+            Invoke(subscription, notification);
         }
     }
 
-    private void Invoke(Action<T> reaction)
+    private void Invoke(ISubscription subscription, INotification notification)
     {
         if (wrapper is not null)
         {
-            wrapper.Invoke(() => reaction.Invoke(target));
+            wrapper.Invoke(() => subscription.Handle(target, notification));
         }
         else
         {
-            reaction.Invoke(target);
+            subscription.Handle(target, notification);
         }
+    }
+
+    private interface ISubscription
+    {
+        public bool CanHandle(object notification);
+
+        public void Handle(T target, object notification);
+    }
+
+    private sealed class Subscription<TNotification>(Action<T, TNotification> handler) : ISubscription
+    {
+        public bool CanHandle(object notification) => notification is TNotification;
+
+        public void Handle(T target, object notification) => handler(target, (TNotification)notification);
     }
 }
