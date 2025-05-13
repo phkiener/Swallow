@@ -39,7 +39,10 @@ public interface ITargetedBinding<out T> where T : class
 /// <summary>
 /// A binder to simplify subscribing to <see cref="INotification"/>s emitted by an <see cref="IEmitter"/>
 /// </summary>
-public interface IBinder
+/// <remarks>
+/// An implementation should dispose all registered bindings and subscriptions to notification when <see cref="IDisposable.Dispose()"/>d.
+/// </remarks>
+public interface IBinder : IDisposable
 {
     /// <summary>
     /// Bind to the given <paramref name="target"/>, allowing it to subscribe to notifications

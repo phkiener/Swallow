@@ -4,7 +4,7 @@ namespace Swallow.Flux.Default;
 /// A default binder that will keep all subscriptions until it is disposed
 /// </summary>
 /// <param name="emitter">The emitter to subscribe to</param>
-public sealed class DefaultBinder(IEmitter emitter) : IBinder, IDisposable
+public sealed class DefaultBinder(IEmitter emitter) : IBinder
 {
     private readonly List<IDisposable> bindings = [];
 
