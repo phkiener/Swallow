@@ -121,6 +121,22 @@ public sealed class DefaultBinderTest
         Assert.That(receivedNotification?.Id, Is.EqualTo(99));
     }
 
+    [Test]
+    public void InvokesWrapper_WhenImmediatelyInvoking()
+    {
+        var emitter = new DefaultEmitter();
+        var binder = new DefaultBinder(emitter);
+
+        const string target = "test";
+        int wrapperCalls = 0;
+
+        binder.Bind(target, act => { wrapperCalls += 1; act.Invoke(); })
+            .To<RelevantNotification>(_ => { }, immediatelyInvoke: true)
+            .To<RelevantNotification>((_, _) => { }, immediatelyInvoke: true);
+
+        Assert.That(wrapperCalls, Is.EqualTo(2));
+    }
+
     private static void CatchAndWrite(Action action, ref string output)
     {
         try

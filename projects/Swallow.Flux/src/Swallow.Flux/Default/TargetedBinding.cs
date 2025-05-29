@@ -18,13 +18,13 @@ internal sealed class TargetedBinding<T> : ITargetedBinding<T>, IDisposable wher
 
     public ITargetedBinding<T> To<TNotification>(Action<T> reaction, bool immediatelyInvoke = false) where TNotification : INotification
     {
-        var subscription = new Subscription<TNotification>((t, _) => reaction(t));
+        var subscription = new GeneralSubscription<TNotification>(reaction);
         subscriptions.Add(subscription);
 
         if (immediatelyInvoke)
         {
-            // The notification gets discarded by the lambda anyway, so we can just safely pass null here
-            subscription.Handle(target, null);
+            // The notification gets discarded anyway, so we can just safely pass null here
+            Invoke(subscription, null!);
         }
 
         return this;
@@ -45,7 +45,7 @@ internal sealed class TargetedBinding<T> : ITargetedBinding<T>, IDisposable wher
 
         if (immediatelyInvoke)
         {
-            subscription.Handle(target, new TNotification());
+            Invoke(subscription, new TNotification());
         }
 
         return this;
@@ -80,13 +80,20 @@ internal sealed class TargetedBinding<T> : ITargetedBinding<T>, IDisposable wher
     {
         public bool CanHandle(object notification);
 
-        public void Handle(T target, object? notification);
+        public void Handle(T target, object notification);
+    }
+
+    private sealed class GeneralSubscription<TNotification>(Action<T> handler) : ISubscription
+    {
+        public bool CanHandle(object notification) => notification is TNotification;
+
+        public void Handle(T target, object notification) => handler(target);
     }
 
     private sealed class Subscription<TNotification>(Action<T, TNotification> handler) : ISubscription
     {
         public bool CanHandle(object notification) => notification is TNotification;
 
-        public void Handle(T target, object? notification) => handler(target, (TNotification?)notification!);
+        public void Handle(T target, object notification) => handler(target, (TNotification)notification);
     }
 }
