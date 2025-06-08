@@ -48,13 +48,20 @@ public static class ServiceCollectionExtensions
     /// <typeparam name="TImplementation">Type implementing <typeparamref name="TStore"/> which will be registered as implementation</typeparam>
     /// <param name="services">The <see cref="IServiceCollection"/> on which to register the store</param>
     /// <returns>The given <see cref="IServiceCollection"/> with additional registrations for the store</returns>
+    /// <remarks>
+    ///     <typeparamref name="TImplementation"/> is registered as well in addition to <typeparamref name="TStore"/> and <see cref="IStore"/>.
+    ///     All of these will share the same (scoped) instance.
+    /// </remarks>
     public static IServiceCollection AddStore<TStore, TImplementation>(this IServiceCollection services)
-        where TStore : class, IStore
-        where TImplementation : class, TStore
+        where TStore : class
+        where TImplementation : class, IStore, TStore
     {
-        services.AddScoped<IStore>(static sp => sp.GetRequiredService<TStore>());
-        services.TryAddScoped<TStore, TImplementation>();
+        services.TryAddScoped<TImplementation>();
+        services.TryAddScoped<TStore>(Resolve);
+        services.AddScoped<IStore>(Resolve);
 
         return services;
+
+        static TImplementation Resolve(IServiceProvider sp) => sp.GetRequiredService<TImplementation>();
     }
 }
