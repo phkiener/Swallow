@@ -1,2 +1,5 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Swallow.Blazor.Primitives\Swallow.Blazor.Primitives.csproj" />
+  </ItemGroup>
 </Project>

@@ -1,0 +1,21 @@
+<button type="button">
+    @if (Leading is null && Trailing is null)
+    {
+        @Content
+    }
+    else
+    {
+        @if (Leading is not null)
+        {
+            <div>@Leading</div>
+        }
+
+        <div>@Content</div>
+
+        @if (Trailing is not null)
+        {
+
+            <div>@Trailing</div>
+        }
+    }
+</button>
