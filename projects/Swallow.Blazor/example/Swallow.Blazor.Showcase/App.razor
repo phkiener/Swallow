@@ -1,0 +1,16 @@
+@using Microsoft.AspNetCore.Components.Routing
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Swallow.Blazor Showcase</title>
+</head>
+
+<body>
+<h1>Swallow.Blazor Showcase</h1>
+<Router AppAssembly="@typeof(App).Assembly">
+    <Found>
+        <RouteView RouteData="@context" />
+    </Found>
+</Router>
+</body>
+</html>

@@ -21,6 +21,21 @@
   <Folder Name="/Tooling/">
     <Project Path="tooling/Swallow.Manager/Swallow.Manager.csproj" />
   </Folder>
+  <Folder Name="/Swallow.Blazor/" />
+  <Folder Name="/Swallow.Blazor/Additional items/">
+    <File Path="projects/Swallow.Blazor/Directory.Build.props" />
+    <File Path="projects/Swallow.Blazor/Directory.Packages.props" />
+    <File Path="projects/Swallow.Blazor/Directory.Build.targets" />
+    <File Path="projects/Swallow.Blazor/README.md" />
+    <File Path="projects/Swallow.Blazor/RELEASE_NOTES.md" />
+    <File Path="projects/Swallow.Blazor/LICENSE.txt" />
+  </Folder>
+  <Folder Name="/Swallow.Blazor/Example/">
+    <Project Path="projects/Swallow.Blazor/example/Swallow.Blazor.Showcase/Swallow.Blazor.Showcase.csproj" />
+  </Folder>
+  <Folder Name="/Swallow.Blazor/Library/">
+    <Project Path="projects/Swallow.Blazor/src/Swallow.Blazor.Primitives/Swallow.Blazor.Primitives.csproj" />
+  </Folder>
   <Folder Name="/Swallow.Build/" />
   <Folder Name="/Swallow.Build/Additional items/">
     <File Path="projects/Swallow.Build/Directory.Build.props" />
