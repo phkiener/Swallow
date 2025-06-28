@@ -15,16 +15,17 @@ public sealed class ReplaceCssScopeTest
     public void Works()
     {
         task.Items = [new InheritStyleItem(Path: "Derived.razor", Inherit: "Base.razor")];
-        task.RazorComponents = [new RazorComponentItem(Path: "Base.razor", CssScope: "b-aaaaaaaaaa"), new RazorComponentItem(Path: "Derived.razor", CssScope: null)];
-        task.Styles = [new RazorComponentItem(Path: "Base.razor.css", CssScope: "b-aaaaaaaaaa")];
+        task.Components = [new RazorComponentItem(Path: "Base.razor", CssScope: "b-aaaaaaaaaa"), new RazorComponentItem(Path: "Derived.razor", CssScope: "b-bbbbbbbbbb")];
+        task.Styles = [new ScopedCssItem(Path: "Base.razor.css", CssScope: "b-aaaaaaaaaa"), new ScopedCssItem("Derived.razor.css", "b-bbbbbbbbbb")];
 
         task.Execute();
 
-        Assert.That(task.AdjustedStyles, Is.Empty);
-        Assert.That(task.AdjustedComponents, Is.Not.Empty);
+        var component = task.AdjustedComponents.Single();
+        Assert.That(component.ItemSpec, Is.EqualTo("Derived.razor"));
+        Assert.That(component.GetMetadata("CssScope"), Is.EqualTo("b-aaaaaaaaaa"));
 
-        var item = task.AdjustedComponents.Single();
-        Assert.That(item.ItemSpec, Is.EqualTo("Derived.razor"));
-        Assert.That(item.GetMetadata("CssScope"), Is.EqualTo("b-aaaaaaaaaa"));
+        var style = task.AdjustedStyles.Single();
+        Assert.That(style.ItemSpec, Is.EqualTo("Derived.razor.css"));
+        Assert.That(style.GetMetadata("CssScope"), Is.EqualTo("b-aaaaaaaaaa"));
     }
 }

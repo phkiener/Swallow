@@ -31,5 +31,9 @@ This will cause `SpecificButton` to use the *exact* same CSS scope as
 tags written by `SpecificButton`, next to all styles defined by `SpecificButton`
 itself.
 
+You'll need to *rebuild* (aka *clean* then *build*) once after defining new
+`InheritStyles` items - MSBuild will think the styles are still up-to-date since
+the file itself didn't change, but the added tag is wrong.
+
 **Note**: Since the components share a common CSS scope, this also means that
 `CoolButton` will *also* have access to the styles defined by `SpecificButton`.

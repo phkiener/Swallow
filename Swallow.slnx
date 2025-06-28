@@ -61,6 +61,7 @@
     <Project Path="projects/Swallow.Build.StyleIsolation/src/Swallow.Build.StyleIsolation/Swallow.Build.StyleIsolation.csproj" />
   </Folder>
   <Folder Name="/Swallow.Build.StyleIsolation/Test/">
+    <Project Path="projects/Swallow.Build.StyleIsolation/test/Swallow.Build.StyleIsolation.ExampleProject/Swallow.Build.StyleIsolation.ExampleProject.csproj" />
     <Project Path="projects/Swallow.Build.StyleIsolation/test/Swallow.Build.StyleIsolation.Test/Swallow.Build.StyleIsolation.Test.csproj" />
   </Folder>
   <Folder Name="/Swallow.ChainOfInjection/" />

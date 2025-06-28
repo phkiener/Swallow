@@ -23,7 +23,7 @@ public sealed class ReplaceCssScope : Task
     /// All existing stylesheets; usually <c>@(RazorComponent)</c>.
     /// </summary>
     [Required]
-    public ITaskItem[] RazorComponents { get; set; }
+    public ITaskItem[] Components { get; set; }
 
     /// <summary>
     /// All existing stylesheets; usually <c>@(_ScopedCss)</c>.
@@ -32,7 +32,7 @@ public sealed class ReplaceCssScope : Task
     public ITaskItem[] Styles { get; set; }
 
     /// <summary>
-    /// All relevant items from <see cref="RazorComponents"/> that belong to <see cref="Items"/> with their CSS scopes replaced.
+    /// All relevant items from <see cref="Components"/> that belong to <see cref="Items"/> with their CSS scopes replaced.
     /// </summary>
     [Output]
     public ITaskItem[] AdjustedComponents { get; set; }
@@ -51,14 +51,14 @@ public sealed class ReplaceCssScope : Task
 
         foreach (var item in Items)
         {
-            var inheritedComponent = RazorComponents.SingleOrDefault(s => s.ItemSpec == item.GetMetadata(InheritMetadata));
+            var inheritedComponent = Components.SingleOrDefault(s => s.ItemSpec == item.GetMetadata(InheritMetadata));
             if (inheritedComponent is null)
             {
                 Log.LogWarning("Component {0} cannot inherit styles from {1}: Component not found.", item.ItemSpec, item.GetMetadata(InheritMetadata));
                 continue;
             }
 
-            var definedComponent = RazorComponents.SingleOrDefault(s => s.ItemSpec == item.ItemSpec);
+            var definedComponent = Components.SingleOrDefault(s => s.ItemSpec == item.ItemSpec);
             if (definedComponent is not null)
             {
                 definedComponent.SetMetadata(CssScopeMetadata, inheritedComponent.GetMetadata(CssScopeMetadata));
