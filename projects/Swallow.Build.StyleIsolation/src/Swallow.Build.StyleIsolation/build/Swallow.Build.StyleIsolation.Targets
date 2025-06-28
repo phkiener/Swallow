@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <Target Name="_ReplaceCssScopes"
+          AfterTargets="$(BeforeReplaceCssScopes)"
+          BeforeTargets="$(AfterReplaceCssScopes)">
+
+    <!-- Expected items are <InheritStyles Include="Some/Component.razor" Inherit="Some/Base.razor" -->
+    <ReplaceCssScope Items="@(InheritStyles)" Components="@(RazorComponent)" Styles="@(_ScopedCss)">
+      <Output TaskParameter="AdjustedComponents" ItemName="_AdjustedComponent" />
+      <Output TaskParameter="AdjustedStyles" ItemName="_AdjustedStyle" />
+    </ReplaceCssScope>
+
+    <ItemGroup>
+      <!-- Remove the items so that the originals (based on their identity) are flushed out... -->
+      <RazorComponent Remove="@(_AdjustedComponent)" />
+      <_ScopedCss Remove="@(_AdjustedStyle)" />
+
+      <!-- ...before adding them again, but this time including the overriden scope-->
+      <RazorComponent Include="@(_AdjustedComponent)" />
+      <_ScopedCss Include="@(_AdjustedStyle)" />
+    </ItemGroup>
+  </Target>
+
+</Project>

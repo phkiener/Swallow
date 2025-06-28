@@ -1,0 +1,43 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="../../../../build/Publish.props" />
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+    <BuildOutputTargetFolder>tasks</BuildOutputTargetFolder>
+    <NoWarn>NU5100;$(NoWarn)</NoWarn>
+    <SuppressDependenciesWhenPacking>true</SuppressDependenciesWhenPacking>
+
+    <IsPackable>true</IsPackable>
+    <Authors>Philipp Kiener</Authors>
+    <Description>A collection of build targets to improve upon the builtin style isolation of Razor components</Description>
+    <PackageTags>blazor razor components style-isolation msbuild build inherit styles cssscope</PackageTags>
+    <Copyright>2025 Philipp Kiener</Copyright>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Build.Utilities.Core"
+                      Version="17.0.0"
+                      PrivateAssets="All"
+                      ExcludeAssets="Runtime" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="build/Swallow.Build.StyleIsolation.props" PackagePath="build/" />
+    <Content Include="build/Swallow.Build.StyleIsolation.targets" PackagePath="build/" />
+  </ItemGroup>
+
+  <Target Name="AddBuildDependencyFileToBuiltProjectOutputGroupOutput"
+          BeforeTargets="BuiltProjectOutputGroup">
+
+    <ItemGroup>
+      <BuiltProjectOutputGroupOutput Include="$(ProjectDepsFilePath)"
+                                     TargetPath="$(ProjectDepsFileName)"
+                                     FinalOutputPath="$(ProjectDepsFilePath)" />
+    </ItemGroup>
+  </Target>
+</Project>
