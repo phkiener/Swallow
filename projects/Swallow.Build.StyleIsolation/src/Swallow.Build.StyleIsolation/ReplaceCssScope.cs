@@ -46,6 +46,12 @@ public sealed class ReplaceCssScope : Task
     /// <inheritdoc />
     public override bool Execute()
     {
+        if (DetectLoops(Items))
+        {
+            Log.LogError("Loops detected while enumerating inheritance.");
+            return false;
+        }
+
         var adjustedComponents = new List<ITaskItem>();
         var adjustedStyles = new List<ITaskItem>();
 
@@ -58,17 +64,24 @@ public sealed class ReplaceCssScope : Task
                 continue;
             }
 
+            var scope = inheritedComponent.GetMetadata(CssScopeMetadata);
+            if (string.IsNullOrEmpty(scope))
+            {
+                Log.LogWarning("Component {0} cannot inherit styles from {1}: Component does not have a CSS scope.", item.ItemSpec, inheritedComponent.ItemSpec);
+                continue;
+            }
+
             var definedComponent = Components.SingleOrDefault(s => s.ItemSpec == item.ItemSpec);
             if (definedComponent is not null)
             {
-                definedComponent.SetMetadata(CssScopeMetadata, inheritedComponent.GetMetadata(CssScopeMetadata));
+                definedComponent.SetMetadata(CssScopeMetadata, scope);
                 adjustedComponents.Add(definedComponent);
             }
 
             var definedStyle = Styles.SingleOrDefault(s => s.ItemSpec == item.ItemSpec + ".css");
             if (definedStyle is not null)
             {
-                definedStyle.SetMetadata(CssScopeMetadata, inheritedComponent.GetMetadata(CssScopeMetadata));
+                definedStyle.SetMetadata(CssScopeMetadata, scope);
                 adjustedStyles.Add(definedStyle);
             }
         }
@@ -77,5 +90,13 @@ public sealed class ReplaceCssScope : Task
         AdjustedStyles = adjustedStyles.ToArray();
 
         return true;
+    }
+
+    private static bool DetectLoops(ITaskItem[] items)
+    {
+        var allItems = new HashSet<string>(items.Select(static i => i.ItemSpec));
+        var allInherits = new HashSet<string>(items.Select(static i => i.GetMetadata(InheritMetadata)));
+
+        return allItems.Overlaps(allInherits);
     }
 }
