@@ -35,13 +35,13 @@ public sealed class ReplaceCssScope : Task
     /// All relevant items from <see cref="Components"/> that belong to <see cref="Items"/> with their CSS scopes replaced.
     /// </summary>
     [Output]
-    public ITaskItem[] AdjustedComponents { get; set; }
+    public ITaskItem[] AdjustedComponents { get; private set; }
 
     /// <summary>
     /// All relevant items from <see cref="Styles"/> that belong to <see cref="Items"/> with their CSS scopes replaced.
     /// </summary>
     [Output]
-    public ITaskItem[] AdjustedStyles { get; set; }
+    public ITaskItem[] AdjustedStyles { get; private set; }
 
     /// <inheritdoc />
     public override bool Execute()
