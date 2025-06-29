@@ -2,6 +2,8 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
   <PropertyGroup>
+    <_TaskAssembly>$(MSBuildThisFileDirectory)../tasks/netstandard2.0/Swallow.Build.StyleIsolation.dll</_TaskAssembly>
+
     <!-- Make sure the scopes have already been initialized -->
     <BeforeReplaceCssScopes>ResolveRazorComponentInputs;ResolveCssScopes;$(BeforeReplaceCssScopes)</BeforeReplaceCssScopes>
 
@@ -9,7 +11,7 @@
     <AfterReplaceCssScopes>AssignRazorComponentTargetPaths;$(AfterReplaceCssScopes)</AfterReplaceCssScopes>
   </PropertyGroup>
 
-  <UsingTask TaskName="ReplaceCssScope" AssemblyFile="$(MSBuildThisFileDirectory)../tasks/netstandard2.0/Swallow.Build.StyleIsolation.dll" />
-  <UsingTask TaskName="AppendCssScope" AssemblyFile="$(MSBuildThisFileDirectory)../tasks/netstandard2.0/Swallow.Build.StyleIsolation.dll" />
+  <UsingTask TaskName="ReplaceCssScope" AssemblyFile="$(_TaskAssembly)" />
+  <UsingTask TaskName="AppendCssScope" AssemblyFile="$(_TaskAssembly)" />
 
 </Project>
