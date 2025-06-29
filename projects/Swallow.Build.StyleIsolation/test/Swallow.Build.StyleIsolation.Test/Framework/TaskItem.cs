@@ -55,6 +55,14 @@ public sealed class InheritStyleItem : TaskItem
     }
 }
 
+public sealed class AppendStyleItem : TaskItem
+{
+    public AppendStyleItem(string Path, string From) : base(Path)
+    {
+        SetMetadata("From", From);
+    }
+}
+
 public sealed class RazorComponentItem : TaskItem
 {
     public RazorComponentItem(string Path, string CssScope) : base(Path)

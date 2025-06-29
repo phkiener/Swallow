@@ -1,9 +1,10 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
-  <UsingTask TaskName="Swallow.Build.StyleIsolation.ReplaceCssScope"
-             AssemblyFile="../../src/Swallow.Build.StyleIsolation/bin/$(Configuration)/netstandard2.0/Swallow.Build.StyleIsolation.dll" />
 
-  <Import Project="../../src/Swallow.Build.StyleIsolation/build/Swallow.Build.StyleIsolation.props" />
-  <Import Project="../../src/Swallow.Build.StyleIsolation/build/Swallow.Build.StyleIsolation.targets" />
+  <UsingTask TaskName="ReplaceCssScope" AssemblyFile="$(MSBuildThisFileDirectory)../../src/Swallow.Build.StyleIsolation/bin/$(Configuration)/netstandard2.0/Swallow.Build.StyleIsolation.dll" />
+  <UsingTask TaskName="AppendCssScope" AssemblyFile="$(MSBuildThisFileDirectory)../../src/Swallow.Build.StyleIsolation/bin/$(Configuration)/netstandard2.0/Swallow.Build.StyleIsolation.dll" />
+
+  <Import Project="$(MSBuildThisFileDirectory)../../src/Swallow.Build.StyleIsolation/build/Swallow.Build.StyleIsolation.props" />
+  <Import Project="$(MSBuildThisFileDirectory)../../src/Swallow.Build.StyleIsolation/build/Swallow.Build.StyleIsolation.targets" />
 
   <PropertyGroup>
     <TargetFramework>net9.0</TargetFramework>
@@ -17,9 +18,7 @@
   <ItemGroup>
     <InheritStyles Include="DerivedInherit.razor" Inherit="Base.razor" />
     <InheritStyles Include="DerivedInheritNoStyle.razor" Inherit="Base.razor" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="out\" />
+    <AppendStyles Include="DerivedAppend.razor" From="Base.razor" />
+    <AppendStyles Include="DerivedAppendNoStyle.razor" From="Base.razor" />
   </ItemGroup>
 </Project>

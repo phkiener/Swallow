@@ -23,11 +23,18 @@ public sealed class IntegrationTest
     {
         await RenderFilesAsync();
 
+        // Baseline
         await AssertRenderedFileAsync(filename: "Base.rendered", expectedAttribute: "b-qsyb1vuczk", expectedScope: "b-qsyb1vuczk");
         await AssertRenderedFileAsync(filename: "DerivedDefault.rendered", expectedAttribute: "b-zz8pluwsp4", expectedScope: "b-zz8pluwsp4");
         await AssertRenderedFileAsync(filename: "DerivedDefaultNoStyle.rendered", expectedAttribute: null, expectedScope: null);
+
+        // With inherit
         await AssertRenderedFileAsync(filename: "DerivedInherit.rendered", expectedAttribute: "b-qsyb1vuczk", expectedScope: "b-qsyb1vuczk");
         await AssertRenderedFileAsync(filename: "DerivedInheritNoStyle.rendered", expectedAttribute: "b-qsyb1vuczk", expectedScope: null);
+
+        // With append
+        await AssertRenderedFileAsync(filename: "DerivedAppend.rendered", expectedAttribute: "b-5blqvw4dak b-qsyb1vuczk", expectedScope: "b-5blqvw4dak");
+        await AssertRenderedFileAsync(filename: "DerivedAppendNoStyle.rendered", expectedAttribute: "b-qsyb1vuczk", expectedScope: null);
     }
 
     private async Task RenderFilesAsync()

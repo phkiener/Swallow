@@ -9,7 +9,7 @@
     <AfterReplaceCssScopes>AssignRazorComponentTargetPaths;$(AfterReplaceCssScopes)</AfterReplaceCssScopes>
   </PropertyGroup>
 
-  <UsingTask TaskName="$(MSBuildThisFileName).ReplaceCssScope"
-             AssemblyFile="$(MSBuildThisFileDirectory)../tasks/netstandard2.0/Swallow.Build.StyleIsolation.dll" />
+  <UsingTask TaskName="ReplaceCssScope" AssemblyFile="$(MSBuildThisFileDirectory)../tasks/netstandard2.0/Swallow.Build.StyleIsolation.dll" />
+  <UsingTask TaskName="AppendCssScope" AssemblyFile="$(MSBuildThisFileDirectory)../tasks/netstandard2.0/Swallow.Build.StyleIsolation.dll" />
 
 </Project>
