@@ -21,7 +21,7 @@ attribute pointing to the component to inherit the styles from.
 
 ```xml
 <ItemGroup>
-  <PackageReference Include="Swallow.Build.StyleIsolation" PrivateAssets="all" ExcludeAssets="Runtime" />
+  <PackageReference Include="Swallow.Build.StyleIsolation" />
   <InheritStyles Include="Components/SpecificButton.razor" From="Components/CoolButton.razor" />
 
   <!-- Or, alternatively: -->
