@@ -41,15 +41,15 @@ Razor component with a stylesheet and modifies both so that:
 1. All plain HTML tags rendered by the component include that tag as attribute
 2. All CSS selectors in the stylesheet match on that specific attribute
 
-When using `AppendStyles`, the attribute rendered by the included component will
-contain *both* the tag for the component itself as well as the tag for the
-component specified by `From`, while the included component's stylesheet will
-still match on the original tag.
-
 When using `InheritStyles`, the attribute rendered by the included component
 will be *exactly the same* as for the component specified by `From` and all
 the selectors for the included component's stylesheet will match on that
 attribute instead.
+
+When using `AppendStyles`, the attribute rendered by the included component will
+contain *both* the tag for the component itself as well as the tag for the
+component specified by `From`, while the included component's stylesheet will
+still match on the original tag.
 
 ![Visualization of this process](./doc/example.svg)
 
