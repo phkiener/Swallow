@@ -10,7 +10,7 @@ namespace Swallow.Build.StyleIsolation;
 /// </summary>
 public sealed class ReplaceCssScope : Task
 {
-    private const string InheritMetadata = "Inherit";
+    private const string FromMetadata = "From";
     private const string CssScopeMetadata = "CssScope";
 
     /// <summary>
@@ -57,10 +57,10 @@ public sealed class ReplaceCssScope : Task
 
         foreach (var item in Items)
         {
-            var inheritedComponent = Components.SingleOrDefault(s => s.ItemSpec == item.GetMetadata(InheritMetadata));
+            var inheritedComponent = Components.SingleOrDefault(s => s.ItemSpec == item.GetMetadata(FromMetadata));
             if (inheritedComponent is null)
             {
-                Log.LogWarning("Component {0} cannot inherit styles from {1}: Component not found.", item.ItemSpec, item.GetMetadata(InheritMetadata));
+                Log.LogWarning("Component {0} cannot inherit styles from {1}: Component not found.", item.ItemSpec, item.GetMetadata(FromMetadata));
                 continue;
             }
 
@@ -95,7 +95,7 @@ public sealed class ReplaceCssScope : Task
     private static bool DetectLoops(ITaskItem[] items)
     {
         var allItems = new HashSet<string>(items.Select(static i => i.ItemSpec));
-        var allInherits = new HashSet<string>(items.Select(static i => i.GetMetadata(InheritMetadata)));
+        var allInherits = new HashSet<string>(items.Select(static i => i.GetMetadata(FromMetadata)));
 
         return allItems.Overlaps(allInherits);
     }

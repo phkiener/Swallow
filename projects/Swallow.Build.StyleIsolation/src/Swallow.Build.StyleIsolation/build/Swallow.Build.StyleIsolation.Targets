@@ -25,7 +25,7 @@
           AfterTargets="$(BeforeReplaceCssScopes)"
           BeforeTargets="$(AfterReplaceCssScopes)">
 
-    <!-- Expected items are <InheritStyles Include="Some/Component.razor" Inherit="Some/Base.razor" -->
+    <!-- Expected items are <InheritStyles Include="Some/Component.razor" From="Some/Base.razor" -->
     <ReplaceCssScope Items="@(InheritStyles)" Components="@(RazorComponent)" Styles="@(_ScopedCss)">
       <Output TaskParameter="AdjustedComponents" ItemName="_AdjustedComponent" />
       <Output TaskParameter="AdjustedStyles" ItemName="_AdjustedStyle" />

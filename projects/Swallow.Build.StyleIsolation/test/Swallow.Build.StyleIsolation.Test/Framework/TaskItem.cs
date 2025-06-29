@@ -49,9 +49,9 @@ public abstract class TaskItem(string Identity) : ITaskItem
 
 public sealed class InheritStyleItem : TaskItem
 {
-    public InheritStyleItem(string Path, string Inherit) : base(Path)
+    public InheritStyleItem(string Path, string From) : base(Path)
     {
-        SetMetadata("Inherit", Inherit);
+        SetMetadata("From", From);
     }
 }
 

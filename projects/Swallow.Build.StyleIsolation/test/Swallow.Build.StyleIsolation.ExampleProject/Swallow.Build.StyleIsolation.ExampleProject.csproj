@@ -16,8 +16,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <InheritStyles Include="DerivedInherit.razor" Inherit="Base.razor" />
-    <InheritStyles Include="DerivedInheritNoStyle.razor" Inherit="Base.razor" />
+    <InheritStyles Include="DerivedInherit.razor" From="Base.razor" />
+    <InheritStyles Include="DerivedInheritNoStyle.razor" From="Base.razor" />
     <AppendStyles Include="DerivedAppend.razor" From="Base.razor" />
     <AppendStyles Include="DerivedAppendNoStyle.razor" From="Base.razor" />
   </ItemGroup>

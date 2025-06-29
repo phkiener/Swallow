@@ -16,7 +16,7 @@ public sealed class ReplaceCssScopeTest
     [Test]
     public void DoesNothing_WhenInheritedComponentDoesNotExist()
     {
-        task.Items = [new InheritStyleItem(Path: "Component.razor", Inherit: "Fake.razor")];
+        task.Items = [new InheritStyleItem(Path: "Component.razor", From: "Fake.razor")];
         task.Components = [new RazorComponentItem(Path: "Component.razor", CssScope: "b-aaaaaaaaaa")];
         task.Styles = [new ScopedCssItem(Path: "Component.razor.css", CssScope: "b-aaaaaaaaaa")];
 
@@ -31,7 +31,7 @@ public sealed class ReplaceCssScopeTest
     [Test]
     public void DoesNothing_WhenInheritedComponentDoesNotHaveStyles()
     {
-        task.Items = [new InheritStyleItem(Path: "Component.razor", Inherit: "Fake.razor")];
+        task.Items = [new InheritStyleItem(Path: "Component.razor", From: "Fake.razor")];
         task.Components = [new RazorComponentItem(Path: "Component.razor", CssScope: "b-aaaaaaaaaa"), new RazorComponentItem("Fake.razor", CssScope: null)];
         task.Styles = [new ScopedCssItem(Path: "Component.razor.css", CssScope: "b-aaaaaaaaaa")];
 
@@ -46,7 +46,7 @@ public sealed class ReplaceCssScopeTest
     [Test]
     public void Fails_WhenInheritBuildsACircle()
     {
-        task.Items = [new InheritStyleItem(Path: "A.razor", Inherit: "B.razor"), new InheritStyleItem(Path: "B.razor", Inherit: "A.razor")];
+        task.Items = [new InheritStyleItem(Path: "A.razor", From: "B.razor"), new InheritStyleItem(Path: "B.razor", From: "A.razor")];
         task.Components = [new RazorComponentItem(Path: "A.razor", CssScope: "b-aaaaaaaaaa"), new RazorComponentItem("B.razor", CssScope: "b-0000000000")];
         task.Styles = [new ScopedCssItem(Path: "A.razor.css", CssScope: "b-aaaaaaaaaa"), new ScopedCssItem("B.razor.css", CssScope: "b-0000000000")];
 
@@ -63,7 +63,7 @@ public sealed class ReplaceCssScopeTest
     public void SetsScopeOfComponent_ToScopeOfInheritedComponent()
     {
 
-        task.Items = [new InheritStyleItem(Path: "Derived.razor", Inherit: "Base.razor")];
+        task.Items = [new InheritStyleItem(Path: "Derived.razor", From: "Base.razor")];
         task.Components = [new RazorComponentItem(Path: "Base.razor", CssScope: "b-aaaaaaaaaa"), new RazorComponentItem(Path: "Derived.razor", CssScope: null)];
         task.Styles = [new ScopedCssItem(Path: "Base.razor.css", CssScope: "b-aaaaaaaaaa")];
 
@@ -79,7 +79,7 @@ public sealed class ReplaceCssScopeTest
     [Test]
     public void SetsScopeOfStysheetForComponent_ToScopeOfInheritedComponent()
     {
-        task.Items = [new InheritStyleItem(Path: "Derived.razor", Inherit: "Base.razor")];
+        task.Items = [new InheritStyleItem(Path: "Derived.razor", From: "Base.razor")];
         task.Components = [new RazorComponentItem(Path: "Base.razor", CssScope: "b-aaaaaaaaaa"), new RazorComponentItem(Path: "Derived.razor", CssScope: "b-0000000000")];
         task.Styles = [new ScopedCssItem(Path: "Base.razor.css", CssScope: "b-aaaaaaaaaa"), new ScopedCssItem(Path: "Derived.razor.css", CssScope: "b-0000000000")];
 
