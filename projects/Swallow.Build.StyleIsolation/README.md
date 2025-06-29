@@ -5,7 +5,7 @@ a considerable amount of styles. Now you want to add another, very specific
 button... that shares the common behavior with the `CoolButton.razor`! The
 markup is similar, with some additions here and there. But thanks to the
 style isolation, you'd have to duplicate the *whole* stylesheet to make the
-styles apply to your component. Or, alternatively, define a common, fixed
+styles apply to your new component. Or, alternatively, define a common, fixed
 CSS scope in your project file.
 
 What if you could delegate defining a custom CSS scope to the build? Wouldn't
@@ -29,6 +29,10 @@ attribute pointing to the component to inherit the styles from.
 </ItemGroup>
 ```
 
+Note that you don't actually have to make one `SpecificButton` inherit from
+`CoolButton` - it's just the most likely case. The build task will work without
+it no problems.
+
 ## Exact behavior
 
 In case you don't know yet, the style isolation generates a unique tag per
@@ -47,6 +51,8 @@ will be *exactly the same* as for the component specified by `From` and all
 the selectors for the included component's stylesheet will match on that
 attribute instead.
 
+![Visualization of this process](./doc/example.svg)
+
 Run the [example project](./test/Swallow.Build.StyleIsolation.ExampleProject/Swallow.Build.StyleIsolation.ExampleProject.csproj)
 and take a look inside the generated `out/` folder to see the exact effects in
-these files.
+the generated files.
