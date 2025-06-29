@@ -44,7 +44,8 @@ Razor component with a stylesheet and modifies both so that:
 When using `InheritStyles`, the attribute rendered by the included component
 will be *exactly the same* as for the component specified by `From` and all
 the selectors for the included component's stylesheet will match on that
-attribute instead.
+attribute instead. Which means that the component specified by `From` will have
+access to all styles defined by the included component as well.
 
 When using `AppendStyles`, the attribute rendered by the included component will
 contain *both* the tag for the component itself as well as the tag for the
