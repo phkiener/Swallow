@@ -23,8 +23,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="$(OutputPath)/$(AssemblyName).dll" PackagePath="tasks" Pack="true" Visible="false" />
     <None Update="build/*" PackagePath="build" Pack="true" />
+    <None Include="$(OutputPath)/$(AssemblyName).dll" PackagePath="tasks" Pack="true" Visible="false" />
     <None Include="README.md" PackagePath="/" Pack="true" />
     <None Include="docs/**/*" PackagePath="docs/" Pack="true" />
   </ItemGroup>

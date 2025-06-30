@@ -1,4 +1,5 @@
-﻿<Solution>
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Solution>
   <Folder Name="/Additional items/">
     <File Path=".editorconfig" />
     <File Path=".gitattributes" />
@@ -17,20 +18,22 @@
     <File Path="build/build-package.sh" />
     <File Path="build/Publish.props" />
   </Folder>
+  <Folder Name="/Tooling/">
+    <Project Path="tooling/Swallow.Manager/Swallow.Manager.csproj" />
+  </Folder>
   <Folder Name="/Swallow.Blazor/" />
   <Folder Name="/Swallow.Blazor/Additional items/">
     <File Path="projects/Swallow.Blazor/README.md" />
-    <File Path="projects/Swallow.Blazor/RELEASE_NOTES.md" />
     <File Path="projects/Swallow.Blazor/LICENSE.txt" />
   </Folder>
   <Folder Name="/Swallow.Blazor/Library/">
-    <Project Path="projects/Swallow.Blazor/src/Swallow.Blazor.AdvancedStyleIsolation/Swallow.Blazor.AdvancedStyleIsolation.csproj" />
     <Project Path="projects/Swallow.Blazor/src/Swallow.Blazor.StaticAssetPaths/Swallow.Blazor.StaticAssetPaths.csproj" />
+    <Project Path="projects/Swallow.Blazor/src/Swallow.Blazor.AdvancedStyleIsolation/Swallow.Blazor.AdvancedStyleIsolation.csproj" />
   </Folder>
   <Folder Name="/Swallow.Blazor/Test/">
-    <Project Path="projects/Swallow.Blazor/test/Swallow.Blazor.AdvancedStyleIsolation.ExampleProject/Swallow.Blazor.AdvancedStyleIsolation.ExampleProject.csproj" />
     <Project Path="projects/Swallow.Blazor/test/Swallow.Blazor.AdvancedStyleIsolation.Test/Swallow.Blazor.AdvancedStyleIsolation.Test.csproj" />
     <Project Path="projects/Swallow.Blazor/test/Swallow.Blazor.StaticAssetPaths.Test/Swallow.Blazor.StaticAssetPaths.Test.csproj" />
+    <Project Path="projects/Swallow.Blazor/test/Swallow.Blazor.ExampleProject/Swallow.Blazor.ExampleProject.csproj" />
   </Folder>
   <Folder Name="/Swallow.ChainOfInjection/" />
   <Folder Name="/Swallow.ChainOfInjection/Additional items/">
@@ -41,8 +44,8 @@
     <File Path="projects/Swallow.ChainOfInjection/LICENSE.txt" />
   </Folder>
   <Folder Name="/Swallow.ChainOfInjection/Library/">
-    <Project Path="projects/Swallow.ChainOfInjection/src/Swallow.ChainOfInjection.ServiceCollection/Swallow.ChainOfInjection.ServiceCollection.csproj" />
     <Project Path="projects/Swallow.ChainOfInjection/src/Swallow.ChainOfInjection.SimpleInjector/Swallow.ChainOfInjection.SimpleInjector.csproj" />
+    <Project Path="projects/Swallow.ChainOfInjection/src/Swallow.ChainOfInjection.ServiceCollection/Swallow.ChainOfInjection.ServiceCollection.csproj" />
     <Project Path="projects/Swallow.ChainOfInjection/src/Swallow.ChainOfInjection/Swallow.ChainOfInjection.csproj" />
   </Folder>
   <Folder Name="/Swallow.ChainOfInjection/Test/">
@@ -150,17 +153,14 @@
     <File Path="projects/Swallow.Validation/LICENSE.txt" />
   </Folder>
   <Folder Name="/Swallow.Validation/Library/">
-    <Project Path="projects/Swallow.Validation/src/Swallow.Validation.Assertions/Swallow.Validation.Assertions.csproj" />
     <Project Path="projects/Swallow.Validation/src/Swallow.Validation.Core/Swallow.Validation.Core.csproj" />
+    <Project Path="projects/Swallow.Validation/src/Swallow.Validation.Assertions/Swallow.Validation.Assertions.csproj" />
     <Project Path="projects/Swallow.Validation/src/Swallow.Validation.ServiceCollection/Swallow.Validation.ServiceCollection.csproj" />
   </Folder>
   <Folder Name="/Swallow.Validation/Test/">
     <Project Path="projects/Swallow.Validation/test/Swallow.Validation.Assertions.Test/Swallow.Validation.Assertions.Test.csproj" />
-    <Project Path="projects/Swallow.Validation/test/Swallow.Validation.Core.Test/Swallow.Validation.Core.Test.csproj" />
-    <Project Path="projects/Swallow.Validation/test/Swallow.Validation.ServiceCollection.Test/Swallow.Validation.ServiceCollection.Test.csproj" />
     <Project Path="projects/Swallow.Validation/test/Swallow.Validation.TestUtils/Swallow.Validation.TestUtils.csproj" />
-  </Folder>
-  <Folder Name="/Tooling/">
-    <Project Path="tooling/Swallow.Manager/Swallow.Manager.csproj" />
+    <Project Path="projects/Swallow.Validation/test/Swallow.Validation.ServiceCollection.Test/Swallow.Validation.ServiceCollection.Test.csproj" />
+    <Project Path="projects/Swallow.Validation/test/Swallow.Validation.Core.Test/Swallow.Validation.Core.Test.csproj" />
   </Folder>
 </Solution>

@@ -14,7 +14,7 @@ public sealed class IntegrationTest
         var assemblyPath = typeof(IntegrationTest).Assembly.Location;
         var projectPath = Path.GetFullPath(Path.Combine(assemblyPath, "../../../../"));
 
-        exampleProjectPath = Path.Combine(projectPath, "../Swallow.Blazor.AdvancedStyleIsolation.ExampleProject");
+        exampleProjectPath = Path.Combine(projectPath, "../Swallow.Blazor.ExampleProject");
         outputPath = Path.Combine(projectPath, "out");
     }
 
@@ -24,17 +24,17 @@ public sealed class IntegrationTest
         await RenderFilesAsync();
 
         // Baseline
-        await AssertRenderedFileAsync(filename: "Base.rendered", expectedAttribute: "b-vidivxz9sz", expectedScope: "b-vidivxz9sz");
-        await AssertRenderedFileAsync(filename: "DerivedDefault.rendered", expectedAttribute: "b-58vjkcu8nm", expectedScope: "b-58vjkcu8nm");
+        await AssertRenderedFileAsync(filename: "Base.rendered", expectedAttribute: "b-ccehgx1k1d", expectedScope: "b-ccehgx1k1d");
+        await AssertRenderedFileAsync(filename: "DerivedDefault.rendered", expectedAttribute: "b-tzhffmsxpc", expectedScope: "b-tzhffmsxpc");
         await AssertRenderedFileAsync(filename: "DerivedDefaultNoStyle.rendered", expectedAttribute: null, expectedScope: null);
 
         // With inherit
-        await AssertRenderedFileAsync(filename: "DerivedInherit.rendered", expectedAttribute: "b-vidivxz9sz", expectedScope: "b-vidivxz9sz");
-        await AssertRenderedFileAsync(filename: "DerivedInheritNoStyle.rendered", expectedAttribute: "b-vidivxz9sz", expectedScope: null);
+        await AssertRenderedFileAsync(filename: "DerivedInherit.rendered", expectedAttribute: "b-ccehgx1k1d", expectedScope: "b-ccehgx1k1d");
+        await AssertRenderedFileAsync(filename: "DerivedInheritNoStyle.rendered", expectedAttribute: "b-ccehgx1k1d", expectedScope: null);
 
         // With append
-        await AssertRenderedFileAsync(filename: "DerivedAppend.rendered", expectedAttribute: "b-sbp7vt9gm8 b-vidivxz9sz", expectedScope: "b-sbp7vt9gm8");
-        await AssertRenderedFileAsync(filename: "DerivedAppendNoStyle.rendered", expectedAttribute: "b-vidivxz9sz", expectedScope: null);
+        await AssertRenderedFileAsync(filename: "DerivedAppend.rendered", expectedAttribute: "b-1fmqo3s304 b-ccehgx1k1d", expectedScope: "b-1fmqo3s304");
+        await AssertRenderedFileAsync(filename: "DerivedAppendNoStyle.rendered", expectedAttribute: "b-ccehgx1k1d", expectedScope: null);
     }
 
     private async Task RenderFilesAsync()

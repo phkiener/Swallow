@@ -15,6 +15,7 @@
     <Description>Source generator to provide compile-time constant paths for files found in your wwwroot</Description>
     <PackageTags>blazor razor wwwroot source-generator web-assets</PackageTags>
     <Copyright>2025 Philipp Kiener</Copyright>
+    <ReadmeFilePath>README.md</ReadmeFilePath>
   </PropertyGroup>
 
   <ItemGroup>
@@ -23,7 +24,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="$(OutputPath)\$(AssemblyName).dll" PackagePath="analyzers/dotnet/cs" Pack="true" Visible="false" />
     <None Update="build\*" PackagePath="build" Pack="true" />
+    <None Include="$(OutputPath)\$(AssemblyName).dll" PackagePath="analyzers/dotnet/cs" Pack="true" Visible="false" />
+    <None Include="README.md" PackagePath="/" Pack="true" />
   </ItemGroup>
 </Project>

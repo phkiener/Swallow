@@ -1,3 +1,11 @@
+[![Swallow.Blazor.AdvancedStyleIsolation](https://img.shields.io/nuget/v/Swallow.Blazor.AdvancedStyleIsolation?style=for-the-badge&logo=nuget)](https://www.nuget.org/packages/Swallow.Blazor.AdvancedStyleIsolation/)
+&nbsp;
+![MSBuild Task](https://img.shields.io/badge/c%23-msbuild%20task-blue?style=for-the-badge)
+&nbsp;
+![MIT license](https://img.shields.io/badge/license-mit-brightgreen?style=for-the-badge)
+
+---
+
 # Flexible style isolation for Razor components
 
 Consider this scenario: You've got a `CoolButton.razor` component that contains
@@ -54,6 +62,6 @@ still match on the original tag.
 
 ![Visualization of this process](./docs/example.svg)
 
-Run the [example project](./test/Swallow.Build.StyleIsolation.ExampleProject/Swallow.Build.StyleIsolation.ExampleProject.csproj)
+Run the [example project](../../test/Swallow.Blazor.ExampleProject/Swallow.Blazor.ExampleProject.csproj)
 and take a look inside the generated `out/` folder to see the exact effects in
 the generated files.
