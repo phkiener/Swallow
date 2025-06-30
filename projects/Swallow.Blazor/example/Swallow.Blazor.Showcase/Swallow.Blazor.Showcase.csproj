@@ -3,7 +3,10 @@
     <ProjectReference Include="..\..\src\Swallow.Blazor.Primitives\Swallow.Blazor.Primitives.csproj" />
     <ProjectReference Include="..\..\src\Swallow.Blazor.StaticAssetPaths\Swallow.Blazor.StaticAssetPaths.csproj"
                       OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
-    <AdditionalFiles Include="@(Content)" SourceItemGroup="WebAsset" />
-    <AdditionalFiles Include="**/*.razor.js" SourceItemGroup="WebAsset" />
+    
+    <AdditionalFiles Include="wwwroot\**" SourceItemGroup="Content" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)"/>
+    
+    <AdditionalFiles Include="**/*.razor.js" SourceItemGroup="Content" Exclude="$(DefaultExcludesInProjectFolder)"/>
+    <AdditionalFiles Include="**/*.cshtml.js" SourceItemGroup="Content" Exclude="$(DefaultExcludesInProjectFolder)" />
   </ItemGroup>
 </Project>

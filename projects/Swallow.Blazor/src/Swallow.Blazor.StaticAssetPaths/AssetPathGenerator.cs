@@ -24,24 +24,24 @@ public sealed class AssetPathGenerator : IIncrementalGenerator
             return;
         }
 
-        var textBuilder = new StringBuilder();
-        var rootNamespace = sourceData.Right.GlobalOptions.TryGetValue("build_property.rootnamespace", out var a) ? a : "Assets";
-
-        textBuilder.AppendLine($"namespace {rootNamespace};");
-        textBuilder.AppendLine();
-        textBuilder.AppendLine("public static class AssetPaths");
-        textBuilder.AppendLine("{");
-
-        var projectDirectory = sourceData.Right.GlobalOptions.TryGetValue("build_property.projectdir", out var b) ? b : "/";
-        var map = new AssetMap(FindAssets(projectDirectory, sourceData.Left));
-        foreach (var asset in map.EnumerateNodes())
+        try
         {
-            WriteNode(textBuilder, asset);
+            var textBuilder = new StringBuilder();
+            var rootNamespace = sourceData.Right.GlobalOptions.TryGetValue("build_property.rootnamespace", out var a) ? a : "Assets";
+
+            textBuilder.AppendLine($"namespace {rootNamespace};");
+            textBuilder.AppendLine();
+
+            var projectDirectory = sourceData.Right.GlobalOptions.TryGetValue("build_property.projectdir", out var b) ? b : "/";
+            var map = new AssetMap(FindAssets(projectDirectory, sourceData.Left));
+            WriteNode(textBuilder, map.RootNode());
+
+            context.AddSource("StaticAssets.g.cs", textBuilder.ToString());
         }
-
-        textBuilder.AppendLine("}");
-
-        context.AddSource("StaticAssets.g.cs", textBuilder.ToString());
+        catch (Exception e)
+        {
+            context.AddSource("StaticAssets.g.text", e.ToString());
+        }
     }
 
     private static IEnumerable<DefinedAsset> FindAssets(string projectDirectory, IEnumerable<AdditionalText> files)
@@ -60,20 +60,19 @@ public sealed class AssetPathGenerator : IIncrementalGenerator
             }
 
             var relativePath = file.Path.Substring(projectDirectory.Length);
-            var fileName = Path.GetFileNameWithoutExtension(file.Path).Replace('.', '_');
+            var fileName = Path.GetFileName(file.Path);
             var segments = Path.GetDirectoryName(relativePath)?.Split(['/'], StringSplitOptions.RemoveEmptyEntries) ?? [];
 
             yield return new DefinedAsset(
                 relativePath,
                 [
-                    ToSafeIdentifier(ToPascalCase(extension.Substring(1))),
-                    ..segments.Select(ToPascalCase).Select(ToSafeIdentifier),
-                    ToSafeIdentifier(ToPascalCase(fileName))
+                    ..segments.Select(ToPascalCase),
+                    ToPascalCase(fileName)
                 ]);
         }
     }
 
-    private static void WriteNode(StringBuilder builder, AssetMap.Node node, int indent = 4)
+    private static void WriteNode(StringBuilder builder, AssetMap.Node node, int indent = 0)
     {
         var padding = new string(' ', indent);
         builder.AppendLine($"{padding}public static class {node.Name}");
@@ -81,7 +80,7 @@ public sealed class AssetPathGenerator : IIncrementalGenerator
         foreach (var asset in node.Assets)
         {
             builder.AppendLine($"{padding}    /// <summary>");
-            builder.AppendLine($"{padding}    /// Path for <c>{asset.Path}</c>");
+            builder.AppendLine($"{padding}    /// Points to <c>{asset.Path}</c>");
             builder.AppendLine($"{padding}    /// </summary>");
             builder.AppendLine($"{padding}    public static readonly string {asset.NameSegments.Last()} = \"{asset.Path}\";");
             builder.AppendLine();
@@ -103,11 +102,7 @@ public sealed class AssetPathGenerator : IIncrementalGenerator
             return text;
         }
 
-        return char.ToUpperInvariant(text[0]) + text.Substring(1);
-    }
-
-    private static string ToSafeIdentifier(string text)
-    {
-        return text.Replace('.', '_').Replace('-', '_');
+        var words = text.Split(['.', '_', '-'], StringSplitOptions.RemoveEmptyEntries);
+        return string.Join("", words.Select(static w => char.ToUpperInvariant(w[0]) + w.Substring(1)));
     }
 }

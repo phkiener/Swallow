@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Immutable;
 
 namespace Swallow.Blazor.StaticAssetPaths;
@@ -13,11 +14,9 @@ public sealed class AssetMap(IEnumerable<DefinedAsset> assets)
         public ImmutableArray<Node> Nodes { get; } = [..nodes.OrderBy(static a => a.Name)];
     }
 
-    public IEnumerable<Node> EnumerateNodes()
+    public Node RootNode()
     {
-        return assets
-            .GroupBy(static asset => asset.NameSegments[0])
-            .Select(static segment => BuildNode(segment, 1));
+        return BuildNode(new Group<string, DefinedAsset>("AssetPaths", assets), 0);
     }
 
     private static Node BuildNode(IGrouping<string, DefinedAsset> group, int nextIndex)
@@ -30,5 +29,20 @@ public sealed class AssetMap(IEnumerable<DefinedAsset> assets)
             .Select(g => BuildNode(g, nextIndex + 1));
 
         return new Node(group.Key, assets, groups);
+    }
+
+    private sealed class Group<TKey, TValue>(TKey name, IEnumerable<TValue> items) : IGrouping<TKey, TValue>
+    {
+        public IEnumerator<TValue> GetEnumerator()
+        {
+            return items.GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
+
+        public TKey Key { get; } = name;
     }
 }
