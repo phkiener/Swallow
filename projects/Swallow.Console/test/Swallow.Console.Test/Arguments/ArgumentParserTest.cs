@@ -1,3 +1,6 @@
+// ReSharper disable All
+// Lotta things are unused here - we just need the definitions for reflection
+
 namespace Swallow.Console.Arguments;
 
 [TestFixture]

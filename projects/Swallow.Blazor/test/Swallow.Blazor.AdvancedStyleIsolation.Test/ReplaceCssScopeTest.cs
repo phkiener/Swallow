@@ -55,8 +55,8 @@ public sealed class ReplaceCssScopeTest
         var result = task.Execute();
 
         Assert.That(result, Is.False);
-        Assert.That(task.AdjustedComponents, Is.Null);
-        Assert.That(task.AdjustedStyles, Is.Null);
+        Assert.That(task.AdjustedComponents, Is.Empty);
+        Assert.That(task.AdjustedStyles, Is.Empty);
         Assert.That(buildEngine.Logs, Is.Not.Empty);
         Assert.That(buildEngine.Logs.Single(), Does.Contain("ERR").And.Contain("Loops detected"));
     }

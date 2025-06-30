@@ -1,7 +1,5 @@
-using System.Collections.Generic;
-using System.Linq;
 using Microsoft.Build.Framework;
-using Microsoft.Build.Utilities;
+using Task = Microsoft.Build.Utilities.Task;
 
 namespace Swallow.Blazor.AdvancedStyleIsolation;
 
@@ -17,19 +15,19 @@ public sealed class AppendCssScope : Task
     /// All <c>@(InheritStyles)</c> items whose CSS scope to adjust.
     /// </summary>
     [Required]
-    public ITaskItem[] Items { get; set; }
+    public ITaskItem[] Items { get; set; } = [];
 
     /// <summary>
     /// All existing stylesheets; usually <c>@(RazorComponent)</c>.
     /// </summary>
     [Required]
-    public ITaskItem[] Components { get; set; }
+    public ITaskItem[] Components { get; set; } = [];
 
     /// <summary>
     /// All relevant items from <see cref="Components"/> that belong to <see cref="Items"/> with their CSS scopes replaced.
     /// </summary>
     [Output]
-    public ITaskItem[] AdjustedComponents { get; private set; }
+    public ITaskItem[] AdjustedComponents { get; private set; } = [];
 
     /// <inheritdoc />
     public override bool Execute()
