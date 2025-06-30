@@ -12,6 +12,7 @@ public sealed class AssetPathGenerator : IIncrementalGenerator
     {
         var sourceData = context.AdditionalTextsProvider.Collect()
             .Combine(context.AnalyzerConfigOptionsProvider);
+
         context.RegisterSourceOutput(sourceData, GeneratePathFile);
     }
 
@@ -54,7 +55,9 @@ public sealed class AssetPathGenerator : IIncrementalGenerator
             }
 
             var extension = Path.GetExtension(file.Path);
-            if (extension is ".razor")
+
+            // We don't want to include any *other* AdditionalTexts, only our own
+            if (extension is ".razor" or ".cshtml")
             {
                 continue;
             }
@@ -79,10 +82,16 @@ public sealed class AssetPathGenerator : IIncrementalGenerator
         builder.AppendLine($"{padding}{{");
         foreach (var asset in node.Assets)
         {
+            var filePath = asset.Path;
+            if (filePath.StartsWith("wwwroot/"))
+            {
+                filePath = filePath.Substring(8);
+            }
+
             builder.AppendLine($"{padding}    /// <summary>");
             builder.AppendLine($"{padding}    /// Points to <c>{asset.Path}</c>");
             builder.AppendLine($"{padding}    /// </summary>");
-            builder.AppendLine($"{padding}    public static readonly string {asset.NameSegments.Last()} = \"{asset.Path}\";");
+            builder.AppendLine($"{padding}    public static readonly string {asset.NameSegments.Last()} = \"{filePath}\";");
             builder.AppendLine();
         }
 

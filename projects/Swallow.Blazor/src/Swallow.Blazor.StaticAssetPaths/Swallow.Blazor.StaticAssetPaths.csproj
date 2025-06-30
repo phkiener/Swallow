@@ -22,5 +22,9 @@
           PackagePath="analyzers/dotnet/cs"
           Pack="true"
           Visible="false" />
+    
+    <None Update="build\$(AssemblyName).props"
+          PackagePath="build"
+          Pack="true" />
   </ItemGroup>
 </Project>

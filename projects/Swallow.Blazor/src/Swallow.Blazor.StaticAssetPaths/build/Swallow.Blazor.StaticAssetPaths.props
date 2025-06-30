@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <!--
+    Include all content items to generate paths for - manually. Simply including Content would require to run this
+    include at a *very* specific time, so we'll start slow by just including the items by ourselves.
+
+    Excludes are controlled using the .NET defaults DefaultItemExcludes and DefaultExcludesInProjectFolder, so that
+    should work out of the box. But a manual <Content Exclude="..." /> or <Content Remove="..." /> is *not* respected.
+
+    We need to use AdditionalFiles because only those are available inside a source generator.
+  -->
+  <ItemGroup>
+    <AdditionalFiles Include="wwwroot/**" SourceItemGroup="Content" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)"/>
+    <AdditionalFiles Include="**/*.razor.js" SourceItemGroup="Content" Exclude="$(DefaultExcludesInProjectFolder)"/>
+    <AdditionalFiles Include="**/*.cshtml.js" SourceItemGroup="Content" Exclude="$(DefaultExcludesInProjectFolder)" />
+  </ItemGroup>
+
+</Project>
