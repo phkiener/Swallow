@@ -2,7 +2,7 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
   <PropertyGroup>
-    <_TaskAssembly>$(MSBuildThisFileDirectory)../tasks/netstandard2.0/Swallow.Blazor.AdvancedStyleIsolation.Test.dll</_TaskAssembly>
+    <_TaskAssembly>$(MSBuildThisFileDirectory)../tasks/netstandard2.0/Swallow.Blazor.AdvancedStyleIsolation.dll</_TaskAssembly>
 
     <!-- Make sure the scopes have already been initialized -->
     <BeforeReplaceCssScopes>ResolveRazorComponentInputs;ResolveCssScopes;$(BeforeReplaceCssScopes)</BeforeReplaceCssScopes>
