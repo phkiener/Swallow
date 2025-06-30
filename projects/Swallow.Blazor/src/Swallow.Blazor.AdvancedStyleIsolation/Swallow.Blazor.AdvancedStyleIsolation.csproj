@@ -10,6 +10,7 @@
     <NoWarn>NU5100;$(NoWarn)</NoWarn>
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
     <SuppressDependenciesWhenPacking>true</SuppressDependenciesWhenPacking>
+    <BuildOutputTargetFolder>tasks</BuildOutputTargetFolder>
 
     <IsPackable>true</IsPackable>
     <Authors>Philipp Kiener</Authors>
@@ -23,10 +24,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="build/*" PackagePath="build" Pack="true" />
-    <None Include="$(OutputPath)/$(AssemblyName).dll" PackagePath="tasks" Pack="true" Visible="false" />
+    <None Remove="$(ReadmeFilePath)" />
     <None Include="README.md" PackagePath="/" Pack="true" />
     <None Include="docs/**/*" PackagePath="docs/" Pack="true" />
+    <None Include="build/*" PackagePath="build/" Pack="true" />
   </ItemGroup>
 
   <Target Name="AddBuildDependencyFileToBuiltProjectOutputGroupOutput" BeforeTargets="BuiltProjectOutputGroup">
