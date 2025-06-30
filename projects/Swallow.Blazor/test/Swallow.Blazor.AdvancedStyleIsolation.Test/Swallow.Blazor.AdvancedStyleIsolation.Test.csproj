@@ -5,7 +5,6 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>disable</Nullable>
 
-    <ManagePackageVersionsCentrally>false</ManagePackageVersionsCentrally>
     <IsPackable>false</IsPackable>
     <RootNamespace>Swallow.Blazor.AdvancedStyleIsolation</RootNamespace>
   </PropertyGroup>

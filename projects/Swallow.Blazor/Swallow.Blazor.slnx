@@ -1,23 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Solution>
   <Folder Name="/Additional items/">
-    <File Path="Directory.Build.props" />
-    <File Path="Directory.Packages.props" />
-    <File Path="Directory.Build.targets" />
     <File Path="README.md" />
     <File Path="RELEASE_NOTES.md" />
     <File Path="LICENSE.txt" />
   </Folder>
-  <Folder Name="/Example/">
-    <Project Path="example/Swallow.Blazor.Showcase/Swallow.Blazor.Showcase.csproj" />
-  </Folder>
   <Folder Name="/Library/">
     <Project Path="src/Swallow.Blazor.StaticAssetPaths/Swallow.Blazor.StaticAssetPaths.csproj" />
-    <Project Path="src/Swallow.Blazor.Primitives/Swallow.Blazor.Primitives.csproj" />
     <Project Path="src/Swallow.Blazor.AdvancedStyleIsolation/Swallow.Blazor.AdvancedStyleIsolation.csproj" />
   </Folder>
   <Folder Name="/Test/">
-    <Project Path="test/Swallow.Blazor.AdvancedStyleIsolation.Test/Swallow.Blazor.AdvancedStyleIsolation.csproj" />
+    <Project Path="test/Swallow.Blazor.AdvancedStyleIsolation.Test/Swallow.Blazor.AdvancedStyleIsolation.Test.csproj" />
+    <Project Path="test/Swallow.Blazor.StaticAssetPaths.Test/Swallow.Blazor.StaticAssetPaths.Test.csproj" />
     <Project Path="test/Swallow.Blazor.AdvancedStyleIsolation.ExampleProject/Swallow.Blazor.AdvancedStyleIsolation.ExampleProject.csproj" />
   </Folder>
 </Solution>

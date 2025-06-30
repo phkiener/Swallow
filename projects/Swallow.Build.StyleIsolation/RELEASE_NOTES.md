@@ -1,3 +1,0 @@
-# Release Notes
-
-Nothing yet.

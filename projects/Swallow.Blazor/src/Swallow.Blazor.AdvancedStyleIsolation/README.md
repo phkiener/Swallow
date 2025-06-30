@@ -52,7 +52,7 @@ contain *both* the tag for the component itself as well as the tag for the
 component specified by `From`, while the included component's stylesheet will
 still match on the original tag.
 
-![Visualization of this process](./doc/example.svg)
+![Visualization of this process](./docs/example.svg)
 
 Run the [example project](./test/Swallow.Build.StyleIsolation.ExampleProject/Swallow.Build.StyleIsolation.ExampleProject.csproj)
 and take a look inside the generated `out/` folder to see the exact effects in
