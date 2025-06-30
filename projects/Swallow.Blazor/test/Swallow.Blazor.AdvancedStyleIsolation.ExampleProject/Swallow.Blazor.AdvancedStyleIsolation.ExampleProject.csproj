@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <_LocalTaskAssembly>$(MSBuildThisFileDirectory)../../src/Swallow.Blazor.AdvancedStyleIsolation/bin/$(Configuration)/netstandard2.0/Swallow.Blazor.AdvancedStyleIsolation.dll</_LocalTaskAssembly>
+  </PropertyGroup>
+
+  <UsingTask TaskName="ReplaceCssScope" AssemblyFile="$(_LocalTaskAssembly)" />
+  <UsingTask TaskName="AppendCssScope" AssemblyFile="$(_LocalTaskAssembly)" />
+
+  <Import Project="$(MSBuildThisFileDirectory)../../src/Swallow.Blazor.AdvancedStyleIsolation/build/Swallow.Blazor.AdvancedStyleIsolation.props" Condition="EXISTS('$(_LocalTaskAssembly)')" />
+  <Import Project="$(MSBuildThisFileDirectory)../../src/Swallow.Blazor.AdvancedStyleIsolation/build/Swallow.Blazor.AdvancedStyleIsolation.targets" Condition="EXISTS('$(_LocalTaskAssembly)')" />
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+
+    <IsPackable>false</IsPackable>
+    <RootNamespace>Swallow.Build.StyleIsolation</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <AppendStyles Include="DerivedAppend.razor" From="Base.razor" />
+    <AppendStyles Include="DerivedAppendNoStyle.razor" From="Base.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <InheritStyles Include="DerivedInherit.razor" From="Base.razor" />
+    <InheritStyles Include="DerivedInheritNoStyle.razor" From="Base.razor" />
+  </ItemGroup>
+
+</Project>
