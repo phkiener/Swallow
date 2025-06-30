@@ -25,8 +25,8 @@ public static class AssetMapWriter
         writer.WriteLine($"public static class {node.Name}");
         writer.WriteLine("{");
 
-        writer.Indent += 4;
-        foreach (var asset in node.Assets)
+        writer.Indent++;
+        foreach (var asset in node.Assets.Where(IncludeAsset))
         {
             var filePath = asset.Path;
             if (filePath.StartsWith(WwwrootPrefix))
@@ -46,8 +46,13 @@ public static class AssetMapWriter
             WriteNode(writer, child);
         }
 
-        writer.Indent -= 4;
+        writer.Indent--;
         writer.WriteLine("}");
         writer.WriteLine();
+    }
+
+    private static bool IncludeAsset(DefinedAsset asset)
+    {
+        return Path.GetExtension(asset.Path) is not (".razor" or ".cshtml");
     }
 }

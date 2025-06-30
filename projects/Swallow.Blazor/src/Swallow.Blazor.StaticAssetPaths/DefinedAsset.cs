@@ -44,10 +44,10 @@ public readonly struct DefinedAsset
     /// <returns>The built asset.</returns>
     public static DefinedAsset For(string relativePath)
     {
-        var fileName = System.IO.Path.GetFileName(relativePath);
-        var segments = System.IO.Path.GetDirectoryName(relativePath)?.Split(['/'], StringSplitOptions.RemoveEmptyEntries) ?? [];
+        var correctedPath = relativePath.Replace('\\', '/');
+        var segments = correctedPath.Split(['/'], StringSplitOptions.RemoveEmptyEntries);
 
-        return new DefinedAsset(relativePath, [..segments.Select(ToPascalCase), ToPascalCase(fileName)]);
+        return new DefinedAsset(correctedPath, [..segments.Select(ToPascalCase)]);
     }
 
     private static string ToPascalCase(string text)

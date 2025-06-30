@@ -57,7 +57,6 @@ public sealed class AssetPathGenerator : IIncrementalGenerator
         return files
             .Where(f => f.Path.StartsWith(projectDirectory))
             .Select(f => f.Path.Substring(projectDirectory.Length))
-            .Where(static f => Path.GetExtension(f) is not (".razor" or ".cshtml"))
             .Select(DefinedAsset.For);
     }
 }
