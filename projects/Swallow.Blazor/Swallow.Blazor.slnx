@@ -12,6 +12,7 @@
     <Project Path="example/Swallow.Blazor.Showcase/Swallow.Blazor.Showcase.csproj" />
   </Folder>
   <Folder Name="/Library/">
+    <Project Path="src/Swallow.Blazor.StaticAssetPaths/Swallow.Blazor.StaticAssetPaths.csproj" />
     <Project Path="src/Swallow.Blazor.Primitives/Swallow.Blazor.Primitives.csproj" />
   </Folder>
 </Solution>

@@ -1,5 +1,0 @@
-<Project>
-  <Target Name="ConvertImages" BeforeTargets="CoreCompile">
-    <ConvertImage OutputDirectory="$(_ImageOutputPath)" Images="@(Images)" Width="256" Height="256" />
-  </Target>
-</Project>

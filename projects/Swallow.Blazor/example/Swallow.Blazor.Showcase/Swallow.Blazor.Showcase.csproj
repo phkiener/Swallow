@@ -1,5 +1,9 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
   <ItemGroup>
     <ProjectReference Include="..\..\src\Swallow.Blazor.Primitives\Swallow.Blazor.Primitives.csproj" />
+    <ProjectReference Include="..\..\src\Swallow.Blazor.StaticAssetPaths\Swallow.Blazor.StaticAssetPaths.csproj"
+                      OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+    <AdditionalFiles Include="@(Content)" SourceItemGroup="WebAsset" />
+    <AdditionalFiles Include="**/*.razor.js" SourceItemGroup="WebAsset" />
   </ItemGroup>
 </Project>

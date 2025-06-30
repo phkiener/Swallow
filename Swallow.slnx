@@ -34,22 +34,8 @@
     <Project Path="projects/Swallow.Blazor/example/Swallow.Blazor.Showcase/Swallow.Blazor.Showcase.csproj" />
   </Folder>
   <Folder Name="/Swallow.Blazor/Library/">
+    <Project Path="projects/Swallow.Blazor/src/Swallow.Blazor.StaticAssetPaths/Swallow.Blazor.StaticAssetPaths.csproj" />
     <Project Path="projects/Swallow.Blazor/src/Swallow.Blazor.Primitives/Swallow.Blazor.Primitives.csproj" />
-  </Folder>
-  <Folder Name="/Swallow.Build/" />
-  <Folder Name="/Swallow.Build/Additional items/">
-    <File Path="projects/Swallow.Build/Directory.Build.props" />
-    <File Path="projects/Swallow.Build/Directory.Packages.props" />
-    <File Path="projects/Swallow.Build/Directory.Build.targets" />
-    <File Path="projects/Swallow.Build/README.md" />
-    <File Path="projects/Swallow.Build/RELEASE_NOTES.md" />
-    <File Path="projects/Swallow.Build/LICENSE.txt" />
-  </Folder>
-  <Folder Name="/Swallow.Build/Example/">
-    <Project Path="projects/Swallow.Build/example/ConvertOnBuild/ConvertOnBuild.csproj" />
-  </Folder>
-  <Folder Name="/Swallow.Build/Library/">
-    <Project Path="projects/Swallow.Build/src/Swallow.Build.ImageConvert/Swallow.Build.ImageConvert.csproj" />
   </Folder>
   <Folder Name="/Swallow.Build.StyleIsolation/" />
   <Folder Name="/Swallow.Build.StyleIsolation/Additional items/">
