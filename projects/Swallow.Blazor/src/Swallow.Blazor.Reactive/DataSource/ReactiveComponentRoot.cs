@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Endpoints;
 using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.AspNetCore.Http;
 
@@ -13,7 +14,7 @@ internal sealed class ReactiveComponentRoot : ComponentBase
 
     protected override void OnInitialized()
     {
-        renderedComponentType = HttpContext.GetEndpoint()?.Metadata.GetRequiredMetadata<ReactiveComponentTypeMetadata>().ComponentType;
+        renderedComponentType = HttpContext.GetEndpoint()?.Metadata.GetRequiredMetadata<ComponentTypeMetadata>().Type;
     }
 
     protected override void BuildRenderTree(RenderTreeBuilder builder)

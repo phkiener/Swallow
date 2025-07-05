@@ -14,6 +14,7 @@
 
   <ItemGroup>
     <ProjectReference Include="../../src/$(_GeneratorAssemblyName)/$(_GeneratorAssemblyName).csproj" OutputItemType="Analyzer" PrivateAssets="All" />
+    <ProjectReference Include="../../src/Swallow.Blazor.Reactive/Swallow.Blazor.Reactive.csproj" />
   </ItemGroup>
 
   <!-- Explicitly import the task assembly (since the past would be wrong if imported by the .props -->

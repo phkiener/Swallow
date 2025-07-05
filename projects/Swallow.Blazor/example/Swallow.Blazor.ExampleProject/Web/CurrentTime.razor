@@ -1,0 +1,7 @@
+@using Swallow.Blazor.Reactive.Abstractions
+@attribute [ReactiveComponentGet("current-time")]
+
+<div>
+    <span>It's currently @DateTime.Now.ToString("O")</span>
+    <button type="button" hx-get="/current-time" hx-target="closest div" hx-swap="outerHTML">Refresh</button>
+</div>

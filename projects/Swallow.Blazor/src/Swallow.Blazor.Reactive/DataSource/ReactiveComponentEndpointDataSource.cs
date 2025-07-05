@@ -81,12 +81,7 @@ internal sealed class ReactiveComponentEndpointDataSource : EndpointDataSource
                     endpointBuilder.DisplayName = $"{endpointBuilder.RoutePattern.RawText} ({component.Name})";
                     endpointBuilder.Metadata.Add(attribute);
                     endpointBuilder.Metadata.Add(new HttpMethodMetadata(attribute.Methods));
-
-                    // Normally, mapped components include ComponentTypeMetadata
-                    // These configure route values so that the <Router> can take over when rendering the root component.
-                    // We don't need or want that, so we instead apply ReactiveComponentTypeMetadata which our custom
-                    // root component will use to render the correct component.
-                    endpointBuilder.Metadata.Add(new ReactiveComponentTypeMetadata(component));
+                    endpointBuilder.Metadata.Add(new ComponentTypeMetadata(component));
                     endpointBuilder.Metadata.Add(new RootComponentMetadata(typeof(ReactiveComponentRoot)));
 
                     foreach (var componentAttribute in component.GetCustomAttributes())
@@ -120,7 +115,7 @@ internal sealed class ReactiveComponentEndpointDataSource : EndpointDataSource
 
     private static async Task RenderReactiveComponent(HttpContext httpContext)
     {
-        var isReactive = httpContext.Request.Headers.ContainsKey("rx-request");
+        var isReactive = httpContext.Request.Headers.ContainsKey("hx-request");
         if (!isReactive)
         {
             httpContext.Response.StatusCode = StatusCodes.Status404NotFound;
