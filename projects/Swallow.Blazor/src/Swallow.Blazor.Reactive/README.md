@@ -21,11 +21,26 @@ we're here for.
 
 ## Setup
 
-...
+First, setup the routing to reactive components in your `Program.cs`:
+```csharp
+var app = builder.Build();
 
-## Usage
+app.MapRazorComponents<App>();
+app.MapReactiveComponents(typeof(App).Assembly); // <- this part!
 
-..
+await app.RunAsync();
+```
+
+Add `[ReactiveComponent]` to your components:
+```csharp
+[ReactiveComponent("reactive/some-component")]
+public sealed class SomeComponent : ComponentBase
+{
+    // ...
+}
+```
+
+And that's it. Now `SomeComponent` can be rendered *reactively*.
 
 ## Introducing: `Swallow.Blazor.Reactive`
 
