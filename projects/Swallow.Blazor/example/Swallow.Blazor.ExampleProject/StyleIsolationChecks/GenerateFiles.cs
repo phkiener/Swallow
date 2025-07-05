@@ -23,7 +23,7 @@ public static class GenerateFiles
         await using var serviceProvider = new ServiceCollection().BuildServiceProvider();
         var renderer = new StaticHtmlRenderer(serviceProvider, new NullLoggerFactory());
 
-        foreach (var type in typeof(Program).Assembly.GetExportedTypes().Where(static t => t.IsAssignableTo(typeof(ComponentBase))))
+        foreach (var type in FindRelevantComponents(typeof(Program).Assembly))
         {
             await GenerateFile(renderer, type, targetDirectory, scopedCssDirectory);
         }
@@ -34,6 +34,13 @@ public static class GenerateFiles
         return assembly.GetCustomAttributes<AssemblyMetadataAttribute>()
             .FirstOrDefault(static a => a.Key is ScopedCssLocationKey)
             ?.Value;
+    }
+
+    private static IEnumerable<Type> FindRelevantComponents(Assembly assembly)
+    {
+        return assembly.GetExportedTypes()
+            .Where(static t => t.IsAssignableTo(typeof(ComponentBase)))
+            .Where(static t => t.Namespace?.Contains("StyleIsolationChecks") ?? false);
     }
 
     private static async Task GenerateFile(StaticHtmlRenderer renderer, Type componentType, string targetDirectory, string cssDirectory)
