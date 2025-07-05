@@ -19,6 +19,15 @@ is a problem - which usually ends in either a websocket or WASM being used. Afte
 write some JS to get the job done, why even bother with Blazor in the first place? That's not what
 we're here for.
 
+## Introducing: `Swallow.Blazor.Reactive`
+
+Using the power of [HTMX](https://htmx.org) (for now), you can host your completely statically
+rendered app and have interactivity added via discrete requests and responses, eliminating the
+need for websockets or extensive clientside JS. Though this, as well, comes with a drawback, or
+rather a caveat: It's not fit for high-frequency interactions. While it's no problem to register a
+listener for `mousemove` in Blazor WebAssembly, it does become a problem when you're sending web
+requests every time the mouse is being moved.
+
 ## Setup
 
 First, setup the routing to reactive components in your `Program.cs`:
@@ -41,15 +50,6 @@ public sealed class SomeComponent : ComponentBase
 ```
 
 And that's it. Now `SomeComponent` can be rendered *reactively*.
-
-## Introducing: `Swallow.Blazor.Reactive`
-
-Using the power of [HTMX](https://htmx.org) (for now), you can host your completely statically
-rendered app and have interactivity added via discrete requests and responses, eliminating the
-need for websockets or extensive clientside JS. Though this, as well, comes with a drawback, or
-rather a caveat: It's not fit for high-frequency interactions. While it's no problem to register a
-listener for `mousemove` in Blazor WebAssembly, it does become a problem when you're sending web
-requests every time the mouse is being moved.
 
 ## About using HTMX
 
