@@ -24,17 +24,17 @@ public sealed class IntegrationTest
         await RenderFilesAsync();
 
         // Baseline
-        await AssertRenderedFileAsync(filename: "Base.rendered", expectedAttribute: "b-ccehgx1k1d", expectedScope: "b-ccehgx1k1d");
-        await AssertRenderedFileAsync(filename: "DerivedDefault.rendered", expectedAttribute: "b-tzhffmsxpc", expectedScope: "b-tzhffmsxpc");
+        await AssertRenderedFileAsync(filename: "Base.rendered", expectedAttribute: "b-3cenkzy39u", expectedScope: "b-3cenkzy39u");
+        await AssertRenderedFileAsync(filename: "DerivedDefault.rendered", expectedAttribute: "b-8gjx7x8pvg", expectedScope: "b-8gjx7x8pvg");
         await AssertRenderedFileAsync(filename: "DerivedDefaultNoStyle.rendered", expectedAttribute: null, expectedScope: null);
 
         // With inherit
-        await AssertRenderedFileAsync(filename: "DerivedInherit.rendered", expectedAttribute: "b-ccehgx1k1d", expectedScope: "b-ccehgx1k1d");
-        await AssertRenderedFileAsync(filename: "DerivedInheritNoStyle.rendered", expectedAttribute: "b-ccehgx1k1d", expectedScope: null);
+        await AssertRenderedFileAsync(filename: "DerivedInherit.rendered", expectedAttribute: "b-3cenkzy39u", expectedScope: "b-3cenkzy39u");
+        await AssertRenderedFileAsync(filename: "DerivedInheritNoStyle.rendered", expectedAttribute: "b-3cenkzy39u", expectedScope: null);
 
         // With append
-        await AssertRenderedFileAsync(filename: "DerivedAppend.rendered", expectedAttribute: "b-1fmqo3s304 b-ccehgx1k1d", expectedScope: "b-1fmqo3s304");
-        await AssertRenderedFileAsync(filename: "DerivedAppendNoStyle.rendered", expectedAttribute: "b-ccehgx1k1d", expectedScope: null);
+        await AssertRenderedFileAsync(filename: "DerivedAppend.rendered", expectedAttribute: "b-3j9h8q1f3f b-3cenkzy39u", expectedScope: "b-3j9h8q1f3f");
+        await AssertRenderedFileAsync(filename: "DerivedAppendNoStyle.rendered", expectedAttribute: "b-3cenkzy39u", expectedScope: null);
     }
 
     private async Task RenderFilesAsync()
@@ -47,7 +47,7 @@ public sealed class IntegrationTest
 
         var processInfo = new ProcessStartInfo(dotnetPath)
         {
-            Arguments = $"run --project {Path.GetFullPath(exampleProjectPath)} -- {Path.GetFullPath(outputPath)}",
+            Arguments = $"run --project {Path.GetFullPath(exampleProjectPath)} -- --generate {Path.GetFullPath(outputPath)}",
             UseShellExecute = false,
             RedirectStandardInput = false,
             RedirectStandardOutput = false,

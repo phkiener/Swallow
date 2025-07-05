@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net9.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>disable</Nullable>
+    <Nullable>enable</Nullable>
 
     <IsPackable>false</IsPackable>
 
@@ -27,11 +27,15 @@
   <Import Project="$(MSBuildThisFileDirectory)../../src/$(_GeneratorAssemblyName)/build/$(_GeneratorAssemblyName).targets" />
 
   <ItemGroup>
-    <AppendStyles Include="DerivedAppend.razor" From="Base.razor" />
-    <AppendStyles Include="DerivedAppendNoStyle.razor" From="Base.razor" />
+    <AppendStyles Include="StyleIsolationChecks/DerivedAppend.razor" From="StyleIsolationChecks/Base.razor"/>
+    <AppendStyles Include="StyleIsolationChecks/DerivedAppendNoStyle.razor" From="StyleIsolationChecks/Base.razor"/>
+    <InheritStyles Include="StyleIsolationChecks/DerivedInherit.razor" From="StyleIsolationChecks/Base.razor"/>
+    <InheritStyles Include="StyleIsolationChecks/DerivedInheritNoStyle.razor" From="StyleIsolationChecks/Base.razor"/>
 
-    <InheritStyles Include="DerivedInherit.razor" From="Base.razor" />
-    <InheritStyles Include="DerivedInheritNoStyle.razor" From="Base.razor" />
+    <AssemblyAttribute Include="System.Reflection.AssemblyMetadataAttribute">
+      <_Parameter1>ScopedCssLocation</_Parameter1>
+      <_Parameter2>$(MSBuildThisFileDirectory)/$(IntermediateOutputPath)/scopedcss</_Parameter2>
+    </AssemblyAttribute>
   </ItemGroup>
 
 </Project>
