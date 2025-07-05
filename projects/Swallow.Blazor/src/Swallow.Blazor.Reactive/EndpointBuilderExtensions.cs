@@ -1,4 +1,5 @@
 using System.Reflection;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Routing;
 using Swallow.Blazor.Reactive.Abstractions;
 using Swallow.Blazor.Reactive.DataSource;
@@ -15,12 +16,12 @@ public static class EndpointBuilderExtensions
     /// </summary>
     /// <param name="endpoints">The <see cref="IEndpointRouteBuilder"/> on which to add the components.</param>
     /// <exception cref="InvalidOperationException">When no entry assembly could be determined.</exception>
-    public static void MapReactiveComponents(this IEndpointRouteBuilder endpoints)
+    public static IEndpointConventionBuilder MapReactiveComponents(this IEndpointRouteBuilder endpoints)
     {
         var entryAssembly = Assembly.GetEntryAssembly()
                             ?? throw new InvalidOperationException("Could not determine entry assembly.");
 
-        endpoints.MapReactiveComponents(entryAssembly);
+        return endpoints.MapReactiveComponents(entryAssembly);
     }
 
     /// <summary>
@@ -28,7 +29,7 @@ public static class EndpointBuilderExtensions
     /// </summary>
     /// <param name="endpoints">The <see cref="IEndpointRouteBuilder"/> on which to add the components.</param>
     /// <param name="assemblies">The assemblies in which to look for types with a <see cref="ReactiveComponentAttribute"/>.</param>
-    public static void MapReactiveComponents(this IEndpointRouteBuilder endpoints, params Assembly[] assemblies)
+    public static IEndpointConventionBuilder MapReactiveComponents(this IEndpointRouteBuilder endpoints, params Assembly[] assemblies)
     {
         var dataSource = endpoints.DataSources.OfType<ReactiveComponentEndpointDataSource>().FirstOrDefault();
         if (dataSource is null)
@@ -41,5 +42,7 @@ public static class EndpointBuilderExtensions
         {
             dataSource.Include(assembly);
         }
+
+        return dataSource.ConventionBuilder;
     }
 }

@@ -1,6 +1,7 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using System.Runtime.CompilerServices;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Components.Endpoints;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
@@ -15,6 +16,8 @@ internal sealed class ReactiveComponentEndpointDataSource : EndpointDataSource
 {
     private readonly Lock lockObject = new();
     private readonly List<Assembly> assemblies = [];
+    private readonly List<Action<EndpointBuilder>> conventions = [];
+    private readonly List<Action<EndpointBuilder>> finallyConventions = [];
 
     private List<Endpoint>? endpoints;
     private CancellationTokenSource changeTokenSource;
@@ -22,8 +25,11 @@ internal sealed class ReactiveComponentEndpointDataSource : EndpointDataSource
 
     internal ReactiveComponentEndpointDataSource()
     {
+        ConventionBuilder = new EndpointConventionBuilder(this);
         GenerateChangeToken();
     }
+
+    public IEndpointConventionBuilder ConventionBuilder { get; }
 
     public override IChangeToken GetChangeToken() => changeToken;
 
@@ -93,7 +99,15 @@ internal sealed class ReactiveComponentEndpointDataSource : EndpointDataSource
                         endpointBuilder.Metadata.Add(componentAttribute);
                     }
 
-                    // TODO: Support conventions
+                    foreach (var convention in conventions)
+                    {
+                        convention(endpointBuilder);
+                    }
+
+                    foreach (var finallyConvention in finallyConventions)
+                    {
+                        finallyConvention(endpointBuilder);
+                    }
 
                     var endpoint = endpointBuilder.Build();
                     foundEndpoints.Add(endpoint);
@@ -129,5 +143,24 @@ internal sealed class ReactiveComponentEndpointDataSource : EndpointDataSource
 
         previousChangeTokenSource?.Cancel();
         previousChangeTokenSource?.Dispose();
+    }
+
+    private sealed class EndpointConventionBuilder(ReactiveComponentEndpointDataSource dataSource) : IEndpointConventionBuilder
+    {
+        public void Add(Action<EndpointBuilder> convention)
+        {
+            lock (dataSource.lockObject)
+            {
+                dataSource.conventions.Add(convention);
+            }
+        }
+
+        public void Finally(Action<EndpointBuilder> finallyConvention)
+        {
+            lock (dataSource.lockObject)
+            {
+                dataSource.finallyConventions.Add(finallyConvention);
+            }
+        }
     }
 }
