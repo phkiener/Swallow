@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="../../../../build/Publish.props" />
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+
+    <IsPackable>true</IsPackable>
+    <Authors>Philipp Kiener</Authors>
+    <Description>Best-effort interactivity for full statically rendered Blazor applications</Description>
+    <PackageTags>blazor static interactive reactive htmx</PackageTags>
+    <Copyright>2025 Philipp Kiener</Copyright>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="$(ReadmeFilePath)" />
+    <None Include="README.md" PackagePath="/" Pack="true" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <ProjectReference Include="..\Swallow.Blazor.Reactive.Abstractions\Swallow.Blazor.Reactive.Abstractions.csproj" />
+  </ItemGroup>
+</Project>

@@ -6,6 +6,8 @@
   </Folder>
   <Folder Name="/Library/">
     <Project Path="src/Swallow.Blazor.StaticAssetPaths/Swallow.Blazor.StaticAssetPaths.csproj" />
+    <Project Path="src/Swallow.Blazor.Reactive.Abstractions/Swallow.Blazor.Reactive.Abstractions.csproj" />
+    <Project Path="src/Swallow.Blazor.Reactive/Swallow.Blazor.Reactive.csproj" />
     <Project Path="src/Swallow.Blazor.AdvancedStyleIsolation/Swallow.Blazor.AdvancedStyleIsolation.csproj" />
   </Folder>
   <Folder Name="/Test/">
