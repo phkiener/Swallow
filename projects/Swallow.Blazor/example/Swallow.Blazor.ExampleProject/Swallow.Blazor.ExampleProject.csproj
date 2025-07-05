@@ -6,13 +6,12 @@
     <Nullable>disable</Nullable>
 
     <IsPackable>false</IsPackable>
-    <RootNamespace>Swallow.Blazor.AdvancedStyleIsolation</RootNamespace>
 
     <_GeneratorAssemblyName>Swallow.Blazor.StaticAssetPaths</_GeneratorAssemblyName>
     <_TaskAssemblyName>Swallow.Blazor.AdvancedStyleIsolation</_TaskAssemblyName>
     <_LocalTaskAssembly>$(MSBuildThisFileDirectory)../../src/$(_TaskAssemblyName)/bin/$(Configuration)/netstandard2.0/$(_TaskAssemblyName).dll</_LocalTaskAssembly>
   </PropertyGroup>
-  
+
   <ItemGroup>
     <ProjectReference Include="../../src/$(_GeneratorAssemblyName)/$(_GeneratorAssemblyName).csproj" OutputItemType="Analyzer" PrivateAssets="All" />
   </ItemGroup>

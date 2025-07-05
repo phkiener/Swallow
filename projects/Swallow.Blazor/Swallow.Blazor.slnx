@@ -4,6 +4,9 @@
     <File Path="README.md" />
     <File Path="LICENSE.txt" />
   </Folder>
+  <Folder Name="/Example/">
+    <Project Path="example/Swallow.Blazor.ExampleProject/Swallow.Blazor.ExampleProject.csproj" />
+  </Folder>
   <Folder Name="/Library/">
     <Project Path="src/Swallow.Blazor.StaticAssetPaths/Swallow.Blazor.StaticAssetPaths.csproj" />
     <Project Path="src/Swallow.Blazor.Reactive.Abstractions/Swallow.Blazor.Reactive.Abstractions.csproj" />
@@ -13,6 +16,5 @@
   <Folder Name="/Test/">
     <Project Path="test/Swallow.Blazor.AdvancedStyleIsolation.Test/Swallow.Blazor.AdvancedStyleIsolation.Test.csproj" />
     <Project Path="test/Swallow.Blazor.StaticAssetPaths.Test/Swallow.Blazor.StaticAssetPaths.Test.csproj" />
-    <Project Path="test/Swallow.Blazor.ExampleProject/Swallow.Blazor.ExampleProject.csproj" />
   </Folder>
 </Solution>

@@ -14,7 +14,7 @@ public sealed class IntegrationTest
         var assemblyPath = typeof(IntegrationTest).Assembly.Location;
         var projectPath = Path.GetFullPath(Path.Combine(assemblyPath, "../../../../"));
 
-        exampleProjectPath = Path.Combine(projectPath, "../Swallow.Blazor.ExampleProject");
+        exampleProjectPath = Path.Combine(projectPath, "../../example/Swallow.Blazor.ExampleProject");
         outputPath = Path.Combine(projectPath, "out");
     }
 

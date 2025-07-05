@@ -26,6 +26,9 @@
     <File Path="projects/Swallow.Blazor/README.md" />
     <File Path="projects/Swallow.Blazor/LICENSE.txt" />
   </Folder>
+  <Folder Name="/Swallow.Blazor/Example/">
+    <Project Path="projects/Swallow.Blazor/example/Swallow.Blazor.ExampleProject/Swallow.Blazor.ExampleProject.csproj" />
+  </Folder>
   <Folder Name="/Swallow.Blazor/Library/">
     <Project Path="projects/Swallow.Blazor/src/Swallow.Blazor.StaticAssetPaths/Swallow.Blazor.StaticAssetPaths.csproj" />
     <Project Path="projects/Swallow.Blazor/src/Swallow.Blazor.Reactive.Abstractions/Swallow.Blazor.Reactive.Abstractions.csproj" />
@@ -35,7 +38,6 @@
   <Folder Name="/Swallow.Blazor/Test/">
     <Project Path="projects/Swallow.Blazor/test/Swallow.Blazor.AdvancedStyleIsolation.Test/Swallow.Blazor.AdvancedStyleIsolation.Test.csproj" />
     <Project Path="projects/Swallow.Blazor/test/Swallow.Blazor.StaticAssetPaths.Test/Swallow.Blazor.StaticAssetPaths.Test.csproj" />
-    <Project Path="projects/Swallow.Blazor/test/Swallow.Blazor.ExampleProject/Swallow.Blazor.ExampleProject.csproj" />
   </Folder>
   <Folder Name="/Swallow.ChainOfInjection/" />
   <Folder Name="/Swallow.ChainOfInjection/Additional items/">
