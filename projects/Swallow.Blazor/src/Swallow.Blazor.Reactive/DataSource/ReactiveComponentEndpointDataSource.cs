@@ -2,6 +2,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Endpoints;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
@@ -14,6 +15,7 @@ namespace Swallow.Blazor.Reactive.DataSource;
 
 internal sealed class ReactiveComponentEndpointDataSource : EndpointDataSource
 {
+    private static readonly object? RenderModesMetadata = BuildRenderModeMetadata();
     private readonly Lock lockObject = new();
     private readonly List<Assembly> assemblies = [];
     private readonly List<Action<EndpointBuilder>> conventions = [];
@@ -84,6 +86,11 @@ internal sealed class ReactiveComponentEndpointDataSource : EndpointDataSource
                     endpointBuilder.Metadata.Add(new ComponentTypeMetadata(component));
                     endpointBuilder.Metadata.Add(new RootComponentMetadata(typeof(ReactiveComponentRoot)));
 
+                    if (RenderModesMetadata is not null)
+                    {
+                        endpointBuilder.Metadata.Add(RenderModesMetadata);
+                    }
+
                     foreach (var componentAttribute in component.GetCustomAttributes())
                     {
                         if (componentAttribute is ReactiveComponentAttribute or RequiredMemberAttribute)
@@ -136,6 +143,20 @@ internal sealed class ReactiveComponentEndpointDataSource : EndpointDataSource
 
         previousChangeTokenSource?.Cancel();
         previousChangeTokenSource?.Dispose();
+    }
+
+    private static object? BuildRenderModeMetadata()
+    {
+        var definingAssembly = typeof(IRazorComponentEndpointInvoker).Assembly;
+        var metadataType = definingAssembly.GetType("Microsoft.AspNetCore.Components.Endpoints.ConfiguredRenderModesMetadata");
+        if (metadataType is null)
+        {
+            // Something has changed, but it's okay. The endpoint renderer will write (empty) state into a comment in the DOM...
+            // useless and noisy but not an issue.
+            return null;
+        }
+
+        return Activator.CreateInstance(metadataType, [Array.Empty<IComponentRenderMode>()]);
     }
 
     private sealed class EndpointConventionBuilder(ReactiveComponentEndpointDataSource dataSource) : IEndpointConventionBuilder
