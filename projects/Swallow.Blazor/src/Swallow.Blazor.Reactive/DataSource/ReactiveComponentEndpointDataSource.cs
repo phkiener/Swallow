@@ -113,19 +113,17 @@ internal sealed class ReactiveComponentEndpointDataSource : EndpointDataSource
         endpoints = foundEndpoints;
     }
 
-    private static async Task RenderReactiveComponent(HttpContext httpContext)
+    private static Task RenderReactiveComponent(HttpContext httpContext)
     {
         var isReactive = httpContext.Request.Headers.ContainsKey("hx-request");
         if (!isReactive)
         {
             httpContext.Response.StatusCode = StatusCodes.Status404NotFound;
-            await httpContext.Response.CompleteAsync();
+            return httpContext.Response.CompleteAsync();
         }
-        else
-        {
-            var invoker = httpContext.RequestServices.GetRequiredService<IRazorComponentEndpointInvoker>();
-            await invoker.Render(httpContext);
-        }
+
+        var invoker = httpContext.RequestServices.GetRequiredService<IRazorComponentEndpointInvoker>();
+        return invoker.Render(httpContext);
     }
 
     [MemberNotNull(nameof(changeTokenSource))]
