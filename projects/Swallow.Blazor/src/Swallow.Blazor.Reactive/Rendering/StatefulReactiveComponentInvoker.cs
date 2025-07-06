@@ -41,7 +41,8 @@ internal sealed class StatefulReactiveComponentInvoker(StatefulReactiveComponent
 
             if (trigger is not (null or ""))
             {
-                await renderer.DispatchEventAsync(trigger, eventName);
+                var eventBody = context.Request.Form["__event"].ToString();
+                await renderer.DispatchEventAsync(trigger, eventName, eventBody);
             }
 
             await rootComponent.QuiescenceTask;

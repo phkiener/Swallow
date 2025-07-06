@@ -1,6 +1,8 @@
 using System.Linq.Expressions;
 using System.Reflection;
+using System.Text;
 using System.Text.Json;
+using Microsoft.AspNetCore.WebUtilities;
 using Swallow.Blazor.Reactive.Abstractions;
 using Swallow.Blazor.Reactive.Abstractions.State;
 
@@ -27,9 +29,10 @@ internal sealed class ReactiveStateHandler : IReactiveStateHandler, IReactiveSta
 
         registeredState.Add(state);
 
-        if (availableState.TryGetValue($"__state.{state.Island.Build(state.Name)}", out var value))
+        if (availableState.TryGetValue($"__state.{state.Island.Build(state.Name)}", out var value) && value is not (null or ""))
         {
-            var deserialized = JsonSerializer.Deserialize<T>(value);
+            var decoded = Encoding.UTF8.GetString(Base64UrlTextEncoder.Decode(value));
+            var deserialized = JsonSerializer.Deserialize<T>(decoded);
             if (deserialized is not null)
             {
                 state.SetValue(deserialized);
@@ -66,8 +69,9 @@ internal sealed class ReactiveStateHandler : IReactiveStateHandler, IReactiveSta
 
             var name = $"__state.{state.Island.Build(state.Name)}";
             var value = JsonSerializer.Serialize(currentValue);
+            var encoded = Base64UrlTextEncoder.Encode(Encoding.UTF8.GetBytes(value));
 
-            result.Add(name, value);
+            result.Add(name, encoded);
         }
 
         return result;

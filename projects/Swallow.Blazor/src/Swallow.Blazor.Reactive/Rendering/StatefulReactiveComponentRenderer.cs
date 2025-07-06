@@ -1,3 +1,5 @@
+using System.Text.Json;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.HtmlRendering.Infrastructure;
 using Microsoft.AspNetCore.Components.RenderTree;
 using Microsoft.Extensions.Logging;
@@ -7,52 +9,70 @@ namespace Swallow.Blazor.Reactive.Rendering;
 internal sealed class StatefulReactiveComponentRenderer(IServiceProvider serviceProvider, ILoggerFactory loggerFactory)
     : StaticHtmlRenderer(serviceProvider, loggerFactory)
 {
-    private readonly Dictionary<EventHandlerKey, EventHandler> eventHandlerByIdentifier = new();
-
-    protected override Task UpdateDisplayAsync(in RenderBatch renderBatch)
+    private static readonly JsonSerializerOptions EventSerializerOptions = new()
     {
-        for (var i = 0; i < renderBatch.ReferenceFrames.Count; i++)
+        MaxDepth = 32,
+        PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+        PropertyNameCaseInsensitive = true
+    };
+
+    public Task DispatchEventAsync(string identifier, string eventName, string? eventBody)
+    {
+        var eventHandler = FindEventHandler(identifier, eventName);
+        if (eventHandler.HasValue)
         {
-            var frame = renderBatch.ReferenceFrames.Array[i];
-            if (IsEventHandler(ref frame))
+            var eventArgsType = GetEventArgsType(eventHandler.Value.HandlerId);
+            var eventArgs = eventBody is null
+                ? (EventArgs)Activator.CreateInstance(eventArgsType)!
+                : (EventArgs)JsonSerializer.Deserialize(eventBody, eventArgsType, EventSerializerOptions)!;
+
+            var fieldInfo = new EventFieldInfo { ComponentId = eventHandler.Value.ComponentId };
+            if (eventArgs is ChangeEventArgs { Value: JsonElement changedValue } changeEvent)
             {
-                var elementFrames = GetElementFrames(renderBatch.ReferenceFrames, i);
-                var componentId = GetComponentId(renderBatch.ReferenceFrames, i);
+                var actualValue = changedValue.Deserialize<string>(EventSerializerOptions);
 
-                foreach (var elementFrame in elementFrames)
+                changeEvent.Value = actualValue;
+                fieldInfo.FieldValue = actualValue ?? "";
+            }
+
+            return DispatchEventAsync(eventHandler.Value.HandlerId, fieldInfo, eventArgs, true);
+        }
+
+        return Task.CompletedTask;
+    }
+
+    private EventHandler? FindEventHandler(string identifier, string eventName)
+    {
+        const int rootComponentId = 1;
+        var componentsQueue = new Queue<int>([rootComponentId]);
+
+        while (componentsQueue.TryDequeue(out var componentId))
+        {
+            var frames = GetCurrentRenderTreeFrames(componentId);
+            for (var i = 0; i < frames.Count; ++i)
+            {
+                var frame = frames.Array[i];
+                if (frame.FrameType is RenderTreeFrameType.Component)
                 {
-                    if (elementFrame is { FrameType: RenderTreeFrameType.Attribute, AttributeName: "rx-id", AttributeValue: string id })
-                    {
-                        var key = new EventHandlerKey(id, frame.AttributeName);
-                        var value = new EventHandler(frame.AttributeEventHandlerId, componentId);
+                    componentsQueue.Enqueue(frame.ComponentId);
+                    continue;
+                }
 
-                        eventHandlerByIdentifier[key] = value;
+                if (frame is { FrameType: RenderTreeFrameType.Attribute, AttributeEventHandlerId: not 0} && $"on{eventName}".Equals(frame.AttributeName))
+                {
+                    var elementFrames = GetElementFrames(frames, i);
+                    foreach (var elementFrame in elementFrames)
+                    {
+                        if (elementFrame is { FrameType: RenderTreeFrameType.Attribute, AttributeName: "rx-id" } && identifier.Equals(elementFrame.AttributeValue))
+                        {
+                            return new EventHandler(frame.AttributeEventHandlerId, componentId);
+                        }
                     }
                 }
             }
         }
 
-        return Task.CompletedTask;
-    }
-
-    public Task DispatchEventAsync(string identifier, string eventName)
-    {
-        var key = new EventHandlerKey(identifier, "on" + eventName);
-        if (eventHandlerByIdentifier.TryGetValue(key, out var value))
-        {
-            var eventArgsType = GetEventArgsType(value.HandlerId);
-            var eventArgs = eventArgsType == typeof(EventArgs) ? EventArgs.Empty : (EventArgs)Activator.CreateInstance(eventArgsType)!;
-            var fieldInfo = new EventFieldInfo { ComponentId = value.ComponentId };
-
-            return DispatchEventAsync(value.HandlerId, fieldInfo, eventArgs, true);
-        }
-
-        return Task.CompletedTask;
-    }
-
-    private static bool IsEventHandler(ref RenderTreeFrame frame)
-    {
-        return frame is { FrameType: RenderTreeFrameType.Attribute, AttributeEventHandlerId: not 0 };
+        return null;
     }
 
     private static ReadOnlySpan<RenderTreeFrame> GetElementFrames(ArrayRange<RenderTreeFrame> frames, int frameIndex)
@@ -67,7 +87,8 @@ internal sealed class StatefulReactiveComponentRenderer(IServiceProvider service
         while (frames.Array[elementEnd].FrameType is RenderTreeFrameType.Attribute
                or RenderTreeFrameType.ElementReferenceCapture
                or RenderTreeFrameType.ComponentReferenceCapture
-               or RenderTreeFrameType.ComponentRenderMode)
+               or RenderTreeFrameType.ComponentRenderMode
+               or RenderTreeFrameType.NamedEvent)
         {
             elementEnd += 1;
         }
@@ -75,20 +96,5 @@ internal sealed class StatefulReactiveComponentRenderer(IServiceProvider service
         return frames.Array.AsSpan(elementStart, elementEnd - elementStart);
     }
 
-    private static int GetComponentId(ArrayRange<RenderTreeFrame> frames, int frameIndex)
-    {
-        for (var i = frameIndex; i > 0; i--)
-        {
-            var frame = frames.Array[i];
-            if (frame.FrameType is RenderTreeFrameType.Component)
-            {
-                return frame.ComponentId;
-            }
-        }
-
-        return 0;
-    }
-
-    private readonly record struct EventHandlerKey(string Identifier, string EventType);
     private readonly record struct EventHandler(ulong HandlerId, int ComponentId);
 }

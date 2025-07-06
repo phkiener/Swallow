@@ -1,5 +1,6 @@
 import htmx from "./htmx.js";
 import morphdom from "./morphdom.js";
+import { getEventObject } from "./events.js";
 
 function processIsland(island) {
     const element = document.querySelector(`[rx-island='${island}']`);
@@ -51,7 +52,13 @@ function configureRequest(evnt) {
 
     evnt.detail.headers["rx-island"] = container.getAttribute("rx-island");
     evnt.detail.headers["rx-trigger"] = evnt.target.getAttribute("rx-id");
-    evnt.detail.headers["rx-event"] = evnt.detail.triggeringEvent?.type;
+
+    if (evnt.detail.triggeringEvent) {
+        evnt.detail.headers["rx-event"] = evnt.detail.triggeringEvent.type;
+
+        const transformer = getEventObject(evnt.detail.triggeringEvent.type);
+        evnt.detail.parameters["__event"] = JSON.stringify(transformer(evnt.detail.triggeringEvent));
+    }
 }
 
 function attachAttributes(evnt) {
