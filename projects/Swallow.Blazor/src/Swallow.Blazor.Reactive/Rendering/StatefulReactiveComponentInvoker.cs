@@ -24,7 +24,9 @@ internal sealed class StatefulReactiveComponentInvoker(StatefulReactiveComponent
         context.Response.ContentType = "text/html; charset=utf-8";
         await InitializeStandardComponentServicesAsync(context);
 
-        var island = context.Request.Headers["X-ReactiveIsland"].ToString();
+        var island = context.Request.Headers["rx-island"].ToString();
+        var trigger = context.Request.Headers["rx-trigger"].ToString();
+        var eventName = context.Request.Headers["rx-event"].ToString();
 
         HtmlRootComponent rootComponent;
         try
@@ -36,6 +38,12 @@ internal sealed class StatefulReactiveComponentInvoker(StatefulReactiveComponent
             };
 
             rootComponent = renderer.BeginRenderingComponent(typeof(StatefulReactiveComponentRoot), ParameterView.FromDictionary(parameters));
+
+            if (trigger is not (null or ""))
+            {
+                await renderer.DispatchEventAsync(trigger, eventName);
+            }
+
             await rootComponent.QuiescenceTask;
 
         }

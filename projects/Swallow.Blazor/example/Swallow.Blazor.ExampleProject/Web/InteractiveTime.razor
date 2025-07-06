@@ -1,16 +1,23 @@
 @using Swallow.Blazor.Reactive.Abstractions
 @using Swallow.Blazor.Reactive.Abstractions.State
+
 @attribute [StatefulReactiveComponent]
 @inject IReactiveStateHandler StateHandler
 
 <div>
-    <span>It's currently @DateTime.Now.ToString("O") after @refreshCount refreshes</span>
-    <button type="button" hx-post="/_rx/Swallow.Blazor.ExampleProject/Swallow.Blazor.ExampleProject.Web.InteractiveTime">Refresh</button>
+    <span>It's currently @DateTime.Now.ToString("O") after @refreshCount refreshes and @clickCount clicks</span>
+    <button type="button" rx-id="@Island.Build("increment")" @onclick="@Increment">Refresh</button>
+
+    @if (clickCount > 0)
+    {
+        <button type="button" rx-id="@Island.Build("reet")" @onclick="@Reset">Reset</button>
+    }
 </div>
 
 @code
 {
     private int refreshCount = 0;
+    private int clickCount = 0;
 
     [CascadingParameter]
     public required IReactiveIsland Island { get; set; }
@@ -18,6 +25,19 @@
     protected override void OnInitialized()
     {
         StateHandler.Register(Island, nameof(refreshCount), () => refreshCount);
+        StateHandler.Register(Island, nameof(clickCount), () => clickCount);
+
         refreshCount += 1;
+    }
+
+    private void Increment()
+    {
+        clickCount += 1;
+    }
+
+    private void Reset()
+    {
+        refreshCount = 0;
+        clickCount = 0;
     }
 }

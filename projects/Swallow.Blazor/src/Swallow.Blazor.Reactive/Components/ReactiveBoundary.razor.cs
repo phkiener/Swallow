@@ -15,6 +15,7 @@ public sealed partial class ReactiveBoundary(IEnumerable<EndpointDataSource> dat
     private IReactiveIsland? ReactiveIsland { get; set; }
 
     private RouteEndpoint? targetRoute;
+    private string? scriptSource;
 
     /// <summary>
     /// Name for this boundary, which will be used to generate an <see cref="IReactiveIsland"/>.
@@ -27,6 +28,12 @@ public sealed partial class ReactiveBoundary(IEnumerable<EndpointDataSource> dat
     /// </summary>
     [Parameter, EditorRequired]
     public required Type ComponentType { get; set; }
+
+    /// <summary>
+    /// A nonce to render for the generated script, enabling you to use a content security policy.
+    /// </summary>
+    [Parameter]
+    public string? ScriptNonce { get; set; }
 
     /// <summary>
     /// Additional HTML attributes to render on the outermost HTML element.
@@ -47,6 +54,7 @@ public sealed partial class ReactiveBoundary(IEnumerable<EndpointDataSource> dat
             throw new ArgumentException($"Only components marked with {nameof(StatefulReactiveComponentAttribute)} are supported.");
         }
 
+        scriptSource = $"/{Assets["_content/Swallow.Blazor.Reactive/reactive.js"]}";
         targetRoute = FindEndpoint(dataSources, ComponentType);
         if (targetRoute is null)
         {
@@ -69,7 +77,7 @@ public sealed partial class ReactiveBoundary(IEnumerable<EndpointDataSource> dat
 
             if (dataSource is ReactiveComponentEndpointDataSource)
             {
-                var endpoint = dataSource?.Endpoints
+                var endpoint = dataSource.Endpoints
                     .OfType<RouteEndpoint>()
                     .FirstOrDefault(e => e.Metadata.GetMetadata<StatefulReactiveComponentMetadata>()?.ComponentType == componentType);
 
