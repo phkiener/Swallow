@@ -32,6 +32,9 @@ requests every time the mouse is being moved.
 
 First, setup the routing to reactive components in your `Program.cs`:
 ```csharp
+var builder = WebApplication.CreateBuilder();
+builder.Services.AddReactiveRendering(); // <- this part!
+
 var app = builder.Build();
 
 app.MapRazorComponents<App>();

@@ -11,6 +11,7 @@ if (args is ["--generate", var targetDirectory])
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorComponents();
+builder.Services.AddReactiveRendering();
 
 StaticWebAssetsLoader.UseStaticWebAssets(builder.Environment, builder.Configuration);
 

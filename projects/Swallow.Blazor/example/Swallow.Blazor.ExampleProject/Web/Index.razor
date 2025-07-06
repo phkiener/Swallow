@@ -1,9 +1,14 @@
 @page "/"
+@using Swallow.Blazor.Reactive.Components
 
 <h3>Showcase</h3>
 
 <article>
     <header>Reactive component</header>
-
     <CurrentTime />
+</article>
+
+<article>
+    <header>Stateful component</header>
+    <ReactiveBoundary Name="Island" ComponentType="@typeof(InteractiveTime)" />
 </article>

@@ -1,0 +1,12 @@
+<div rx-island="@Name"
+     hx-post="/@targetRoute!.RoutePattern.RawText"
+     hx-target="this"
+     hx-swap="innerHTML"
+     hx-trigger="load from:window once"
+     hx-headers='{"X-ReactiveIsland": "@Name"}'
+     hx-include="[rx-island='@Name'] [rx-state]"
+     @attributes="@AdditionalAttributes"
+     style="display: contents">
+
+    <input type="hidden" name="__state" value="" rx-state>
+</div>

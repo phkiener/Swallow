@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Routing.Patterns;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Primitives;
 using Swallow.Blazor.Reactive.Abstractions;
+using Swallow.Blazor.Reactive.Rendering;
 
 namespace Swallow.Blazor.Reactive.DataSource;
 
@@ -66,58 +67,103 @@ internal sealed class ReactiveComponentEndpointDataSource : EndpointDataSource
         var foundEndpoints = new List<Endpoint>();
         lock (lockObject)
         {
-            var components = assemblies.SelectMany(static a => a.GetExportedTypes())
-                .Where(static t => t.GetCustomAttributes<ReactiveComponentAttribute>().Any())
-                .ToList();
-
-            foreach (var component in components)
-            {
-                var attributes = component.GetCustomAttributes<ReactiveComponentAttribute>();
-                foreach (var attribute in attributes)
-                {
-                    var endpointBuilder = new RouteEndpointBuilder(
-                        requestDelegate: RenderReactiveComponent,
-                        routePattern: RoutePatternFactory.Parse(attribute.RouteTemplate),
-                        order: 0);
-
-                    endpointBuilder.DisplayName = $"{endpointBuilder.RoutePattern.RawText} ({component.Name})";
-                    endpointBuilder.Metadata.Add(attribute);
-                    endpointBuilder.Metadata.Add(new HttpMethodMetadata(attribute.Methods));
-                    endpointBuilder.Metadata.Add(new ComponentTypeMetadata(component));
-                    endpointBuilder.Metadata.Add(new RootComponentMetadata(typeof(ReactiveComponentRoot)));
-
-                    if (RenderModesMetadata is not null)
-                    {
-                        endpointBuilder.Metadata.Add(RenderModesMetadata);
-                    }
-
-                    foreach (var componentAttribute in component.GetCustomAttributes())
-                    {
-                        if (componentAttribute is ReactiveComponentAttribute or RequiredMemberAttribute)
-                        {
-                            continue;
-                        }
-
-                        endpointBuilder.Metadata.Add(componentAttribute);
-                    }
-
-                    foreach (var convention in conventions)
-                    {
-                        convention(endpointBuilder);
-                    }
-
-                    foreach (var finallyConvention in finallyConventions)
-                    {
-                        finallyConvention(endpointBuilder);
-                    }
-
-                    var endpoint = endpointBuilder.Build();
-                    foundEndpoints.Add(endpoint);
-                }
-            }
+            BuildReactiveComponentEndpoints(foundEndpoints);
+            BuildStatefulReactiveComponentEndpoints(foundEndpoints);
         }
 
         endpoints = foundEndpoints;
+    }
+
+    private void BuildReactiveComponentEndpoints(List<Endpoint> target)
+    {
+        var components = assemblies.SelectMany(static a => a.GetExportedTypes())
+            .Where(static t => t.GetCustomAttributes<ReactiveComponentAttribute>().Any())
+            .ToList();
+
+        foreach (var component in components)
+        {
+            var attributes = component.GetCustomAttributes<ReactiveComponentAttribute>();
+            foreach (var attribute in attributes)
+            {
+                var endpointBuilder = new RouteEndpointBuilder(
+                    requestDelegate: RenderReactiveComponent,
+                    routePattern: RoutePatternFactory.Parse(attribute.RouteTemplate),
+                    order: 0);
+
+                endpointBuilder.DisplayName = $"{endpointBuilder.RoutePattern.RawText} ({component.Name})";
+                endpointBuilder.Metadata.Add(attribute);
+                endpointBuilder.Metadata.Add(new HttpMethodMetadata(attribute.Methods));
+                endpointBuilder.Metadata.Add(new ComponentTypeMetadata(component));
+                endpointBuilder.Metadata.Add(new RootComponentMetadata(typeof(ReactiveComponentRoot)));
+
+                if (RenderModesMetadata is not null)
+                {
+                    endpointBuilder.Metadata.Add(RenderModesMetadata);
+                }
+
+                FinalizeEndpoint(component: component, endpointBuilder: endpointBuilder);
+
+                var endpoint = endpointBuilder.Build();
+                target.Add(endpoint);
+            }
+        }
+    }
+
+    private void BuildStatefulReactiveComponentEndpoints(List<Endpoint> target)
+    {
+        var components = assemblies.SelectMany(static a => a.GetExportedTypes())
+            .Where(static t => t.GetCustomAttribute<StatefulReactiveComponentAttribute>() is not null)
+            .ToList();
+
+        foreach (var component in components)
+        {
+            var attribute = component.GetCustomAttribute<StatefulReactiveComponentAttribute>()!;
+            var routeTemplate = attribute.RouteTemplate ?? $"_rx/{component.Assembly.GetName().Name}/{component.FullName}";
+            var routePattern = RoutePatternFactory.Parse(routeTemplate);
+
+            if (routePattern.Parameters.Any())
+            {
+                throw new InvalidOperationException($"Route templates for stateful reactive components must not contain parameters.");
+            }
+
+            var endpointBuilder = new RouteEndpointBuilder(
+                requestDelegate: RenderStatefulReactiveComponent,
+                routePattern: routePattern,
+                order: 0);
+
+            endpointBuilder.DisplayName = $"{endpointBuilder.RoutePattern.RawText} ({component.Name})";
+            endpointBuilder.Metadata.Add(attribute);
+            endpointBuilder.Metadata.Add(new HttpMethodMetadata([HttpMethod.Post.Method]));
+            endpointBuilder.Metadata.Add(new StatefulReactiveComponentMetadata(component));
+
+            FinalizeEndpoint(component: component, endpointBuilder: endpointBuilder);
+
+            var endpoint = endpointBuilder.Build();
+            target.Add(endpoint);
+        }
+    }
+
+    private void FinalizeEndpoint(Type component, RouteEndpointBuilder endpointBuilder)
+    {
+        foreach (var componentAttribute in component.GetCustomAttributes())
+        {
+            if (componentAttribute is ReactiveComponentAttribute or RequiredMemberAttribute)
+            {
+                continue;
+            }
+
+            endpointBuilder.Metadata.Add(componentAttribute);
+        }
+
+        foreach (var convention in conventions)
+        {
+            convention(endpointBuilder);
+        }
+
+        foreach (var finallyConvention in finallyConventions)
+        {
+            finallyConvention(endpointBuilder);
+        }
     }
 
     private static Task RenderReactiveComponent(HttpContext httpContext)
@@ -130,6 +176,19 @@ internal sealed class ReactiveComponentEndpointDataSource : EndpointDataSource
         }
 
         var invoker = httpContext.RequestServices.GetRequiredService<IRazorComponentEndpointInvoker>();
+        return invoker.Render(httpContext);
+    }
+
+    private static Task RenderStatefulReactiveComponent(HttpContext httpContext)
+    {
+        var isReactive = httpContext.Request.Headers.ContainsKey("hx-request");
+        if (!isReactive)
+        {
+            httpContext.Response.StatusCode = StatusCodes.Status404NotFound;
+            return httpContext.Response.CompleteAsync();
+        }
+
+        var invoker = httpContext.RequestServices.GetRequiredService<StatefulReactiveComponentInvoker>();
         return invoker.Render(httpContext);
     }
 
