@@ -25,26 +25,38 @@ internal sealed class ReactiveStateHandler(IStateSerializer serializer) : IReact
         };
 
         registeredState.Add(state);
+
+        var valueAssigned = false;
         if (availableState.TryGetValue(state.StateEntryName, out var value))
         {
             var deserialized = serializer.Deserialize<T>(value);
             if (deserialized is not null)
             {
                 state.SetValue(deserialized);
-                return true;
+                valueAssigned = true;
             }
         }
 
-        return false;
+        StateChanged?.Invoke(this, EventArgs.Empty);
+        return valueAssigned;
     }
 
     public void Remove(IReactiveIsland island, string name)
     {
-        foreach (var state in registeredState.Where(s => s.IsFor(island, name)).ToList())
+        var matchingState = registeredState.Where(s => s.IsFor(island, name)).ToList();
+        foreach (var state in matchingState)
         {
             registeredState.Remove(state);
         }
+
+        if (matchingState.Any())
+        {
+            StateChanged?.Invoke(this, EventArgs.Empty);
+        }
     }
+
+    /// <inheritdoc />
+    public event EventHandler? StateChanged;
 
     public void Initialize(IReadOnlyDictionary<string, string> stateValues)
     {

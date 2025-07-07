@@ -15,5 +15,5 @@
 <hr/>
 <article>
     <header>Stateful component with parameter</header>
-    <ReactiveBoundary Name="Buttons" ComponentType="@typeof(InteractiveButtonList)" ComponentParameters="@(new Dictionary<string, object?> { [nameof(InteractiveButtonList.Count)] = 5 })" />
+    <ReactiveBoundary Name="Buttons" Prerender ComponentType="@typeof(InteractiveButtonList)" ComponentParameters="@(new Dictionary<string, object?> { [nameof(InteractiveButtonList.Count)] = 5 })" />
 </article>

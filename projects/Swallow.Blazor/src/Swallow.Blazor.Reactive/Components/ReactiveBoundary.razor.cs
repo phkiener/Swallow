@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Routing;
 using Microsoft.AspNetCore.Routing.Template;
 using Swallow.Blazor.Reactive.Abstractions;
 using Swallow.Blazor.Reactive.Abstractions.Rendering;
+using Swallow.Blazor.Reactive.Abstractions.State;
+using Swallow.Blazor.Reactive.Rendering;
 using Swallow.Blazor.Reactive.Routing;
 
 namespace Swallow.Blazor.Reactive.Components;
@@ -12,10 +14,15 @@ namespace Swallow.Blazor.Reactive.Components;
 /// <summary>
 /// A boundary for an reactive component that will hold its own state.
 /// </summary>
-public sealed partial class ReactiveBoundary(IEnumerable<EndpointDataSource> dataSources, TemplateBinderFactory templateBinderFactory) : ComponentBase
+public sealed partial class ReactiveBoundary(
+    IEnumerable<EndpointDataSource> dataSources,
+    IReactiveStateHandler stateHandler,
+    TemplateBinderFactory templateBinderFactory) : ComponentBase, IDisposable
 {
     private string? targetRoute;
     private string? scriptSource;
+    private IReactiveStateProvider? stateProvider;
+    private IReactiveIsland prerenderIsland = null!;
 
     [CascadingParameter]
     private IReactiveIsland? ReactiveIsland { get; set; }
@@ -25,6 +32,12 @@ public sealed partial class ReactiveBoundary(IEnumerable<EndpointDataSource> dat
     /// </summary>
     [Parameter, EditorRequired]
     public required string Name { get; set; }
+
+    /// <summary>
+    /// Whether to prerender this component.
+    /// </summary>
+    [Parameter, EditorRequired]
+    public bool Prerender { get; set; } = false;
 
     /// <summary>
     /// Type of component to render inside the boundary.
@@ -74,6 +87,13 @@ public sealed partial class ReactiveBoundary(IEnumerable<EndpointDataSource> dat
         var binder = templateBinderFactory.Create(endpoint.RoutePattern);
         var routeValues = new RouteValueDictionary(ComponentParameters);
         targetRoute = binder.BindValues(routeValues);
+
+        prerenderIsland = new ReactiveIsland(Name);
+        if (stateHandler is IReactiveStateProvider provider)
+        {
+            stateProvider = provider;
+            stateProvider.StateChanged += OnComponentStateChanged;
+        }
     }
 
     private static RouteEndpoint? FindEndpoint(IEnumerable<EndpointDataSource> dataSources, Type componentType)
@@ -103,6 +123,20 @@ public sealed partial class ReactiveBoundary(IEnumerable<EndpointDataSource> dat
         }
 
         return null;
+    }
+
+    private void OnComponentStateChanged(object? sender, EventArgs eventArgs)
+    {
+        _ = InvokeAsync(StateHasChanged);
+    }
+
+    /// <inheritdoc />
+    public void Dispose()
+    {
+        if (stateProvider is not null)
+        {
+            stateProvider.StateChanged -= OnComponentStateChanged;
+        }
     }
 }
 

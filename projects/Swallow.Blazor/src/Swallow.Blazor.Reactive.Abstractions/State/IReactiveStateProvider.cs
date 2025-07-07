@@ -16,4 +16,9 @@ public interface IReactiveStateProvider
     /// </summary>
     /// <param name="stateValues"></param>
     void Initialize(IReadOnlyDictionary<string, string> stateValues);
+
+    /// <summary>
+    /// Event that is triggered every time state is registered or removed.
+    /// </summary>
+    event EventHandler? StateChanged;
 }

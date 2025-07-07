@@ -1,4 +1,20 @@
-<div rx-island="@Name" rx-route="@targetRoute" @attributes="@AdditionalAttributes" style="display: contents">
+<div style="display: contents" @attributes="@AdditionalAttributes" rx-island="@Name" rx-route="@targetRoute">
+
+    @if (Prerender)
+    {
+        <CascadingValue Value="@prerenderIsland">
+            <DynamicComponent Type="ComponentType" Parameters="ComponentParameters"/>
+        </CascadingValue>
+
+        @if (stateProvider is not null)
+        {
+            @foreach (var state in stateProvider.Collect())
+            {
+                <input type="hidden" name="@state.Key" value="@state.Value">
+            }
+        }
+    }
+
     <script type="module" nonce="@ScriptNonce">
         import reactive from "@scriptSource";
         reactive.process("@Name");
