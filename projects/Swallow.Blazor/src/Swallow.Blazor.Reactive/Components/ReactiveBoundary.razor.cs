@@ -2,6 +2,7 @@ using System.Reflection;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Endpoints;
 using Microsoft.AspNetCore.Routing;
+using Microsoft.AspNetCore.Routing.Template;
 using Swallow.Blazor.Reactive.Abstractions;
 using Swallow.Blazor.Reactive.Abstractions.Rendering;
 using Swallow.Blazor.Reactive.Routing;
@@ -11,9 +12,9 @@ namespace Swallow.Blazor.Reactive.Components;
 /// <summary>
 /// A boundary for an reactive component that will hold its own state.
 /// </summary>
-public sealed partial class ReactiveBoundary(IEnumerable<EndpointDataSource> dataSources) : ComponentBase
+public sealed partial class ReactiveBoundary(IEnumerable<EndpointDataSource> dataSources, TemplateBinderFactory templateBinderFactory) : ComponentBase
 {
-    private RouteEndpoint? targetRoute;
+    private string? targetRoute;
     private string? scriptSource;
 
     [CascadingParameter]
@@ -30,6 +31,12 @@ public sealed partial class ReactiveBoundary(IEnumerable<EndpointDataSource> dat
     /// </summary>
     [Parameter, EditorRequired]
     public required Type ComponentType { get; set; }
+
+    /// <summary>
+    /// Components to pass to the rendered component.
+    /// </summary>
+    [Parameter]
+    public Dictionary<string, object?>? ComponentParameters { get; set; }
 
     /// <summary>
     /// A nonce to render for the generated script, enabling you to use a content security policy.
@@ -57,11 +64,16 @@ public sealed partial class ReactiveBoundary(IEnumerable<EndpointDataSource> dat
         }
 
         scriptSource = $"/{Assets["_content/Swallow.Blazor.Reactive/reactive.js"]}";
-        targetRoute = FindEndpoint(dataSources, ComponentType);
-        if (targetRoute is null)
+        var endpoint = FindEndpoint(dataSources, ComponentType);
+        if (endpoint is null)
         {
             throw new InvalidOperationException("No component endpoint found in data sources.");
         }
+
+
+        var binder = templateBinderFactory.Create(endpoint.RoutePattern);
+        var routeValues = new RouteValueDictionary(ComponentParameters);
+        targetRoute = binder.BindValues(routeValues);
     }
 
     private static RouteEndpoint? FindEndpoint(IEnumerable<EndpointDataSource> dataSources, Type componentType)

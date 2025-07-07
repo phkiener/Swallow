@@ -23,7 +23,7 @@ function processIsland(island) {
     });
 
     element.setAttribute("hx-trigger", "initialize once");
-    element.setAttribute("hx-post", "/" + element.getAttribute("rx-route"));
+    element.setAttribute("hx-post", element.getAttribute("rx-route"));
     element.setAttribute("hx-target", "this");
     element.setAttribute("hx-swap", "morphdom");
     element.setAttribute("hx-sync", "this:replace");
@@ -69,7 +69,7 @@ function attachAttributes(evnt) {
         return;
     }
 
-    const route = "/" + container.getAttribute("rx-route");
+    const route = container.getAttribute("rx-route");
     for (const el of [...evnt.detail.elt.querySelectorAll("[rx-id]")]) {
         el.setAttribute("hx-post", route);
     }

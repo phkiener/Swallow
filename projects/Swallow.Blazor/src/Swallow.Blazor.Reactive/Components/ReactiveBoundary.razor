@@ -1,4 +1,4 @@
-<div rx-island="@Name" rx-route="@targetRoute!.RoutePattern.RawText" @attributes="@AdditionalAttributes" style="display: contents">
+<div rx-island="@Name" rx-route="@targetRoute" @attributes="@AdditionalAttributes" style="display: contents">
     <script type="module" nonce="@ScriptNonce">
         import reactive from "@scriptSource";
         reactive.process("@Name");

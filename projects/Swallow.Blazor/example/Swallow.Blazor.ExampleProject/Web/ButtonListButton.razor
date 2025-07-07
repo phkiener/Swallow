@@ -1,0 +1,27 @@
+@using Swallow.Blazor.Reactive.Abstractions.Rendering
+@using Swallow.Blazor.Reactive.Abstractions.State
+@inject IReactiveStateHandler StateHandler
+@implements IDisposable
+
+<div style="display: inline-flex; gap: 1ch;">
+    <button type="button" rx-id="@Island.MakeIdentifier("-")" @onclick="@(() => count--)">-</button>
+    <span>@count</span>
+    <button type="button" rx-id="@Island.MakeIdentifier("+")" @onclick="@(() => count++)">+</button>
+</div>
+
+@code {
+    private int count = 0;
+
+    [CascadingParameter]
+    public required IReactiveIsland Island { get; set; }
+
+    protected override void OnInitialized()
+    {
+        StateHandler.Register(Island, nameof(count), () => count);
+    }
+
+    public void Dispose()
+    {
+        StateHandler.Remove(Island, nameof(count));
+    }
+}
