@@ -3,18 +3,25 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.HtmlRendering.Infrastructure;
 using Microsoft.AspNetCore.Components.RenderTree;
 using Microsoft.Extensions.Logging;
+using Swallow.Blazor.Reactive.Abstractions;
 
 namespace Swallow.Blazor.Reactive.Rendering;
 
 internal sealed class StatefulReactiveComponentRenderer(IServiceProvider serviceProvider, ILoggerFactory loggerFactory)
     : StaticHtmlRenderer(serviceProvider, loggerFactory)
 {
+    private static readonly IComponentRenderMode renderModeInstance = new ReactiveRenderMode();
     private static readonly JsonSerializerOptions EventSerializerOptions = new()
     {
         MaxDepth = 32,
         PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
         PropertyNameCaseInsensitive = true
     };
+
+    protected override IComponentRenderMode GetComponentRenderMode(IComponent component)
+    {
+        return renderModeInstance;
+    }
 
     public Task DispatchEventAsync(string identifier, string eventName, string? eventBody)
     {

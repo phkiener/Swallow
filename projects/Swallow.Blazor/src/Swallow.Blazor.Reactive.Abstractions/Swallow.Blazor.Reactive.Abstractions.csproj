@@ -15,6 +15,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="$(ReadmeFilePath)" />
     <None Include="../Swallow.Blazor.Reactive/README.md" PackagePath="/" Pack="true" />
   </ItemGroup>
