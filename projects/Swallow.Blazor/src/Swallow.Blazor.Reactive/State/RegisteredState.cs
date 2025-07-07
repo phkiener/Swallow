@@ -20,14 +20,14 @@ internal sealed class RegisteredState(
     {
     }
 
-    public string StateEntryName => $"__state.{island.Build(name)}";
+    public string StateEntryName => $"__state.{island.MakeIdentifier(name)}";
     public object? Value => valueFunc(target);
 
     public void SetValue(object? value) => setValueFunc(target, value);
 
     public bool IsFor(IReactiveIsland targetIsland, string targetName)
     {
-        return island.Build(name) == targetIsland.Build(targetName);
+        return island.MakeIdentifier(name) == targetIsland.MakeIdentifier(targetName);
     }
 
 }

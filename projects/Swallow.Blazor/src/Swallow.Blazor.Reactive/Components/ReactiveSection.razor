@@ -1,0 +1,8 @@
+@if (innerIsland is null)
+{
+    return;
+}
+
+<CascadingValue Value="innerIsland">
+    @ChildContent(innerIsland)
+</CascadingValue>

@@ -16,5 +16,5 @@ public interface IReactiveIsland
     /// </summary>
     /// <param name="identifier">The identifier of an element.</param>
     /// <returns>A fully built identifier.</returns>
-    public string Build(string identifier);
+    public string MakeIdentifier(string identifier);
 }

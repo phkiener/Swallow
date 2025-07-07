@@ -1,16 +1,20 @@
 @using Swallow.Blazor.Reactive.Abstractions
 @using Swallow.Blazor.Reactive.Abstractions.Rendering
 @using Swallow.Blazor.Reactive.Abstractions.State
+@using Swallow.Blazor.Reactive.Components
 
 @attribute [ReactiveComponent]
 @inject IReactiveStateHandler StateHandler
 
 <div>
     <span>It's currently @DateTime.Now.ToString(format) after @refreshCount refreshes and @clickCount clicks</span>
-    <button type="button" rx-id="@Island.Build("increment")" @onclick="@Increment">Refresh</button>
+
+    <ReactiveSection Name="increment">
+        <button type="button" rx-id="@context.MakeIdentifier("button")" @onclick="@Increment">Refresh</button>
+    </ReactiveSection>
 </div>
 
-<select @bind="format" @bind:after="@StateHasChanged" rx-id="@Island.Build("format")">
+<select @bind="format" @bind:after="@StateHasChanged" rx-id="@Island.MakeIdentifier("format")">
     <option value="O" selected="@(format is "O")">ISO 8601</option>
     <option value="R" selected="@(format is "R")">RFC 1123</option>
     <option value="u" selected="@(format is "u")">Universal sortable</option>
@@ -19,7 +23,9 @@
 
 @if (clickCount > 0)
 {
-    <button type="button" rx-id="@Island.Build("reset")" @onclick="@Reset">Reset</button>
+    <ReactiveSection Name="reset">
+        <button type="button" rx-id="@context.MakeIdentifier("button")" @onclick="@Reset">Reset</button>
+    </ReactiveSection>
 }
 
 @code
