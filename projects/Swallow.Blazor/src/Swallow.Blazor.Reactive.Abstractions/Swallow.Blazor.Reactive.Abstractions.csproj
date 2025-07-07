@@ -20,6 +20,6 @@
 
   <ItemGroup>
     <None Remove="$(ReadmeFilePath)" />
-    <None Include="../Swallow.Blazor.Reactive/README.md" PackagePath="/" Pack="true" />
+    <None Include="../Swallow.Blazor.Reactive/README.md" PackagePath="/" Pack="true" Visible="false" />
   </ItemGroup>
 </Project>

@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.HtmlRendering.Infrastructure;
 using Microsoft.AspNetCore.Components.RenderTree;
 using Microsoft.Extensions.Logging;
-using Swallow.Blazor.Reactive.Abstractions;
+using Swallow.Blazor.Reactive.Abstractions.Rendering;
 
 namespace Swallow.Blazor.Reactive.Rendering;
 

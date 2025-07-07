@@ -1,8 +1,10 @@
 using System.Reflection;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Endpoints;
 using Microsoft.AspNetCore.Routing;
 using Swallow.Blazor.Reactive.Abstractions;
-using Swallow.Blazor.Reactive.DataSource;
+using Swallow.Blazor.Reactive.Abstractions.Rendering;
+using Swallow.Blazor.Reactive.Routing;
 
 namespace Swallow.Blazor.Reactive.Components;
 
@@ -11,11 +13,11 @@ namespace Swallow.Blazor.Reactive.Components;
 /// </summary>
 public sealed partial class ReactiveBoundary(IEnumerable<EndpointDataSource> dataSources) : ComponentBase
 {
-    [CascadingParameter]
-    private IReactiveIsland? ReactiveIsland { get; set; }
-
     private RouteEndpoint? targetRoute;
     private string? scriptSource;
+
+    [CascadingParameter]
+    private IReactiveIsland? ReactiveIsland { get; set; }
 
     /// <summary>
     /// Name for this boundary, which will be used to generate an <see cref="IReactiveIsland"/>.
@@ -49,9 +51,9 @@ public sealed partial class ReactiveBoundary(IEnumerable<EndpointDataSource> dat
             throw new InvalidOperationException($"{nameof(ReactiveBoundary)} may not be nested within a reactive island.");
         }
 
-        if (ComponentType.GetCustomAttribute<StatefulReactiveComponentAttribute>() is null)
+        if (ComponentType.GetCustomAttribute<ReactiveComponentAttribute>() is null)
         {
-            throw new ArgumentException($"Only components marked with {nameof(StatefulReactiveComponentAttribute)} are supported.");
+            throw new ArgumentException($"Only components marked with {nameof(ReactiveComponentAttribute)} are supported.");
         }
 
         scriptSource = $"/{Assets["_content/Swallow.Blazor.Reactive/reactive.js"]}";
@@ -75,11 +77,11 @@ public sealed partial class ReactiveBoundary(IEnumerable<EndpointDataSource> dat
                 }
             }
 
-            if (dataSource is ReactiveComponentEndpointDataSource)
+            if (dataSource is ReactiveComponentDataSource)
             {
                 var endpoint = dataSource.Endpoints
                     .OfType<RouteEndpoint>()
-                    .FirstOrDefault(e => e.Metadata.GetMetadata<StatefulReactiveComponentMetadata>()?.ComponentType == componentType);
+                    .FirstOrDefault(e => e.Metadata.GetMetadata<ComponentTypeMetadata>()?.Type == componentType);
 
                 if (endpoint is not null)
                 {

@@ -1,4 +1,4 @@
-namespace Swallow.Blazor.Reactive.Abstractions;
+namespace Swallow.Blazor.Reactive.Abstractions.Rendering;
 
 /// <summary>
 /// An <em>island</em> of interactivity.

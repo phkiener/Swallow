@@ -8,23 +8,21 @@ using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.DependencyInjection;
 using Swallow.Blazor.Reactive.Abstractions.State;
-using Swallow.Blazor.Reactive.DataSource;
 
 namespace Swallow.Blazor.Reactive.Rendering;
 
 internal sealed class StatefulReactiveComponentInvoker(StatefulReactiveComponentRenderer renderer, IReactiveStateHandler stateHandler)
 {
-    public Task Render(HttpContext context)
+    public Task Render(HttpContext context, string identifier, Type componentType)
     {
-        return renderer.Dispatcher.InvokeAsync(() => RenderComponentCore(context));
+        return renderer.Dispatcher.InvokeAsync(() => RenderComponentCore(context, identifier, componentType));
     }
 
-    private async Task RenderComponentCore(HttpContext context)
+    private async Task RenderComponentCore(HttpContext context, string identifier, Type componentType)
     {
         context.Response.ContentType = "text/html; charset=utf-8";
         await InitializeStandardComponentServicesAsync(context);
 
-        var island = context.Request.Headers["rx-island"].ToString();
         var trigger = context.Request.Headers["rx-trigger"].ToString();
         var eventName = context.Request.Headers["rx-event"].ToString();
 
@@ -34,7 +32,8 @@ internal sealed class StatefulReactiveComponentInvoker(StatefulReactiveComponent
             var parameters = new Dictionary<string, object?>
             {
                 [nameof(StatefulReactiveComponentRoot.HttpContext)] = context,
-                [nameof(StatefulReactiveComponentRoot.Island)] = new ReactiveIsland(island)
+                [nameof(StatefulReactiveComponentRoot.Island)] = new ReactiveIsland(identifier),
+                [nameof(StatefulReactiveComponentRoot.ComponentType)] = componentType
             };
 
             rootComponent = renderer.BeginRenderingComponent(typeof(StatefulReactiveComponentRoot), ParameterView.FromDictionary(parameters));

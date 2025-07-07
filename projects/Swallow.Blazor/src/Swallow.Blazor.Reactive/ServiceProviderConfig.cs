@@ -1,4 +1,5 @@
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Swallow.Blazor.Reactive.Abstractions.State;
 using Swallow.Blazor.Reactive.Rendering;
 using Swallow.Blazor.Reactive.State;
@@ -17,8 +18,12 @@ public static class ServiceProviderConfig
     /// <returns>The given service collection with additional registrations.</returns>
     public static IServiceCollection AddReactiveRendering(this IServiceCollection services)
     {
-        return services.AddScoped<StatefulReactiveComponentRenderer>()
-            .AddScoped<StatefulReactiveComponentInvoker>()
-            .AddScoped<IReactiveStateHandler, ReactiveStateHandler>();
+        services.AddScoped<StatefulReactiveComponentRenderer>();
+        services.AddScoped<StatefulReactiveComponentInvoker>();
+
+        services.TryAddScoped<IReactiveStateHandler, ReactiveStateHandler>();
+        services.TryAddScoped<IStateSerializer, DefaultSerializer>();
+
+        return services;
     }
 }

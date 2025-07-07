@@ -209,5 +209,3 @@ function parseWheelEvent(event) {
         deltaMode: event.deltaMode,
     };
 }
-
-configureEvent(['cancel', 'close', 'toggle'], () => ({}));

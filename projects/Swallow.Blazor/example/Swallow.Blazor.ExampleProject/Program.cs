@@ -20,6 +20,7 @@ var app = builder.Build();
 app.UseAntiforgery();
 app.MapStaticAssets();
 app.MapRazorComponents<_Root>();
-app.MapReactiveComponents(typeof(_Root).Assembly);
+app.MapRoutedComponents();
+app.MapReactiveComponents();
 
 await app.RunAsync();

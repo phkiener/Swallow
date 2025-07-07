@@ -57,7 +57,9 @@ function configureRequest(evnt) {
         evnt.detail.headers["rx-event"] = evnt.detail.triggeringEvent.type;
 
         const transformer = getEventObject(evnt.detail.triggeringEvent.type);
-        evnt.detail.parameters["__event"] = JSON.stringify(transformer(evnt.detail.triggeringEvent));
+        if (transformer) {
+            evnt.detail.parameters["__event"] = JSON.stringify(transformer(evnt.detail.triggeringEvent));
+        }
     }
 }
 

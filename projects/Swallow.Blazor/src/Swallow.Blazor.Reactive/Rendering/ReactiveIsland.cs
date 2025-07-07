@@ -1,4 +1,4 @@
-using Swallow.Blazor.Reactive.Abstractions;
+using Swallow.Blazor.Reactive.Abstractions.Rendering;
 
 namespace Swallow.Blazor.Reactive.Rendering;
 
