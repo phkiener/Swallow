@@ -5,7 +5,7 @@ using Swallow.Validation.Errors;
 namespace Swallow.Validation.Assertions.Times;
 
 /// <summary>
-/// An error signalling that a <see cref="DateTime"/> was outside of a given range.
+/// An error signaling that a <see cref="DateTime"/> was outside of a given range.
 /// </summary>
 /// <param name="lowerBound">The lower bound.</param>
 /// <param name="upperBound">The upper bound.</param>

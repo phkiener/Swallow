@@ -29,7 +29,7 @@ public sealed class DisallowedValueValidationError<T> : ValidationError
         => $"{PropertyName} {(ShouldNotMatch ? "may not" : "must")} be in ({string.Join(separator: ", ", values: Values)}) but was {ActualValue}";
 
     /// <summary>
-    ///     Create a new error signalling that a value must be contained in a certain set of values.
+    ///     Create a new error signaling that a value must be contained in a certain set of values.
     /// </summary>
     /// <param name="values">The values that are allowed.</param>
     /// <returns>The error.</returns>
@@ -39,7 +39,7 @@ public sealed class DisallowedValueValidationError<T> : ValidationError
     }
 
     /// <summary>
-    ///     Create a new error signalling that a value may not be contained in a certain set of values.
+    ///     Create a new error signaling that a value may not be contained in a certain set of values.
     /// </summary>
     /// <param name="values">The values that are not allowed.</param>
     /// <returns>The error.</returns>

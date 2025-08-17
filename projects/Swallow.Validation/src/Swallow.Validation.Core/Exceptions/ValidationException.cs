@@ -7,7 +7,7 @@ using System.Text;
 using Errors;
 
 /// <summary>
-///     An exception signalling a failed validation.
+///     An exception signaling a failed validation.
 /// </summary>
 /// <remarks>
 ///     This exception is thrown when asking a validation result to do so. It does not happen when

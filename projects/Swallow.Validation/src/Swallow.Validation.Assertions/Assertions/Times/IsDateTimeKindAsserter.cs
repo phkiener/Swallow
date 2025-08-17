@@ -5,7 +5,7 @@ using Swallow.Validation.Errors;
 namespace Swallow.Validation.Assertions.Times;
 
 /// <summary>
-/// An error signalling that a <see cref="DateTime"/> has the wrong <see cref="DateTimeKind"/>.
+/// An error signaling that a <see cref="DateTime"/> has the wrong <see cref="DateTimeKind"/>.
 /// </summary>
 /// <param name="expected">The expected <see cref="DateTimeKind"/>.</param>
 public sealed class WrongDateTimeKind(DateTimeKind expected) : ValidationError

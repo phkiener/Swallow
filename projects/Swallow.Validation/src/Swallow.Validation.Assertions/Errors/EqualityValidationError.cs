@@ -31,7 +31,7 @@ public sealed class EqualityValidationError<T> : ValidationError
         => ShouldNotBeEqual ? $"{PropertyName} should not be {ExpectedValue}" : $"{PropertyName} should be {ExpectedValue} but was {ActualValue}";
 
     /// <summary>
-    ///     Create a new error signalling that the checked value must be equal to the given value.
+    ///     Create a new error signaling that the checked value must be equal to the given value.
     /// </summary>
     /// <param name="value">The value that is required</param>
     /// <returns>The error.</returns>
@@ -41,7 +41,7 @@ public sealed class EqualityValidationError<T> : ValidationError
     }
 
     /// <summary>
-    ///     Create a new error signalling that the checked value must not be equal to the given value.
+    ///     Create a new error signaling that the checked value must not be equal to the given value.
     /// </summary>
     /// <param name="value">The value that is forbidden</param>
     /// <returns>The error.</returns>

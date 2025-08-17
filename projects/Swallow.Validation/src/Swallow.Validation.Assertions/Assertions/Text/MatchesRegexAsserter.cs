@@ -6,7 +6,7 @@ using Swallow.Validation.Errors;
 namespace Swallow.Validation.Assertions.Text;
 
 /// <summary>
-/// An error signalling that the asserted string does not conform to an expected format.
+/// An error signaling that the asserted string does not conform to an expected format.
 /// </summary>
 /// <param name="regex">The regex that the value must conform to.</param>
 public sealed class DoesNotMatchRegex(string regex) : ValidationError

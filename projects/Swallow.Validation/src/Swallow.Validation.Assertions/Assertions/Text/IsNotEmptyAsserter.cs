@@ -5,7 +5,7 @@ using Swallow.Validation.Errors;
 namespace Swallow.Validation.Assertions.Text;
 
 /// <summary>
-/// An error signalling that the asserted string is empty.
+/// An error signaling that the asserted string is empty.
 /// </summary>
 public sealed class EmptyString : ValidationError
 {

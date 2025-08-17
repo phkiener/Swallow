@@ -6,7 +6,7 @@ using Swallow.Validation.Internal;
 namespace Swallow.Validation.Assertions.Text;
 
 /// <summary>
-/// An error signalling that the asserted value has the wrong type.
+/// An error signaling that the asserted value has the wrong type.
 /// </summary>
 public sealed class WrongType(Type expectedType) : ValidationError
 {

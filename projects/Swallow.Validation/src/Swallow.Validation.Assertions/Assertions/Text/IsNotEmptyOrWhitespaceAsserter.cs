@@ -5,7 +5,7 @@ using Swallow.Validation.Errors;
 namespace Swallow.Validation.Assertions.Text;
 
 /// <summary>
-/// An error signalling that the asserted string contains only whitespace characters.
+/// An error signaling that the asserted string contains only whitespace characters.
 /// </summary>
 public sealed class OnlyWhitespaceString : ValidationError
 {
