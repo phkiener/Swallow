@@ -16,6 +16,7 @@ public static class ObjectExtensions
     /// <returns>An assertion containing the check.</returns>
     public static IAssertion<object> IsType(this IAssertable<object> assertable, Type type)
     {
+        // Migrated
         return assertable.Satisfies(
             predicate: o => o.GetType() == type,
             errorFunc: o => new TypeValidationError(expectedType: type, actualType: o.GetType(), mode: TypeValidationError.MatchingMode.SameType));
@@ -29,6 +30,7 @@ public static class ObjectExtensions
     /// <returns>An assertion containing the check.</returns>
     public static IAssertion<object> IsAssignableTo(this IAssertable<object> assertable, Type type)
     {
+        // Migrated
         return assertable.Satisfies(
             predicate: type.IsInstanceOfType,
             errorFunc: o => new TypeValidationError(
@@ -45,6 +47,7 @@ public static class ObjectExtensions
     /// <returns>An assertion containing the check.</returns>
     public static IAssertion<object> IsType<T>(this IAssertable<object> assertable)
     {
+        // Migrated
         return assertable.IsType(typeof(T));
     }
 
@@ -56,6 +59,7 @@ public static class ObjectExtensions
     /// <returns>An assertion containing the check.</returns>
     public static IAssertion<object> IsAssignableTo<T>(this IAssertable<object> assertable)
     {
+        // Migrated
         return assertable.IsAssignableTo(typeof(T));
     }
 }
