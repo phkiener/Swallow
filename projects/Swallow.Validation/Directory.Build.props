@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <Copyright>2019-2024 Philipp Kiener</Copyright>
+    <Copyright>2019-2025 Philipp Kiener</Copyright>
      <PackageTags>validation;fluent;extensible;lightweight;swallow</PackageTags>
      <Description>
          A lightweight, fluent and extensible validation library that allows you to specify validations right where you need them.
