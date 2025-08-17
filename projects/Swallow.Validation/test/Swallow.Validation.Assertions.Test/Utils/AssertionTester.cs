@@ -19,13 +19,15 @@ internal static class AssertionTester
     public static bool Assert<T>(T value, IAsserter<T> asserter, [NotNullWhen(false)] out ValidationError? error)
     {
         var valueProvider = TestValue.Of(value);
-        if (asserter.Check(valueProvider, out error))
+        if (asserter.Check(valueProvider, out var reportedError))
         {
             error = null;
             return true;
         }
 
+        error = reportedError;
         error.PropertyName = "value";
+
         return false;
     }
 }

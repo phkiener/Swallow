@@ -23,6 +23,7 @@ public static class StringExtensions
         string targetDescription = null,
         RegexOptions regexOptions = RegexOptions.None)
     {
+        // Migrated!
         return assertion.Satisfies(
             predicate: x => Regex.IsMatch(input: x, pattern: regex, options: regexOptions, matchTimeout: TimeSpan.FromSeconds(5)),
             errorFunc: _ => new RegexValidationError(testedRegex: regex, targetDescription: targetDescription));
@@ -37,6 +38,7 @@ public static class StringExtensions
     /// <returns>The constructed assertion.</returns>
     public static IAssertion<string> Matches(this IAssertable<string> assertion, Regex regex, string targetDescription = null)
     {
+        // Migrated!
         return assertion.Satisfies(
             predicate: regex.IsMatch,
             errorFunc: _ => new RegexValidationError(testedRegex: regex.ToString(), targetDescription: targetDescription));
@@ -49,6 +51,7 @@ public static class StringExtensions
     /// <returns>The constructed assertion.</returns>
     public static IAssertion<string> IsNotEmpty(this IAssertable<string> assertion)
     {
+        // Migrated!
         return assertion.Satisfies(predicate: s => s.Length > 0, errorFunc: _ => new EmptyCollectionValidationError());
     }
 
@@ -59,6 +62,7 @@ public static class StringExtensions
     /// <returns>The constructed assertion.</returns>
     public static IAssertion<string> IsNotOnlyWhitespace(this IAssertable<string> assertion)
     {
+        // Migrated!
         return assertion.Satisfies(predicate: s => string.IsNullOrWhiteSpace(s) is false, errorFunc: _ => new IsOnlyWhitespaceError());
     }
 }
