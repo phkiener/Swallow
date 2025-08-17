@@ -16,6 +16,7 @@ public static class DateTimeExtensions
     /// <returns>The constructed assertion.</returns>
     public static IAssertion<DateTime> IsBefore(this IAssertable<DateTime> assertion, DateTime checkDate)
     {
+        // Migrated
         return assertion.Satisfies(
             predicate: assertedDate => assertedDate < checkDate,
             errorFunc: _ => RangeValidationError<DateTime>.FromUpperBound(value: checkDate, isInclusive: false));
@@ -30,6 +31,7 @@ public static class DateTimeExtensions
     /// <remarks>Always fails when the asserted <see cref="DateTime" /> is <c>null</c>.</remarks>
     public static IAssertion<DateTime?> IsBefore(this IAssertable<DateTime?> assertion, DateTime checkDate)
     {
+        // Migrated
         return assertion.Satisfies(
             predicate: assertedDate => assertedDate < checkDate,
             errorFunc: _ => RangeValidationError<DateTime>.FromUpperBound(value: checkDate, isInclusive: false));
@@ -43,6 +45,7 @@ public static class DateTimeExtensions
     /// <returns>The constructed assertion.</returns>
     public static IAssertion<DateTime> IsAfter(this IAssertable<DateTime> assertion, DateTime checkDate)
     {
+        // Migrated
         return assertion.Satisfies(
             predicate: assertedDate => assertedDate > checkDate,
             errorFunc: _ => RangeValidationError<DateTime>.FromLowerBound(value: checkDate, isInclusive: false));
@@ -57,6 +60,7 @@ public static class DateTimeExtensions
     /// <remarks>Always fails when the asserted <see cref="DateTime" /> is <c>null</c>.</remarks>
     public static IAssertion<DateTime?> IsAfter(this IAssertable<DateTime?> assertion, DateTime checkDate)
     {
+        // Migrated
         return assertion.Satisfies(
             predicate: assertedDate => assertedDate > checkDate,
             errorFunc: _ => RangeValidationError<DateTime>.FromLowerBound(value: checkDate, isInclusive: false));
@@ -71,6 +75,7 @@ public static class DateTimeExtensions
     /// <returns>The constructed assertion.</returns>
     public static IAssertion<DateTime> IsBetween(this IAssertable<DateTime> assertion, DateTime firstDate, DateTime secondDate)
     {
+        // Migrated
         return assertion.Satisfies(
             predicate: x => x >= firstDate && x <= secondDate,
             errorFunc: _ => new RangeValidationError<DateTime>(lowerBound: firstDate, upperBound: secondDate));
@@ -86,6 +91,7 @@ public static class DateTimeExtensions
     /// <remarks>Always fails when the asserted <see cref="DateTime" /> is <c>null</c>.</remarks>
     public static IAssertion<DateTime?> IsBetween(this IAssertable<DateTime?> assertion, DateTime firstDate, DateTime secondDate)
     {
+        // Migrated
         return assertion.Satisfies(
             predicate: x => x >= firstDate && x <= secondDate,
             errorFunc: _ => new RangeValidationError<DateTime>(lowerBound: firstDate, upperBound: secondDate));
@@ -98,6 +104,7 @@ public static class DateTimeExtensions
     /// <returns>The constructed assertion.</returns>
     public static IAssertion<DateTime> IsUtc(this IAssertable<DateTime> assertion)
     {
+        // Migrated
         return assertion.Satisfies(
             predicate: x => x.Kind == DateTimeKind.Utc,
             errorFunc: x => new TimeZoneValidationError(
@@ -113,6 +120,7 @@ public static class DateTimeExtensions
     /// <remarks>Always fails when the asserted <see cref="DateTime" /> is <c>null</c>.</remarks>
     public static IAssertion<DateTime?> IsUtc(this IAssertable<DateTime?> assertion)
     {
+        // Migrated
         return assertion.Satisfies(
             predicate: x => x?.Kind == DateTimeKind.Utc,
             errorFunc: x => new TimeZoneValidationError(
@@ -127,6 +135,7 @@ public static class DateTimeExtensions
     /// <returns>The constructed assertion.</returns>
     public static IAssertion<DateTime> IsLocalTime(this IAssertable<DateTime> assertion)
     {
+        // Migrated
         return assertion.Satisfies(
             predicate: x => x.Kind == DateTimeKind.Local,
             errorFunc: x => new TimeZoneValidationError(
@@ -142,6 +151,7 @@ public static class DateTimeExtensions
     /// <remarks>Always fails when the asserted <see cref="DateTime" /> is <c>null</c>.</remarks>
     public static IAssertion<DateTime?> IsLocalTime(this IAssertable<DateTime?> assertion)
     {
+        // Migrated
         return assertion.Satisfies(
             predicate: x => x?.Kind == DateTimeKind.Local,
             errorFunc: x => new TimeZoneValidationError(
