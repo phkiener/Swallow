@@ -65,6 +65,10 @@ public enum BoundsType
 /// <param name="upperBound">The upper bound; exclusive by default.</param>
 /// <param name="lowerBoundType">How to match the lower bound; defaults to exclusive.</param>
 /// <param name="upperBoundType">How to match the upper bound; defaults to exclusive.</param>
+/// <remarks>
+/// Passing in <c>null</c> for both <paramref name="lowerBound"/> and <paramref name="upperBound"/>
+/// is allowed, but it's not useful. The asserter will juts pass for any value.
+/// </remarks>
 public sealed class IsDateTimeInRangeAsserter(
     DateTime? lowerBound = null,
     DateTime? upperBound = null,
@@ -82,6 +86,67 @@ public sealed class IsDateTimeInRangeAsserter(
 
         error = new DateTimeNotInRange(lowerBound, upperBound, lowerBoundType, upperBoundType);
         return false;
+    }
+
+    /// <summary>
+    /// Return a new instance of <see cref="IsDateTimeInRangeAsserter"/> which asserts that a value
+    /// is before <paramref name="value"/>.
+    /// </summary>
+    /// <param name="value">The reference value to check against.</param>
+    /// <param name="boundsType">
+    /// Whether <paramref name="value"/> itself is a valid value; defaults to it not being valid.
+    /// </param>
+    /// <returns>A constructed asserter.</returns>
+    public static IsDateTimeInRangeAsserter Before(DateTime value, BoundsType boundsType = BoundsType.Exclusive)
+    {
+        return new IsDateTimeInRangeAsserter(upperBound: value, upperBoundType: boundsType);
+    }
+
+    /// <summary>
+    /// Return a new instance of <see cref="IsDateTimeInRangeAsserter"/> which asserts that a value
+    /// is after <paramref name="value"/>.
+    /// </summary>
+    /// <param name="value">The reference value to check against.</param>
+    /// <param name="boundsType">
+    /// Whether <paramref name="value"/> itself is a valid value; defaults to it not being valid.
+    /// </param>
+    /// <returns>A constructed asserter.</returns>
+    public static IsDateTimeInRangeAsserter After(DateTime value, BoundsType boundsType = BoundsType.Exclusive)
+    {
+        return new IsDateTimeInRangeAsserter(lowerBound: value, lowerBoundType: boundsType);
+    }
+
+    /// <summary>
+    /// Return a new instance of <see cref="IsDateTimeInRangeAsserter"/> which asserts that a value
+    /// is between <paramref name="start"/> and <paramref name="end"/>.
+    /// </summary>
+    /// <param name="start">The lower bound of allowed values.</param>
+    /// <param name="end">The upper bound of allowed values.</param>
+    /// <param name="boundsType">
+    /// Whether <paramref name="start"/> and <paramref name="end"/> itself are valid values; defaults to them not being valid.
+    /// </param>
+    /// <returns>A constructed asserter.</returns>
+    public static IsDateTimeInRangeAsserter Between(DateTime start, DateTime end, BoundsType boundsType = BoundsType.Exclusive)
+    {
+        return Between(start: start, end: end, startBoundsType: boundsType, endBoundsType: boundsType);
+    }
+
+    /// <summary>
+    /// Return a new instance of <see cref="IsDateTimeInRangeAsserter"/> which asserts that a value
+    /// is between <paramref name="start"/> and <paramref name="end"/>.
+    /// </summary>
+    /// <param name="start">The lower bound of allowed values.</param>
+    /// <param name="end">The upper bound of allowed values.</param>
+    /// <param name="startBoundsType">
+    /// Whether <paramref name="start"/> itself is a valid values; defaults to it not being valid.
+    /// </param>
+    /// <param name="endBoundsType">
+    /// Whether <paramref name="end"/> itself is a valid values; defaults to it not being valid.
+    /// </param>
+    /// <returns>A constructed asserter.</returns>
+    public static IsDateTimeInRangeAsserter Between(DateTime start, DateTime end, BoundsType startBoundsType, BoundsType endBoundsType)
+    {
+        return new IsDateTimeInRangeAsserter(lowerBound: start, upperBound: end, lowerBoundType: startBoundsType, upperBoundType: endBoundsType);
     }
 
     private bool MatchesLowerBound(DateTime dateTime)

@@ -42,23 +42,26 @@ public sealed class IsInstanceOfAsserter(Type expectedType, bool allowDerivedTyp
         error = new WrongType(expectedType);
         return false;
     }
-}
 
-/// <summary>
-/// A <see cref="IsInstanceOfAsserter"/> that accepts the expected type as type parameter.
-/// </summary>
-/// <param name="allowDerivedTypes">
-/// If <c>true</c>, a derived type of <typeparamref name="T"/> is also accepted.
-/// </param>
-/// <typeparam name="T">The type which the asserted value should have.</typeparam>
-public sealed class IsInstanceOfAsserter<T>(bool allowDerivedTypes = false) : IAsserter<object>
-{
-    // We wrap an instance of the non-generic asserter instead of inheriting so that both asserters may remain sealed.
-    private readonly IsInstanceOfAsserter innerAsserter = new(typeof(T), allowDerivedTypes);
-
-    /// <inheritdoc />
-    public bool Check(INamedValueProvider<object> valueProvider, [NotNullWhen(false)] out ValidationError? error)
+    /// <summary>
+    /// Return a new instance of <see cref="IsInstanceOfAsserter"/> that expects the asserted object
+    /// to have type <typeparamref name="T"/>.
+    /// </summary>
+    /// <typeparam name="T">The type which the asserted value should have.</typeparam>
+    /// <returns>A constructed asserter.</returns>
+    public static IsInstanceOfAsserter Equals<T>()
     {
-        return innerAsserter.Check(valueProvider, out error);
+        return new IsInstanceOfAsserter(typeof(T), allowDerivedTypes: false);
+    }
+
+    /// <summary>
+    /// Return a new instance of <see cref="IsInstanceOfAsserter"/> that expects the asserted object
+    /// to have type <typeparamref name="T"/> or be derived from it.
+    /// </summary>
+    /// <typeparam name="T">The type which the asserted value should have or derive from.</typeparam>
+    /// <returns>A constructed asserter.</returns>
+    public static IsInstanceOfAsserter AssignableTo<T>()
+    {
+        return new IsInstanceOfAsserter(typeof(T), allowDerivedTypes: true);
     }
 }

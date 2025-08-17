@@ -11,7 +11,7 @@ public sealed class IsInstanceOfAsserterTest
     [Test]
     public void ReportsSuccess_WhenValueIsOfCorrectType()
     {
-        var asserter = new IsInstanceOfAsserter<string>();
+        var asserter = IsInstanceOfAsserter.Equals<string>();
         var result = AssertionTester.Assert("hello", asserter, out _);
 
         Assert.That(result, Is.True);
@@ -20,7 +20,7 @@ public sealed class IsInstanceOfAsserterTest
     [Test]
     public void ReportsError_WhenValueIsOfDifferentType()
     {
-        var asserter = new IsInstanceOfAsserter<string>();
+        var asserter = IsInstanceOfAsserter.Equals<string>();
         var result = AssertionTester.Assert(123, asserter, out _);
 
         Assert.That(result, Is.False);
@@ -29,7 +29,7 @@ public sealed class IsInstanceOfAsserterTest
     [Test]
     public void ReportsSuccess_WhenValueIsOfDerivedType_OnAllowDerivedTypes()
     {
-        var asserter = new IsInstanceOfAsserter<BaseType>(allowDerivedTypes: true);
+        var asserter = IsInstanceOfAsserter.AssignableTo<BaseType>();
         var result = AssertionTester.Assert(new DerivedType(), asserter, out _);
 
         Assert.That(result, Is.True);
@@ -38,7 +38,7 @@ public sealed class IsInstanceOfAsserterTest
     [Test]
     public void ReportsError_WhenValueIsOfDerivedType_OnDisallowDerivedTypes()
     {
-        var asserter = new IsInstanceOfAsserter<BaseType>(allowDerivedTypes: false);
+        var asserter = IsInstanceOfAsserter.Equals<BaseType>();
         var result = AssertionTester.Assert(new DerivedType(), asserter, out _);
 
         Assert.That(result, Is.False);
@@ -47,7 +47,7 @@ public sealed class IsInstanceOfAsserterTest
     [Test]
     public void ReportedError_HasCorrectMessage()
     {
-        var asserter = new IsInstanceOfAsserter<string>();
+        var asserter = IsInstanceOfAsserter.Equals<string>();
         AssertionTester.Assert(123, asserter, out var error);
 
         var typedError = error as WrongType;
