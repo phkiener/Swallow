@@ -49,6 +49,7 @@ public static class ComparisonExtensions
     /// <returns>The constructed assertion.</returns>
     public static IAssertion<T> IsNotNull<T>(this IAssertable<T> assertion) where T : class
     {
+        // Migrated
         return assertion.Satisfies(predicate: x => x != null, errorFunc: _ => new IsNullValidationError());
     }
 
@@ -60,6 +61,7 @@ public static class ComparisonExtensions
     /// <returns>The constructed assertion.</returns>
     public static IAssertion<T?> IsNotNull<T>(this IAssertable<T?> assertion) where T : struct
     {
+        // Migrated
         return assertion.Satisfies(predicate: x => x != null, errorFunc: _ => new IsNullValidationError());
     }
 
