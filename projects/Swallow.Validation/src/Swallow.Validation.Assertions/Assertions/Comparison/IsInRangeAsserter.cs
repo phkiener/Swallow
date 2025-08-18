@@ -2,30 +2,30 @@
 using System.Diagnostics.CodeAnalysis;
 using Swallow.Validation.Errors;
 
-namespace Swallow.Validation.Assertions.Times;
+namespace Swallow.Validation.Assertions.Comparison;
 
 /// <summary>
-/// An error signaling that a <see cref="DateTime"/> was outside of a given range.
+/// An error signaling that a value was outside of a given range.
 /// </summary>
 /// <param name="lowerBound">The lower bound.</param>
 /// <param name="upperBound">The upper bound.</param>
 /// <param name="lowerBoundType">Whether the lower bound itself is a valid value.</param>
 /// <param name="upperBoundType">Whether the upper bound itself is a valid value.</param>
-public sealed class DateTimeNotInRange(
-    DateTime? lowerBound,
-    DateTime? upperBound,
+public sealed class NotInRange<T>(
+    T? lowerBound,
+    T? upperBound,
     BoundsType lowerBoundType,
     BoundsType upperBoundType) : ValidationError
 {
     /// <summary>
     /// The lower bound.
     /// </summary>
-    public DateTime? LowerBound { get; } = lowerBound;
+    public T? LowerBound { get; } = lowerBound;
 
     /// <summary>
     /// The upper bound.
     /// </summary>
-    public DateTime? UpperBound { get; } = upperBound;
+    public T? UpperBound { get; } = upperBound;
 
     /// <summary>
     /// Whether the lower bound itself is a valid value.
@@ -58,8 +58,8 @@ public enum BoundsType
 }
 
 /// <summary>
-/// An asserter to check that a <see cref="DateTime"/> is within a given range; produces a
-/// <see cref="DateTimeNotInRange"/> as validation error.
+/// An asserter to check that a value is within a given range; produces a
+/// <see cref="NotInRange{T}"/> as validation error.
 /// </summary>
 /// <param name="lowerBound">The lower bound; exclusive by default.</param>
 /// <param name="upperBound">The upper bound; exclusive by default.</param>
@@ -69,14 +69,14 @@ public enum BoundsType
 /// Passing in <c>null</c> for both <paramref name="lowerBound"/> and <paramref name="upperBound"/>
 /// is allowed, but it's not useful. The asserter will juts pass for any value.
 /// </remarks>
-public sealed class IsDateTimeInRangeAsserter(
-    DateTime? lowerBound = null,
-    DateTime? upperBound = null,
+public sealed class IsInRangeAsserter<T>(
+    T? lowerBound = default,
+    T? upperBound = default,
     BoundsType lowerBoundType = BoundsType.Exclusive,
-    BoundsType upperBoundType = BoundsType.Exclusive) : IAsserter<DateTime>
+    BoundsType upperBoundType = BoundsType.Exclusive) : IAsserter<T> where T : IComparable<T>
 {
     /// <inheritdoc />
-    public bool Check(INamedValueProvider<DateTime> valueProvider, [NotNullWhen(false)] out ValidationError? error)
+    public bool Check(INamedValueProvider<T> valueProvider, [NotNullWhen(false)] out ValidationError? error)
     {
         if (MatchesLowerBound(valueProvider.Value) && MatchesUpperBound(valueProvider.Value))
         {
@@ -84,12 +84,50 @@ public sealed class IsDateTimeInRangeAsserter(
             return true;
         }
 
-        error = new DateTimeNotInRange(lowerBound, upperBound, lowerBoundType, upperBoundType);
+        error = new NotInRange<T>(lowerBound, upperBound, lowerBoundType, upperBoundType);
         return false;
     }
 
+
+
+    private bool MatchesLowerBound(T dateTime)
+    {
+        if (lowerBound is null)
+        {
+            return true;
+        }
+
+        return lowerBoundType switch
+        {
+            BoundsType.Exclusive => dateTime.CompareTo(lowerBound) > 0,
+            BoundsType.Inclusive => dateTime.CompareTo(lowerBound) >= 0,
+            _ => throw new ArgumentOutOfRangeException(paramName: nameof(lowerBoundType), actualValue: lowerBoundType, message: null)
+        };
+    }
+
+    private bool MatchesUpperBound(T dateTime)
+    {
+        if (upperBound is null)
+        {
+            return true;
+        }
+
+        return upperBoundType switch
+        {
+            BoundsType.Exclusive => dateTime.CompareTo(upperBound) < 0,
+            BoundsType.Inclusive => dateTime.CompareTo(upperBound) <= 0,
+            _ => throw new ArgumentOutOfRangeException(paramName: nameof(upperBoundType), actualValue: upperBoundType, message: null)
+        };
+    }
+}
+
+/// <summary>
+/// Convenience functions to create instances of <see cref="IsInRangeAsserter{T}"/>.
+/// </summary>
+public static class IsInRangeAsserter
+{
     /// <summary>
-    /// Return a new instance of <see cref="IsDateTimeInRangeAsserter"/> which asserts that a value
+    /// Return a new instance of <see cref="IsInRangeAsserter{T}"/> which asserts that a value
     /// is before <paramref name="value"/>.
     /// </summary>
     /// <param name="value">The reference value to check against.</param>
@@ -97,13 +135,13 @@ public sealed class IsDateTimeInRangeAsserter(
     /// Whether <paramref name="value"/> itself is a valid value; defaults to it not being valid.
     /// </param>
     /// <returns>A constructed asserter.</returns>
-    public static IsDateTimeInRangeAsserter Before(DateTime value, BoundsType boundsType = BoundsType.Exclusive)
+    public static IsInRangeAsserter<T> Before<T>(T value, BoundsType boundsType = BoundsType.Exclusive) where T : IComparable<T>
     {
-        return new IsDateTimeInRangeAsserter(upperBound: value, upperBoundType: boundsType);
+        return new IsInRangeAsserter<T>(upperBound: value, upperBoundType: boundsType);
     }
 
     /// <summary>
-    /// Return a new instance of <see cref="IsDateTimeInRangeAsserter"/> which asserts that a value
+    /// Return a new instance of <see cref="IsInRangeAsserter{T}"/> which asserts that a value
     /// is after <paramref name="value"/>.
     /// </summary>
     /// <param name="value">The reference value to check against.</param>
@@ -111,13 +149,13 @@ public sealed class IsDateTimeInRangeAsserter(
     /// Whether <paramref name="value"/> itself is a valid value; defaults to it not being valid.
     /// </param>
     /// <returns>A constructed asserter.</returns>
-    public static IsDateTimeInRangeAsserter After(DateTime value, BoundsType boundsType = BoundsType.Exclusive)
+    public static IsInRangeAsserter<T> After<T>(T value, BoundsType boundsType = BoundsType.Exclusive) where T : IComparable<T>
     {
-        return new IsDateTimeInRangeAsserter(lowerBound: value, lowerBoundType: boundsType);
+        return new IsInRangeAsserter<T>(lowerBound: value, lowerBoundType: boundsType);
     }
 
     /// <summary>
-    /// Return a new instance of <see cref="IsDateTimeInRangeAsserter"/> which asserts that a value
+    /// Return a new instance of <see cref="IsInRangeAsserter{T}"/> which asserts that a value
     /// is between <paramref name="start"/> and <paramref name="end"/>.
     /// </summary>
     /// <param name="start">The lower bound of allowed values.</param>
@@ -126,13 +164,13 @@ public sealed class IsDateTimeInRangeAsserter(
     /// Whether <paramref name="start"/> and <paramref name="end"/> itself are valid values; defaults to them not being valid.
     /// </param>
     /// <returns>A constructed asserter.</returns>
-    public static IsDateTimeInRangeAsserter Between(DateTime start, DateTime end, BoundsType boundsType = BoundsType.Exclusive)
+    public static IsInRangeAsserter<T> Between<T>(T start, T end, BoundsType boundsType = BoundsType.Exclusive) where T : IComparable<T>
     {
         return Between(start: start, end: end, startBoundsType: boundsType, endBoundsType: boundsType);
     }
 
     /// <summary>
-    /// Return a new instance of <see cref="IsDateTimeInRangeAsserter"/> which asserts that a value
+    /// Return a new instance of <see cref="IsInRangeAsserter{T}"/> which asserts that a value
     /// is between <paramref name="start"/> and <paramref name="end"/>.
     /// </summary>
     /// <param name="start">The lower bound of allowed values.</param>
@@ -144,38 +182,8 @@ public sealed class IsDateTimeInRangeAsserter(
     /// Whether <paramref name="end"/> itself is a valid values; defaults to it not being valid.
     /// </param>
     /// <returns>A constructed asserter.</returns>
-    public static IsDateTimeInRangeAsserter Between(DateTime start, DateTime end, BoundsType startBoundsType, BoundsType endBoundsType)
+    public static IsInRangeAsserter<T> Between<T>(T start, T end, BoundsType startBoundsType, BoundsType endBoundsType) where T : IComparable<T>
     {
-        return new IsDateTimeInRangeAsserter(lowerBound: start, upperBound: end, lowerBoundType: startBoundsType, upperBoundType: endBoundsType);
-    }
-
-    private bool MatchesLowerBound(DateTime dateTime)
-    {
-        if (lowerBound is null)
-        {
-            return true;
-        }
-
-        return lowerBoundType switch
-        {
-            BoundsType.Exclusive => dateTime > lowerBound.Value,
-            BoundsType.Inclusive => dateTime >= lowerBound.Value,
-            _ => throw new ArgumentOutOfRangeException(paramName: nameof(lowerBoundType), actualValue: lowerBoundType, message: null)
-        };
-    }
-
-    private bool MatchesUpperBound(DateTime dateTime)
-    {
-        if (upperBound is null)
-        {
-            return true;
-        }
-
-        return upperBoundType switch
-        {
-            BoundsType.Exclusive => dateTime < upperBound.Value,
-            BoundsType.Inclusive => dateTime <= upperBound.Value,
-            _ => throw new ArgumentOutOfRangeException(paramName: nameof(upperBoundType), actualValue: upperBoundType, message: null)
-        };
+        return new IsInRangeAsserter<T>(lowerBound: start, upperBound: end, lowerBoundType: startBoundsType, upperBoundType: endBoundsType);
     }
 }
