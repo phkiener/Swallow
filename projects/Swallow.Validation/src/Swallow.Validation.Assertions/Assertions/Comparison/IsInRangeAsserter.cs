@@ -7,39 +7,31 @@ namespace Swallow.Validation.Assertions.Comparison;
 /// <summary>
 /// An error signaling that a value was outside of a given range.
 /// </summary>
-/// <param name="lowerBound">The lower bound.</param>
-/// <param name="upperBound">The upper bound.</param>
-/// <param name="lowerBoundType">Whether the lower bound itself is a valid value.</param>
-/// <param name="upperBoundType">Whether the upper bound itself is a valid value.</param>
-public sealed class NotInRange<T>(
-    T? lowerBound,
-    T? upperBound,
-    BoundsType lowerBoundType,
-    BoundsType upperBoundType) : ValidationError
+/// <param name="lowerBoundary">The lower boundary for allowed values, if any.</param>
+/// <param name="upperBoundary">The upper boundary for allowed values, if any.</param>
+public sealed class NotInRange<T>(ComparisonBoundary<T>? lowerBoundary = null, ComparisonBoundary<T>? upperBoundary = null) : ValidationError where T : IComparable<T>
 {
     /// <summary>
-    /// The lower bound.
+    /// The lower boundary.
     /// </summary>
-    public T? LowerBound { get; } = lowerBound;
+    public ComparisonBoundary<T>? LowerBound { get; } = lowerBoundary;
 
     /// <summary>
-    /// The upper bound.
+    /// The upper boundary.
     /// </summary>
-    public T? UpperBound { get; } = upperBound;
-
-    /// <summary>
-    /// Whether the lower bound itself is a valid value.
-    /// </summary>
-    public BoundsType LowerBoundType { get; } = lowerBoundType;
-
-    /// <summary>
-    /// Whether the upper bound itself is a valid value.
-    /// </summary>
-    public BoundsType UpperBoundType { get; } = upperBoundType;
+    public ComparisonBoundary<T>? UpperBound { get; } = upperBoundary;
 
     /// <inheritdoc />
     public override string Message => $"{PropertyName} is outside of the valid range";
 }
+
+/// <summary>
+/// Represents a boundary against which a value may be checked.
+/// </summary>
+/// <param name="Value">The boundary value itself.</param>
+/// <param name="IsInclusive">Whether <paramref name="Value"/> is an acceptable value or not.</param>
+/// <typeparam name="T">Type of value that is being compared.</typeparam>
+public readonly record struct ComparisonBoundary<T>(T Value, bool IsInclusive) where T : IComparable<T>;
 
 /// <summary>
 /// How to match a value to a bound.
@@ -61,19 +53,9 @@ public enum BoundsType
 /// An asserter to check that a value is within a given range; produces a
 /// <see cref="NotInRange{T}"/> as validation error.
 /// </summary>
-/// <param name="lowerBound">The lower bound; exclusive by default.</param>
-/// <param name="upperBound">The upper bound; exclusive by default.</param>
-/// <param name="lowerBoundType">How to match the lower bound; defaults to exclusive.</param>
-/// <param name="upperBoundType">How to match the upper bound; defaults to exclusive.</param>
-/// <remarks>
-/// Passing in <c>null</c> for both <paramref name="lowerBound"/> and <paramref name="upperBound"/>
-/// is allowed, but it's not useful. The asserter will juts pass for any value.
-/// </remarks>
-public sealed class IsInRangeAsserter<T>(
-    T? lowerBound = default,
-    T? upperBound = default,
-    BoundsType lowerBoundType = BoundsType.Exclusive,
-    BoundsType upperBoundType = BoundsType.Exclusive) : IAsserter<T> where T : IComparable<T>
+/// <param name="lowerBoundary">The lower boundary for allowed values, if any.</param>
+/// <param name="upperBoundary">The upper boundary for allowed values, if any.</param>
+public sealed class IsInRangeAsserter<T>(ComparisonBoundary<T>? lowerBoundary = null, ComparisonBoundary<T>? upperBoundary = null) : IAsserter<T> where T : IComparable<T>
 {
     /// <inheritdoc />
     public bool Check(INamedValueProvider<T> valueProvider, [NotNullWhen(false)] out ValidationError? error)
@@ -84,39 +66,29 @@ public sealed class IsInRangeAsserter<T>(
             return true;
         }
 
-        error = new NotInRange<T>(lowerBound, upperBound, lowerBoundType, upperBoundType);
+        error = new NotInRange<T>(lowerBoundary, upperBoundary);
         return false;
     }
 
 
 
-    private bool MatchesLowerBound(T dateTime)
+    private bool MatchesLowerBound(T value)
     {
-        if (lowerBound is null)
+        return lowerBoundary switch
         {
-            return true;
-        }
-
-        return lowerBoundType switch
-        {
-            BoundsType.Exclusive => dateTime.CompareTo(lowerBound) > 0,
-            BoundsType.Inclusive => dateTime.CompareTo(lowerBound) >= 0,
-            _ => throw new ArgumentOutOfRangeException(paramName: nameof(lowerBoundType), actualValue: lowerBoundType, message: null)
+            null => true,
+            { IsInclusive: true, Value: var inclusiveLimit } => value.CompareTo(inclusiveLimit) >= 0,
+            { IsInclusive: false, Value: var exclusiveLimit } => value.CompareTo(exclusiveLimit) > 0
         };
     }
 
-    private bool MatchesUpperBound(T dateTime)
+    private bool MatchesUpperBound(T value)
     {
-        if (upperBound is null)
+        return upperBoundary switch
         {
-            return true;
-        }
-
-        return upperBoundType switch
-        {
-            BoundsType.Exclusive => dateTime.CompareTo(upperBound) < 0,
-            BoundsType.Inclusive => dateTime.CompareTo(upperBound) <= 0,
-            _ => throw new ArgumentOutOfRangeException(paramName: nameof(upperBoundType), actualValue: upperBoundType, message: null)
+            null => true,
+            { IsInclusive: true, Value: var inclusiveLimit } => value.CompareTo(inclusiveLimit) <= 0,
+            { IsInclusive: false, Value: var exclusiveLimit } => value.CompareTo(exclusiveLimit) < 0
         };
     }
 }
@@ -137,7 +109,8 @@ public static class IsInRangeAsserter
     /// <returns>A constructed asserter.</returns>
     public static IsInRangeAsserter<T> Before<T>(T value, BoundsType boundsType = BoundsType.Exclusive) where T : IComparable<T>
     {
-        return new IsInRangeAsserter<T>(upperBound: value, upperBoundType: boundsType);
+        var boundary = new ComparisonBoundary<T>(value, boundsType is BoundsType.Inclusive);
+        return new IsInRangeAsserter<T>(upperBoundary: boundary);
     }
 
     /// <summary>
@@ -151,7 +124,8 @@ public static class IsInRangeAsserter
     /// <returns>A constructed asserter.</returns>
     public static IsInRangeAsserter<T> After<T>(T value, BoundsType boundsType = BoundsType.Exclusive) where T : IComparable<T>
     {
-        return new IsInRangeAsserter<T>(lowerBound: value, lowerBoundType: boundsType);
+        var boundary = new ComparisonBoundary<T>(value, boundsType is BoundsType.Inclusive);
+        return new IsInRangeAsserter<T>(lowerBoundary: boundary);
     }
 
     /// <summary>
@@ -184,6 +158,9 @@ public static class IsInRangeAsserter
     /// <returns>A constructed asserter.</returns>
     public static IsInRangeAsserter<T> Between<T>(T start, T end, BoundsType startBoundsType, BoundsType endBoundsType) where T : IComparable<T>
     {
-        return new IsInRangeAsserter<T>(lowerBound: start, upperBound: end, lowerBoundType: startBoundsType, upperBoundType: endBoundsType);
+        var lowerBoundary = new ComparisonBoundary<T>(start, startBoundsType is BoundsType.Inclusive);
+        var upperBoundary = new ComparisonBoundary<T>(end, endBoundsType is BoundsType.Inclusive);
+
+        return new IsInRangeAsserter<T>(lowerBoundary: lowerBoundary, upperBoundary: upperBoundary);
     }
 }

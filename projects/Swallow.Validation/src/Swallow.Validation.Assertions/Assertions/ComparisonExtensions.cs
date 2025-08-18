@@ -18,6 +18,7 @@ public static class ComparisonExtensions
     /// <returns>The constructed assertion.</returns>
     public static IAssertion<T> IsInRange<T>(this IAssertable<T> assertion, T lowerInclusive, T upperInclusive) where T : IComparable<T>
     {
+        // Migrated
         return assertion.Satisfies(
             predicate: x => x.CompareTo(lowerInclusive) >= 0 && x.CompareTo(upperInclusive) <= 0,
             errorFunc: _ => new RangeValidationError<T>(lowerBound: lowerInclusive, upperBound: upperInclusive));
@@ -34,6 +35,7 @@ public static class ComparisonExtensions
     /// <remarks>Always fails when the asserted value is <c>null</c>.</remarks>
     public static IAssertion<T?> IsInRange<T>(this IAssertable<T?> assertion, T lowerInclusive, T upperInclusive) where T : struct, IComparable<T>
     {
+        // Migrated
         return assertion.Satisfies(
             predicate: x => x is not null && x.Value.CompareTo(lowerInclusive) >= 0 && x.Value.CompareTo(upperInclusive) <= 0,
             errorFunc: _ => new RangeValidationError<T>(lowerBound: lowerInclusive, upperBound: upperInclusive));
@@ -70,6 +72,7 @@ public static class ComparisonExtensions
     /// <returns>The constructed assertion.</returns>
     public static IAssertion<T> IsGreaterThan<T>(this IAssertable<T> assertion, T lowerBound) where T : IComparable<T>
     {
+        // Migrated
         return assertion.Satisfies(
             predicate: x => x.CompareTo(lowerBound) > 0,
             errorFunc: _ => RangeValidationError<T>.FromLowerBound(value: lowerBound, isInclusive: false));
@@ -85,6 +88,7 @@ public static class ComparisonExtensions
     /// <remarks>Always fails when the asserted value is <c>null</c>.</remarks>
     public static IAssertion<T?> IsGreaterThan<T>(this IAssertable<T?> assertion, T lowerBound) where T : struct, IComparable<T>
     {
+        // Migrated
         return assertion.Satisfies(
             predicate: x => x is not null && x.Value.CompareTo(lowerBound) > 0,
             errorFunc: _ => RangeValidationError<T>.FromLowerBound(value: lowerBound, isInclusive: false));
@@ -99,6 +103,7 @@ public static class ComparisonExtensions
     /// <returns>The constructed assertion.</returns>
     public static IAssertion<T> IsGreaterThanOrEqual<T>(this IAssertable<T> assertion, T lowerBound) where T : IComparable<T>
     {
+        // Migrated
         return assertion.Satisfies(
             predicate: x => x.CompareTo(lowerBound) >= 0,
             errorFunc: _ => RangeValidationError<T>.FromLowerBound(value: lowerBound, isInclusive: true));
@@ -114,6 +119,7 @@ public static class ComparisonExtensions
     /// <remarks>Always fails when the asserted value is <c>null</c>.</remarks>
     public static IAssertion<T?> IsGreaterThanOrEqual<T>(this IAssertable<T?> assertion, T lowerBound) where T : struct, IComparable<T>
     {
+        // Migrated
         return assertion.Satisfies(
             predicate: x => x is not null && x.Value.CompareTo(lowerBound) >= 0,
             errorFunc: _ => RangeValidationError<T>.FromLowerBound(value: lowerBound, isInclusive: true));
@@ -128,6 +134,7 @@ public static class ComparisonExtensions
     /// <returns>The constructed assertion.</returns>
     public static IAssertion<T> IsLessThan<T>(this IAssertable<T> assertion, T upperBound) where T : IComparable<T>
     {
+        // Migrated
         return assertion.Satisfies(
             predicate: x => x.CompareTo(upperBound) < 0,
             errorFunc: _ => RangeValidationError<T>.FromUpperBound(value: upperBound, isInclusive: false));
@@ -142,6 +149,7 @@ public static class ComparisonExtensions
     /// <returns>The constructed assertion.</returns>
     public static IAssertion<T?> IsLessThan<T>(this IAssertable<T?> assertion, T upperBound) where T : struct, IComparable<T>
     {
+        // Migrated
         return assertion.Satisfies(
             predicate: x => x is not null && x.Value.CompareTo(upperBound) < 0,
             errorFunc: _ => RangeValidationError<T>.FromUpperBound(value: upperBound, isInclusive: false));
@@ -156,6 +164,7 @@ public static class ComparisonExtensions
     /// <returns>The constructed assertion.</returns>
     public static IAssertion<T> IsLessThanOrEqual<T>(this IAssertable<T> assertion, T upperBound) where T : IComparable<T>
     {
+        // Migrated
         return assertion.Satisfies(
             predicate: x => x.CompareTo(upperBound) <= 0,
             errorFunc: _ => RangeValidationError<T>.FromUpperBound(value: upperBound, isInclusive: true));
@@ -171,6 +180,7 @@ public static class ComparisonExtensions
     /// <remarks>Always fails when the asserted value is <c>null</c>.</remarks>
     public static IAssertion<T?> IsLessThanOrEqual<T>(this IAssertable<T?> assertion, T upperBound) where T : struct, IComparable<T>
     {
+        // Migrated
         return assertion.Satisfies(
             predicate: x => x is not null && x.Value.CompareTo(upperBound) <= 0,
             errorFunc: _ => RangeValidationError<T>.FromUpperBound(value: upperBound, isInclusive: true));
@@ -185,6 +195,7 @@ public static class ComparisonExtensions
     /// <returns>The constructed assertion.</returns>
     public static IAssertion<T> IsEqualTo<T>(this IAssertable<T> assertion, T value) where T : IEquatable<T>
     {
+        // Migrated
         return assertion.Satisfies(predicate: x => x.Equals(value), errorFunc: _ => EqualityValidationError<T>.MustBe(value));
     }
 
@@ -198,6 +209,7 @@ public static class ComparisonExtensions
     /// <remarks>Always fails when the asserted value is <c>null</c>.</remarks>
     public static IAssertion<T?> IsEqualTo<T>(this IAssertable<T?> assertion, T value) where T : struct, IEquatable<T>
     {
+        // Migrated
         return assertion.Satisfies(predicate: x => x.Equals(value), errorFunc: _ => EqualityValidationError<T>.MustBe(value));
     }
 
@@ -210,6 +222,7 @@ public static class ComparisonExtensions
     /// <returns>The constructed assertion.</returns>
     public static IAssertion<T> IsNotEqualTo<T>(this IAssertable<T> assertion, T value) where T : IEquatable<T>
     {
+        // (technically) Migrated
         return assertion.Satisfies(predicate: x => !x.Equals(value), errorFunc: _ => EqualityValidationError<T>.MustNotBe(value));
     }
 
@@ -223,6 +236,7 @@ public static class ComparisonExtensions
     /// <remarks>Always passes when the asserted value is <c>null</c>.</remarks>
     public static IAssertion<T?> IsNotEqualTo<T>(this IAssertable<T?> assertion, T value) where T : struct, IEquatable<T>
     {
+        // (technically) Migrated
         return assertion.Satisfies(predicate: x => !x.Equals(value), errorFunc: _ => EqualityValidationError<T>.MustNotBe(value));
     }
 }

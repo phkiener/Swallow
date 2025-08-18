@@ -48,16 +48,17 @@ public sealed class IsInRangeAsserterTest
     {
         var asserter = IsInRangeAsserter.Between(
             start: new DateTime(2000, 1, 1, 0, 0, 0),
+            startBoundsType: BoundsType.Inclusive,
             end: new DateTime(2010, 1, 1, 0, 0, 0),
-            boundsType: BoundsType.Inclusive);
+            endBoundsType: BoundsType.Exclusive);
 
         AssertionTester.Assert(new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Local), asserter, out var error);
 
         var typedError = error as NotInRange<DateTime>;
-        Assert.That(typedError?.LowerBound, Is.EqualTo(new DateTime(2000, 1, 1, 0, 0, 0)));
-        Assert.That(typedError?.UpperBound, Is.EqualTo(new DateTime(2010, 1, 1, 0, 0, 0)));
-        Assert.That(typedError?.LowerBoundType, Is.EqualTo(BoundsType.Inclusive));
-        Assert.That(typedError?.UpperBoundType, Is.EqualTo(BoundsType.Inclusive));
+        Assert.That(typedError?.LowerBound?.Value, Is.EqualTo(new DateTime(2000, 1, 1, 0, 0, 0)));
+        Assert.That(typedError?.UpperBound?.Value, Is.EqualTo(new DateTime(2010, 1, 1, 0, 0, 0)));
+        Assert.That(typedError?.LowerBound?.IsInclusive, Is.True);
+        Assert.That(typedError?.UpperBound?.IsInclusive, Is.False);
         Assert.That(typedError?.Message, Is.EqualTo("value is outside of the valid range"));
     }
 }
