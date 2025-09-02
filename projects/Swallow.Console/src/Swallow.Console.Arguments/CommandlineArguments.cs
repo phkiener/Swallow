@@ -8,6 +8,11 @@ namespace Swallow.Console.Arguments;
 /// <seealso cref="Arguments.Parse"/>
 public sealed class CommandlineArguments
 {
+    internal CommandlineArguments()
+    {
+
+    }
+
     /// <summary>
     /// Returns <c>true</c> if the parsed arguments contain the specified flag.
     /// </summary>
