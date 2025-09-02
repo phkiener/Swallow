@@ -13,5 +13,6 @@
   </Folder>
   <Folder Name="/Test/">
     <Project Path="test/Swallow.Console.Test/Swallow.Console.Test.csproj" />
+    <Project Path="test/Swallow.Console.Arguments.Test/Swallow.Console.Arguments.Test.csproj" />
   </Folder>
 </Solution>

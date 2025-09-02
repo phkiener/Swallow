@@ -83,6 +83,7 @@
   </Folder>
   <Folder Name="/Swallow.Console/Test/">
     <Project Path="projects/Swallow.Console/test/Swallow.Console.Test/Swallow.Console.Test.csproj" />
+    <Project Path="projects/Swallow.Console/test/Swallow.Console.Arguments.Test/Swallow.Console.Arguments.Test.csproj" />
   </Folder>
   <Folder Name="/Swallow.Flux/" />
   <Folder Name="/Swallow.Flux/Additional items/">
