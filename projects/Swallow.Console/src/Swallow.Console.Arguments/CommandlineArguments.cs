@@ -8,9 +8,11 @@ namespace Swallow.Console.Arguments;
 /// <seealso cref="Arguments.Parse"/>
 public sealed class CommandlineArguments
 {
-    internal CommandlineArguments()
-    {
+    private readonly List<Argument> arguments;
 
+    private CommandlineArguments(List<Argument> arguments)
+    {
+        this.arguments = arguments;
     }
 
     /// <summary>
@@ -40,6 +42,16 @@ public sealed class CommandlineArguments
     /// </remarks>
     public bool HasFlag(char? shortName, string? longName = null)
     {
+        if (shortName is not null && arguments.OfType<ShortFlag>().Any(f => f.Character == shortName))
+        {
+            return true;
+        }
+
+        if (longName is not null  && arguments.OfType<LongFlag>().Any(f => f.Text == longName))
+        {
+            return true;
+        }
+
         return false;
     }
 
@@ -69,7 +81,72 @@ public sealed class CommandlineArguments
     /// </remarks>
     public bool HasOption(char? shortName, [MaybeNullWhen(false)] out string value, string? longName = null)
     {
+        if (shortName is not null)
+        {
+            var foundOption = arguments.OfType<ShortOption>().FirstOrDefault(f => f.Character == shortName);
+            if (foundOption is not null)
+            {
+                value = foundOption.Value;
+                return true;
+            }
+        }
+
+        if (longName is not null)
+        {
+            var foundOption = arguments.OfType<LongOption>().FirstOrDefault(f => f.Text == longName);
+            if (foundOption is not null)
+            {
+                value = foundOption.Value;
+                return true;
+            }
+        }
+
         value = null;
         return false;
     }
+
+    internal static CommandlineArguments From(string[] args)
+    {
+        var arguments = new List<Argument>();
+
+        foreach (var argument in args)
+        {
+            if (argument is ['-', var letter] && char.IsLetter(letter))
+            {
+                arguments.Add(new ShortFlag(letter));
+                continue;
+            }
+
+            if (argument is ['-', '-', .. var name])
+            {
+                arguments.Add(new LongFlag(name));
+                continue;
+            }
+
+            var parameter = new Parameter(argument);
+
+            var lastArgument = arguments.LastOrDefault();
+            if (lastArgument is ShortFlag { Character: var character })
+            {
+                arguments.Add(new ShortOption(character, argument));
+            }
+
+            if (lastArgument is LongFlag { Text: var text })
+            {
+                arguments.Add(new LongOption(text, argument));
+            }
+
+            arguments.Add(parameter);
+        }
+
+        return new CommandlineArguments(arguments);
+    }
+
+    private interface Argument;
+
+    private sealed record ShortFlag(char Character) : Argument;
+    private sealed record LongFlag(string Text) : Argument;
+    private sealed record ShortOption(char Character, string Value) : Argument;
+    private sealed record LongOption(string Text, string Value) : Argument;
+    private sealed record Parameter(string Value) : Argument;
 }

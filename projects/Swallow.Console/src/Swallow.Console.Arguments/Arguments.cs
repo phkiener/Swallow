@@ -12,7 +12,7 @@ public static class Arguments
     /// <returns>An object to query the arguments in a structured manner.</returns>
     public static CommandlineArguments Parse(params string[] args)
     {
-        return new CommandlineArguments();
+        return CommandlineArguments.From(args);
     }
 
     /// <summary>
