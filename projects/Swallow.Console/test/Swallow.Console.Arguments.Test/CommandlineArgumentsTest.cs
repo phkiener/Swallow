@@ -8,8 +8,7 @@ public sealed class CommandlineArgumentsTest
     {
         var arguments = Arguments.Parse("-b");
 
-        Assert.That(arguments.HasFlag(shortName: 'b'), Is.True);
-        Assert.That(arguments.HasOption(shortName: 'b', out _), Is.False);
+        AssertTokens(arguments, new ShortOption('b'));
     }
 
     [Test]
@@ -17,27 +16,35 @@ public sealed class CommandlineArgumentsTest
     {
         var arguments = Arguments.Parse("--bar");
 
-        Assert.That(arguments.HasFlag(shortName: null, longName: "bar"), Is.True);
-        Assert.That(arguments.HasOption(shortName: null, longName: "bar", value: out _), Is.False);
+        AssertTokens(arguments, new LongOption("bar"));
     }
 
     [Test]
     public void CanParse_UnixStyleOption_ShortName()
     {
-        var arguments = Arguments.Parse("-b", "baz");
+        var arguments = Arguments.Parse("-b baz");
 
-        Assert.That(arguments.HasFlag(shortName: 'b'), Is.True);
-        Assert.That(arguments.HasOption(shortName: 'b', out var value), Is.True);
-        Assert.That(value, Is.EqualTo("baz"));
+        AssertTokens(arguments, new ShortOption('b'), new ParameterOrOptionValue("baz"));
     }
 
     [Test]
     public void CanParse_UnixStyleOption_LongName()
     {
-        var arguments = Arguments.Parse("--bar", "baz");
+        var arguments = Arguments.Parse("--bar baz");
 
-        Assert.That(arguments.HasFlag(shortName: null, longName: "bar"), Is.True);
-        Assert.That(arguments.HasOption(shortName: null, longName: "bar", value: out var value), Is.True);
-        Assert.That(value, Is.EqualTo("baz"));
+        AssertTokens(arguments, new LongOption("bar"), new ParameterOrOptionValue("baz"));
+    }
+
+    [Test]
+    public void CanParse_PlainParameter()
+    {
+        var arguments = Arguments.Parse("baz");
+
+        AssertTokens(arguments, new Parameter("baz"));
+    }
+
+    private static void AssertTokens(CommandlineArguments arguments, params Token[] tokens)
+    {
+        Assert.That(arguments, Is.EqualTo(tokens));
     }
 }

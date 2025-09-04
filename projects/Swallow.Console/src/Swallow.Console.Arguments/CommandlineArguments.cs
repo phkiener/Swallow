@@ -1,19 +1,70 @@
+using System.Collections;
 using System.Diagnostics.CodeAnalysis;
 
 namespace Swallow.Console.Arguments;
 
 /// <summary>
+/// The common interface for tokens parsed from commandline arguments.
+/// </summary>
+public interface Token;
+
+/// <summary>
+/// An option declared using a single character.
+/// </summary>
+/// <param name="Character">The character of the parsed option.</param>
+public sealed record ShortOption(char Character) : Token;
+
+/// <summary>
+/// An long option declared using multiple characters.
+/// </summary>
+/// <param name="Text">The parsed option.</param>
+public sealed record LongOption(string Text) : Token;
+
+/// <summary>
+/// An argument that is unambiguously used as value for a preceding <see cref="ShortOption"/> or
+/// <see cref="LongOption"/>.
+/// </summary>
+/// <param name="Value">The contained value.</param>
+public sealed record OptionValue(string Value) : Token;
+
+/// <summary>
+/// An argument that - depending on context - can be used as value for an option
+/// (<see cref="OptionValue"/>) <em>or</em> as standalone parameter (<see cref="Parameter"/>). No
+/// differentiation can be made based on syntax alone.
+/// </summary>
+/// <param name="Value">The contained value.</param>
+public sealed record ParameterOrOptionValue(string Value) : Token;
+
+/// <summary>
+/// An argument that is unambiguously used as a standalone parameter.
+/// </summary>
+/// <param name="Value">The contained value.</param>
+public sealed record Parameter(string Value) : Token;
+
+/// <summary>
 /// An object that you can query to get structured information about parsed commandline arguments.
 /// </summary>
-/// <seealso cref="Arguments.Parse"/>
-public sealed class CommandlineArguments
+/// <seealso cref="Arguments.Parse(string[])"/>
+public sealed class CommandlineArguments : IReadOnlyList<Token>
 {
-    private readonly List<Argument> arguments;
+    private readonly List<Token> tokens;
 
-    private CommandlineArguments(List<Argument> arguments)
+    private CommandlineArguments(List<Token> tokens)
     {
-        this.arguments = arguments;
+        this.tokens = tokens;
     }
+
+    /// <inheritdoc />
+    public IEnumerator<Token> GetEnumerator() => tokens.GetEnumerator();
+
+    /// <inheritdoc />
+    IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+
+    /// <inheritdoc />
+    public int Count => tokens.Count;
+
+    /// <inheritdoc />
+    public Token this[int index] => tokens[index];
 
     /// <summary>
     /// Returns <c>true</c> if the parsed arguments contain the specified flag.
@@ -42,12 +93,12 @@ public sealed class CommandlineArguments
     /// </remarks>
     public bool HasFlag(char? shortName, string? longName = null)
     {
-        if (shortName is not null && arguments.OfType<ShortFlag>().Any(f => f.Character == shortName))
+        if (shortName is not null && tokens.OfType<ShortOption>().Any(f => f.Character == shortName))
         {
             return true;
         }
 
-        if (longName is not null  && arguments.OfType<LongFlag>().Any(f => f.Text == longName))
+        if (longName is not null  && tokens.OfType<LongOption>().Any(f => f.Text == longName))
         {
             return true;
         }
@@ -83,21 +134,49 @@ public sealed class CommandlineArguments
     {
         if (shortName is not null)
         {
-            var foundOption = arguments.OfType<ShortOption>().FirstOrDefault(f => f.Character == shortName);
+            var foundOption = tokens.OfType<ShortOption>().FirstOrDefault(f => f.Character == shortName);
             if (foundOption is not null)
             {
-                value = foundOption.Value;
-                return true;
+                var index = tokens.IndexOf(foundOption);
+                if (index is not -1)
+                {
+                    var nextToken = tokens.ElementAtOrDefault(index + 1);
+                    if (nextToken is ParameterOrOptionValue parameterOrOptionValue)
+                    {
+                        value = parameterOrOptionValue.Value;
+                        return true;
+                    }
+
+                    if (nextToken is OptionValue optionValue)
+                    {
+                        value = optionValue.Value;
+                        return true;
+                    }
+                }
             }
         }
 
         if (longName is not null)
         {
-            var foundOption = arguments.OfType<LongOption>().FirstOrDefault(f => f.Text == longName);
+            var foundOption = tokens.OfType<LongOption>().FirstOrDefault(f => f.Text == longName);
             if (foundOption is not null)
             {
-                value = foundOption.Value;
-                return true;
+                var index = tokens.IndexOf(foundOption);
+                if (index is not -1)
+                {
+                    var nextToken = tokens.ElementAtOrDefault(index + 1);
+                    if (nextToken is ParameterOrOptionValue parameterOrOptionValue)
+                    {
+                        value = parameterOrOptionValue.Value;
+                        return true;
+                    }
+
+                    if (nextToken is OptionValue optionValue)
+                    {
+                        value = optionValue.Value;
+                        return true;
+                    }
+                }
             }
         }
 
@@ -107,46 +186,33 @@ public sealed class CommandlineArguments
 
     internal static CommandlineArguments From(string[] args)
     {
-        var arguments = new List<Argument>();
+        var arguments = new List<Token>();
 
         foreach (var argument in args)
         {
             if (argument is ['-', var letter] && char.IsLetter(letter))
             {
-                arguments.Add(new ShortFlag(letter));
+                arguments.Add(new ShortOption(letter));
                 continue;
             }
 
             if (argument is ['-', '-', .. var name])
             {
-                arguments.Add(new LongFlag(name));
+                arguments.Add(new LongOption(name));
                 continue;
             }
 
-            var parameter = new Parameter(argument);
-
             var lastArgument = arguments.LastOrDefault();
-            if (lastArgument is ShortFlag { Character: var character })
+            if (lastArgument is ShortOption or LongOption)
             {
-                arguments.Add(new ShortOption(character, argument));
+                arguments.Add(new ParameterOrOptionValue(argument));
             }
-
-            if (lastArgument is LongFlag { Text: var text })
+            else
             {
-                arguments.Add(new LongOption(text, argument));
+                arguments.Add(new Parameter(argument));
             }
-
-            arguments.Add(parameter);
         }
 
         return new CommandlineArguments(arguments);
     }
-
-    private interface Argument;
-
-    private sealed record ShortFlag(char Character) : Argument;
-    private sealed record LongFlag(string Text) : Argument;
-    private sealed record ShortOption(char Character, string Value) : Argument;
-    private sealed record LongOption(string Text, string Value) : Argument;
-    private sealed record Parameter(string Value) : Argument;
 }
