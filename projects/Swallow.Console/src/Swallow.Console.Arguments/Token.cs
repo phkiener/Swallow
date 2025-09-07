@@ -1,8 +1,10 @@
 namespace Swallow.Console.Arguments;
 
 /// <summary>
-/// A token parsed for <see cref="CommandlineArguments"/>.
+/// A single token passed from commandline.
 /// </summary>
+/// <param name="Type">The type of token.</param>
+/// <param name="Value">The parsed value.</param>
 public readonly record struct Token(TokenType Type, string Value)
 {
     /// <summary>
