@@ -1,62 +1,14 @@
 using System.Collections;
 using System.Diagnostics.CodeAnalysis;
+using System.Text.RegularExpressions;
 
 namespace Swallow.Console.Arguments;
-
-/// <summary>
-/// A token parsed for <see cref="CommandlineArguments"/>.
-/// </summary>
-public readonly record struct Token(TokenType Type, string Value)
-{
-
-    /// <summary>
-    /// An option declared using a single character.
-    /// </summary>
-    /// <param name="name">The character of the parsed option.</param>
-    public static Token Option(char name) => new(TokenType.Option, new string(name, 1));
-
-    /// <summary>
-    /// An long option declared using multiple characters.
-    /// </summary>
-    /// <param name="name">The parsed option.</param>
-    public static Token Option(string name) => new(TokenType.Option, name);
-
-    /// <summary>
-    /// An argument that is unambiguously used as value for a preceding <see cref="Token.Option(string)"/>.
-    /// </summary>
-    /// <param name="value">The contained value.</param>
-    public static Token OptionValue(string value) => new(TokenType.OptionValue, value);
-
-    /// <summary>
-    /// An argument that is unambiguously used as a standalone parameter.
-    /// </summary>
-    /// <param name="value">The contained value.</param>
-    public static Token Parameter(string value) => new(TokenType.Parameter, value);
-
-    /// <summary>
-    /// /// An argument that - depending on context - can be used as value for an option
-    /// (<see cref="Option(string)"/>) <em>or</em> as standalone parameter (<see cref="Parameter"/>). No
-    /// differentiation can be made based on syntax alone.
-    /// </summary>
-    /// <param name="value">The contained value.</param>
-    public static Token ParameterOrOptionValue(string value) => new(TokenType.ParameterOrOptionValue, value);
-}
-
-[Flags]
-public enum TokenType
-{
-    Option = 0b0000_0001,
-    OptionValue = 0b0000_0010,
-    Parameter = 0b0010_0000,
-
-    ParameterOrOptionValue = OptionValue | Parameter
-}
 
 /// <summary>
 /// An object that you can query to get structured information about parsed commandline arguments.
 /// </summary>
 /// <seealso cref="Arguments.Parse(string[])"/>
-public sealed class CommandlineArguments : IReadOnlyList<Token>
+public sealed partial class CommandlineArguments : IReadOnlyList<Token>
 {
     private readonly Token[] tokens;
 
@@ -179,28 +131,92 @@ public sealed class CommandlineArguments : IReadOnlyList<Token>
     {
         var arguments = new List<Token>(args.Length);
 
+        var canBeOptionValue = false;
+        var forceParameter = false;
         foreach (var argument in args)
         {
-            switch (argument)
+            if (argument is "--")
             {
-                case ['-', var letter] when char.IsLetter(letter):
-                    arguments.Add(Token.Option(letter));
-                    continue;
-
-                case ['-', '-', .. var name]:
-                    arguments.Add(Token.Option(name));
-                    continue;
-
-                default:
-                    var lastToken = arguments.LastOrDefault();
-                    arguments.Add(
-                        lastToken is { Type: TokenType.Option }
-                            ? Token.ParameterOrOptionValue(argument)
-                            : Token.Parameter(argument));
-                    break;
+                forceParameter = true;
+                continue;
             }
+
+            if (forceParameter)
+            {
+                arguments.Add(Token.Parameter(argument));
+                continue;
+            }
+
+            var unixStyleMatch = UnixStyleFlag().Match(argument);
+            if (unixStyleMatch.Success)
+            {
+                var shortOption = unixStyleMatch.Groups["shortoption"];
+                if (shortOption.Success)
+                {
+                    var options = shortOption.Captures.Select(static c => Token.Option(c.Value));
+                    arguments.AddRange(options);
+
+                    canBeOptionValue = true;
+                    continue;
+                }
+
+                var longOption = unixStyleMatch.Groups["longoption"];
+                if (longOption.Success)
+                {
+                    arguments.Add(Token.Option(longOption.Value));
+
+                    var optionValue = unixStyleMatch.Groups["optionvalue"];
+                    if (optionValue.Success)
+                    {
+                        arguments.Add(Token.OptionValue(optionValue.Value));
+                        canBeOptionValue = false;
+                    }
+                    else
+                    {
+                        canBeOptionValue = true;
+                    }
+
+                    continue;
+                }
+            }
+
+            var windowsStyleMatch = WindowsStyleFlag().Match(argument);
+            if (windowsStyleMatch.Success)
+            {
+                var option = windowsStyleMatch.Groups["option"];
+                if (option.Success)
+                {
+                    arguments.Add(Token.Option(option.Value));
+
+                    var optionValue = windowsStyleMatch.Groups["optionvalue"];
+                    if (optionValue.Success)
+                    {
+                        arguments.Add(Token.OptionValue(optionValue.Value));
+                        canBeOptionValue = false;
+                    }
+                    else
+                    {
+                        canBeOptionValue = true;
+                    }
+                }
+
+                continue;
+            }
+
+            var value = canBeOptionValue
+                ? Token.ParameterOrOptionValue(argument)
+                : Token.Parameter(argument);
+
+            arguments.Add(value);
+            canBeOptionValue = false;
         }
 
         return new CommandlineArguments(arguments.ToArray());
     }
+
+    [GeneratedRegex(@"^(-(?<shortoption>\w)+|--(?<longoption>\w+)(=(?<optionvalue>.+))?)$")]
+    private static partial Regex UnixStyleFlag();
+
+    [GeneratedRegex(@"^/(?<option>\w+)(:(?<optionvalue>.+))?$")]
+    private static partial Regex WindowsStyleFlag();
 }

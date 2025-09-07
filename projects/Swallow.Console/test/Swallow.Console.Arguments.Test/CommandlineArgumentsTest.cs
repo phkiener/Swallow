@@ -4,47 +4,46 @@ namespace Swallow.Console.Arguments;
 public sealed class CommandlineArgumentsTest
 {
     [Test]
-    public void CanParse_UnixStyleFlag_ShortName()
+    public void UnixStyleFlags()
     {
-        var arguments = Arguments.Parse("-b");
-
-        AssertTokens(arguments, Token.Option('b'));
+        AssertTokens("-b", Token.Option("b"));
+        AssertTokens("-abc", Token.Option("a"), Token.Option("b"), Token.Option("c"));
+        AssertTokens("--bar", Token.Option("bar"));
     }
 
     [Test]
-    public void CanParse_UnixStyleFlag_LongName()
+    public void UnixStyleOptions()
     {
-        var arguments = Arguments.Parse("--bar");
-
-        AssertTokens(arguments, Token.Option("bar"));
+        AssertTokens("-b foo", Token.Option("b"), Token.ParameterOrOptionValue("foo"));
+        AssertTokens("-abc foo", Token.Option("a"), Token.Option("b"), Token.Option("c"), Token.ParameterOrOptionValue("foo"));
+        AssertTokens("--bar foo", Token.Option("bar"), Token.ParameterOrOptionValue("foo"));
+        AssertTokens("--bar=foo", Token.Option("bar"), Token.OptionValue("foo"));
     }
 
     [Test]
-    public void CanParse_UnixStyleOption_ShortName()
+    public void WindowsStyleFlags()
     {
-        var arguments = Arguments.Parse("-b baz");
-
-        AssertTokens(arguments, Token.Option('b'), Token.ParameterOrOptionValue("baz"));
+        AssertTokens("/b", Token.Option("b"));
+        AssertTokens("/bar", Token.Option("bar"));
     }
 
     [Test]
-    public void CanParse_UnixStyleOption_LongName()
+    public void WindowsStyleOptions()
     {
-        var arguments = Arguments.Parse("--bar baz");
-
-        AssertTokens(arguments, Token.Option("bar"), Token.ParameterOrOptionValue("baz"));
+        AssertTokens("/b:foo", Token.Option("b"), Token.OptionValue("foo"));
+        AssertTokens("/bar:foo", Token.Option("bar"), Token.OptionValue("foo"));
     }
 
     [Test]
-    public void CanParse_PlainParameter()
+    public void DoubleDashLimiter()
     {
-        var arguments = Arguments.Parse("baz");
-
-        AssertTokens(arguments, Token.Parameter("baz"));
+        AssertTokens("--foo -- bar", Token.Option("foo"), Token.Parameter("bar"));
+        AssertTokens("--foo -- --bar", Token.Option("foo"), Token.Parameter("--bar"));
     }
 
-    private static void AssertTokens(CommandlineArguments arguments, params Token[] tokens)
+    private static void AssertTokens(string input, params Token[] tokens)
     {
-        Assert.That(arguments, Is.EqualTo(tokens));
+        var parsed = Arguments.Parse(input);
+        Assert.That(parsed, Is.EqualTo(tokens));
     }
 }
