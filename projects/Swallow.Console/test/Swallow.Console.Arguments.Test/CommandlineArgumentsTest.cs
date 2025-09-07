@@ -18,6 +18,7 @@ public sealed class CommandlineArgumentsTest
         AssertTokens("-abc foo", Token.Option("a"), Token.Option("b"), Token.Option("c"), Token.ParameterOrOptionValue("foo"));
         AssertTokens("--bar foo", Token.Option("bar"), Token.ParameterOrOptionValue("foo"));
         AssertTokens("--bar=foo", Token.Option("bar"), Token.OptionValue("foo"));
+        AssertTokens("--bar=foo", Token.Option("bar"), Token.OptionValue("foo"));
     }
 
     [Test]
@@ -39,6 +40,27 @@ public sealed class CommandlineArgumentsTest
     {
         AssertTokens("--foo -- bar", Token.Option("foo"), Token.Parameter("bar"));
         AssertTokens("--foo -- --bar", Token.Option("foo"), Token.Parameter("--bar"));
+    }
+
+    [Test]
+    public void QuotedParameters()
+    {
+        AssertTokens(@"foo ""bar baz"" quuz", Token.Parameter("foo"), Token.Parameter("bar baz"), Token.Parameter("quuz"));
+        AssertTokens("foo 'bar baz' quuz", Token.Parameter("foo"), Token.Parameter("bar baz"), Token.Parameter("quuz"));
+        AssertTokens("mixed 'quotes \" here'", Token.Parameter("mixed"), Token.Parameter("quotes \" here"));
+        AssertTokens(@"mixed ""quotes ' here""", Token.Parameter("mixed"), Token.Parameter("quotes ' here"));
+    }
+
+    [Test]
+    public void EscapedCharacters()
+    {
+        AssertTokens(@"foo bar\ baz quuz", Token.Parameter("foo"), Token.Parameter("bar baz"), Token.Parameter("quuz"));
+        AssertTokens(@"'quote \' character'", Token.Parameter("quote \' character"));
+        AssertTokens(@"'quote \"" character'", Token.Parameter("quote \" character"));
+
+        AssertTokens(@"'Just a \n'", Token.Parameter("Just a \n"));
+        AssertTokens(@"'Just a \r'", Token.Parameter("Just a \r"));
+        AssertTokens(@"'Just a \t'", Token.Parameter("Just a \t"));
     }
 
     private static void AssertTokens(string input, params Token[] tokens)

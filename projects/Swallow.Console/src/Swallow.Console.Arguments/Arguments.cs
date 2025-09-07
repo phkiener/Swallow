@@ -10,7 +10,7 @@ public static class Arguments
     /// </summary>
     /// <param name="args">The CLI arguments to parse.</param>
     /// <returns>An object to query the arguments in a structured manner.</returns>
-    public static CommandlineArguments Parse(params string[] args)
+    public static CommandlineArguments Parse(params IReadOnlyList<string> args)
     {
         return CommandlineArguments.From(args);
     }
@@ -29,32 +29,9 @@ public static class Arguments
     /// </remarks>
     public static CommandlineArguments Parse(string input)
     {
-        var arguments = new List<string>();
+        var splittedArguments = Split(input);
 
-        var argumentStart = 0;
-        char? quotingCharacter = null;
-        var isEscaped = false;
-
-        for (var i = 0; i < input.Length; i++)
-        {
-            if (char.IsWhiteSpace(input[i]) && !isEscaped && quotingCharacter is null)
-            {
-                if (i - argumentStart >= 1)
-                {
-                    arguments.Add(input[argumentStart..i]);
-                }
-
-                argumentStart = i + 1;
-                continue;
-            }
-        }
-
-        if (argumentStart < input.Length)
-        {
-            arguments.Add(input[argumentStart..]);
-        }
-
-        return Parse(arguments.ToArray());
+        return CommandlineArguments.From(splittedArguments);
     }
 
     /// <summary>
@@ -66,5 +43,80 @@ public static class Arguments
     public static T Parse<T>(params string[] args)
     {
         throw new NotImplementedException("This is not implemented. Yet.");
+    }
+
+    private static List<string> Split(string input)
+    {
+        var arguments = new List<string>();
+
+        var argumentStart = 0;
+        char? quotingCharacter = null;
+        var isEscaped = false;
+
+        for (var i = 0; i < input.Length; i++)
+        {
+            if (isEscaped)
+            {
+                isEscaped = false;
+                continue;
+            }
+
+            if (input[i] == '\\')
+            {
+                isEscaped = true;
+                continue;
+            }
+
+            if (quotingCharacter is not null)
+            {
+                if (input[i] == quotingCharacter)
+                {
+                    var argument = input[argumentStart..i];
+                    arguments.Add(Unescape(argument));
+
+                    quotingCharacter = null;
+                    argumentStart = i + 1;
+                }
+
+                continue;
+            }
+
+            if (input[i] is '"' or '\'')
+            {
+                quotingCharacter = input[i];
+                argumentStart = i + 1;
+            }
+
+            if (char.IsWhiteSpace(input[i]))
+            {
+                if (i - argumentStart >= 1)
+                {
+                    var argument = input[argumentStart..i];
+                    arguments.Add(Unescape(argument));
+                }
+
+                argumentStart = i + 1;
+            }
+        }
+
+        if (argumentStart < input.Length)
+        {
+            var argument = input[argumentStart..];
+            arguments.Add(Unescape(argument));
+        }
+
+        return arguments;
+    }
+
+    private static string Unescape(string input)
+    {
+        return input
+            .Replace(@"\n", "\n")
+            .Replace(@"\r", "\r")
+            .Replace(@"\t", "\t")
+            .Replace(@"\ ", " ")
+            .Replace(@"\\", "\\")
+            .Replace(@"\""", "\"")
+            .Replace(@"\'", "\'");
     }
 }

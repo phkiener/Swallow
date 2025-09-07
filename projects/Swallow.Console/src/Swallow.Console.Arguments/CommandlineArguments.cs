@@ -127,9 +127,9 @@ public sealed partial class CommandlineArguments : IReadOnlyList<Token>
         return false;
     }
 
-    internal static CommandlineArguments From(string[] args)
+    internal static CommandlineArguments From(IReadOnlyList<string> args)
     {
-        var arguments = new List<Token>(args.Length);
+        var arguments = new List<Token>(args.Count);
 
         var canBeOptionValue = false;
         var forceParameter = false;
