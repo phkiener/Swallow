@@ -1,18 +1,20 @@
+using System.Text.RegularExpressions;
+
 namespace Swallow.Console.Arguments;
 
 /// <summary>
 /// Parse command line arguments in a structured manner.
 /// </summary>
-public static class Arguments
+public static partial class Arguments
 {
     /// <summary>
     /// Parse the given <paramref name="args"/> into a queryable object.
     /// </summary>
     /// <param name="args">The CLI arguments to parse.</param>
     /// <returns>An object to query the arguments in a structured manner.</returns>
-    public static CommandlineArguments Parse(params IReadOnlyList<string> args)
+    public static IReadOnlyList<Token> Parse(params IReadOnlyList<string> args)
     {
-        return CommandlineArguments.From(args);
+        return Tokenize(args);
     }
 
     /// <summary>
@@ -27,11 +29,11 @@ public static class Arguments
     /// A backslash-escaped space will not be used to separate the arguments and instead be copied
     /// over verbatim.
     /// </remarks>
-    public static CommandlineArguments Parse(string input)
+    public static IReadOnlyList<Token> Parse(string input)
     {
         var splittedArguments = Split(input);
 
-        return CommandlineArguments.From(splittedArguments);
+        return Parse(splittedArguments);
     }
 
     /// <summary>
@@ -108,6 +110,93 @@ public static class Arguments
         return arguments;
     }
 
+    private static IReadOnlyList<Token> Tokenize(IReadOnlyList<string> args)
+    {
+        var arguments = new List<Token>(args.Count);
+
+        var canBeOptionValue = false;
+        var forceParameter = false;
+        foreach (var argument in args)
+        {
+            if (argument is "--")
+            {
+                forceParameter = true;
+                continue;
+            }
+
+            if (forceParameter)
+            {
+                arguments.Add(Token.Parameter(argument));
+                continue;
+            }
+
+            var unixStyleMatch = UnixStyleFlag().Match(argument);
+            if (unixStyleMatch.Success)
+            {
+                var shortOption = unixStyleMatch.Groups["shortoption"];
+                if (shortOption.Success)
+                {
+                    var options = shortOption.Captures.Select(static c => Token.Option(c.Value));
+                    arguments.AddRange(options);
+
+                    canBeOptionValue = true;
+                    continue;
+                }
+
+                var longOption = unixStyleMatch.Groups["longoption"];
+                if (longOption.Success)
+                {
+                    arguments.Add(Token.Option(longOption.Value));
+
+                    var optionValue = unixStyleMatch.Groups["optionvalue"];
+                    if (optionValue.Success)
+                    {
+                        arguments.Add(Token.OptionValue(optionValue.Value));
+                        canBeOptionValue = false;
+                    }
+                    else
+                    {
+                        canBeOptionValue = true;
+                    }
+
+                    continue;
+                }
+            }
+
+            var windowsStyleMatch = WindowsStyleFlag().Match(argument);
+            if (windowsStyleMatch.Success)
+            {
+                var option = windowsStyleMatch.Groups["option"];
+                if (option.Success)
+                {
+                    arguments.Add(Token.Option(option.Value));
+
+                    var optionValue = windowsStyleMatch.Groups["optionvalue"];
+                    if (optionValue.Success)
+                    {
+                        arguments.Add(Token.OptionValue(optionValue.Value));
+                        canBeOptionValue = false;
+                    }
+                    else
+                    {
+                        canBeOptionValue = true;
+                    }
+                }
+
+                continue;
+            }
+
+            var value = canBeOptionValue
+                ? Token.ParameterOrOptionValue(argument)
+                : Token.Parameter(argument);
+
+            arguments.Add(value);
+            canBeOptionValue = false;
+        }
+
+        return arguments;
+    }
+
     private static string Unescape(string input)
     {
         return input
@@ -119,4 +208,10 @@ public static class Arguments
             .Replace(@"\""", "\"")
             .Replace(@"\'", "\'");
     }
+
+    [GeneratedRegex(@"^(-(?<shortoption>\w)+|--(?<longoption>\w+)(=(?<optionvalue>.+))?)$")]
+    private static partial Regex UnixStyleFlag();
+
+    [GeneratedRegex(@"^/(?<option>\w+)(:(?<optionvalue>.+))?$")]
+    private static partial Regex WindowsStyleFlag();
 }
