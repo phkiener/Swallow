@@ -8,7 +8,7 @@ public sealed class CommandlineArgumentsTest
     {
         var arguments = Arguments.Parse("-b");
 
-        AssertTokens(arguments, new ShortOption('b'));
+        AssertTokens(arguments, Token.Option('b'));
     }
 
     [Test]
@@ -16,7 +16,7 @@ public sealed class CommandlineArgumentsTest
     {
         var arguments = Arguments.Parse("--bar");
 
-        AssertTokens(arguments, new LongOption("bar"));
+        AssertTokens(arguments, Token.Option("bar"));
     }
 
     [Test]
@@ -24,7 +24,7 @@ public sealed class CommandlineArgumentsTest
     {
         var arguments = Arguments.Parse("-b baz");
 
-        AssertTokens(arguments, new ShortOption('b'), new ParameterOrOptionValue("baz"));
+        AssertTokens(arguments, Token.Option('b'), Token.ParameterOrOptionValue("baz"));
     }
 
     [Test]
@@ -32,7 +32,7 @@ public sealed class CommandlineArgumentsTest
     {
         var arguments = Arguments.Parse("--bar baz");
 
-        AssertTokens(arguments, new LongOption("bar"), new ParameterOrOptionValue("baz"));
+        AssertTokens(arguments, Token.Option("bar"), Token.ParameterOrOptionValue("baz"));
     }
 
     [Test]
@@ -40,7 +40,7 @@ public sealed class CommandlineArgumentsTest
     {
         var arguments = Arguments.Parse("baz");
 
-        AssertTokens(arguments, new Parameter("baz"));
+        AssertTokens(arguments, Token.Parameter("baz"));
     }
 
     private static void AssertTokens(CommandlineArguments arguments, params Token[] tokens)

@@ -4,42 +4,53 @@ using System.Diagnostics.CodeAnalysis;
 namespace Swallow.Console.Arguments;
 
 /// <summary>
-/// The common interface for tokens parsed from commandline arguments.
+/// A token parsed for <see cref="CommandlineArguments"/>.
 /// </summary>
-public interface Token;
+public readonly record struct Token(TokenType Type, string Value)
+{
 
-/// <summary>
-/// An option declared using a single character.
-/// </summary>
-/// <param name="Character">The character of the parsed option.</param>
-public sealed record ShortOption(char Character) : Token;
+    /// <summary>
+    /// An option declared using a single character.
+    /// </summary>
+    /// <param name="name">The character of the parsed option.</param>
+    public static Token Option(char name) => new(TokenType.Option, new string(name, 1));
 
-/// <summary>
-/// An long option declared using multiple characters.
-/// </summary>
-/// <param name="Text">The parsed option.</param>
-public sealed record LongOption(string Text) : Token;
+    /// <summary>
+    /// An long option declared using multiple characters.
+    /// </summary>
+    /// <param name="name">The parsed option.</param>
+    public static Token Option(string name) => new(TokenType.Option, name);
 
-/// <summary>
-/// An argument that is unambiguously used as value for a preceding <see cref="ShortOption"/> or
-/// <see cref="LongOption"/>.
-/// </summary>
-/// <param name="Value">The contained value.</param>
-public sealed record OptionValue(string Value) : Token;
+    /// <summary>
+    /// An argument that is unambiguously used as value for a preceding <see cref="Token.Option(string)"/>.
+    /// </summary>
+    /// <param name="value">The contained value.</param>
+    public static Token OptionValue(string value) => new(TokenType.OptionValue, value);
 
-/// <summary>
-/// An argument that - depending on context - can be used as value for an option
-/// (<see cref="OptionValue"/>) <em>or</em> as standalone parameter (<see cref="Parameter"/>). No
-/// differentiation can be made based on syntax alone.
-/// </summary>
-/// <param name="Value">The contained value.</param>
-public sealed record ParameterOrOptionValue(string Value) : Token;
+    /// <summary>
+    /// An argument that is unambiguously used as a standalone parameter.
+    /// </summary>
+    /// <param name="value">The contained value.</param>
+    public static Token Parameter(string value) => new(TokenType.Parameter, value);
 
-/// <summary>
-/// An argument that is unambiguously used as a standalone parameter.
-/// </summary>
-/// <param name="Value">The contained value.</param>
-public sealed record Parameter(string Value) : Token;
+    /// <summary>
+    /// /// An argument that - depending on context - can be used as value for an option
+    /// (<see cref="Option(string)"/>) <em>or</em> as standalone parameter (<see cref="Parameter"/>). No
+    /// differentiation can be made based on syntax alone.
+    /// </summary>
+    /// <param name="value">The contained value.</param>
+    public static Token ParameterOrOptionValue(string value) => new(TokenType.ParameterOrOptionValue, value);
+}
+
+[Flags]
+public enum TokenType
+{
+    Option = 0b0000_0001,
+    OptionValue = 0b0000_0010,
+    Parameter = 0b0010_0000,
+
+    ParameterOrOptionValue = OptionValue | Parameter
+}
 
 /// <summary>
 /// An object that you can query to get structured information about parsed commandline arguments.
@@ -47,21 +58,21 @@ public sealed record Parameter(string Value) : Token;
 /// <seealso cref="Arguments.Parse(string[])"/>
 public sealed class CommandlineArguments : IReadOnlyList<Token>
 {
-    private readonly List<Token> tokens;
+    private readonly Token[] tokens;
 
-    private CommandlineArguments(List<Token> tokens)
+    private CommandlineArguments(Token[] tokens)
     {
         this.tokens = tokens;
     }
 
     /// <inheritdoc />
-    public IEnumerator<Token> GetEnumerator() => tokens.GetEnumerator();
+    public IEnumerator<Token> GetEnumerator() => tokens.AsEnumerable().GetEnumerator();
 
     /// <inheritdoc />
-    IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+    IEnumerator IEnumerable.GetEnumerator() => tokens.GetEnumerator();
 
     /// <inheritdoc />
-    public int Count => tokens.Count;
+    public int Count => tokens.Length;
 
     /// <inheritdoc />
     public Token this[int index] => tokens[index];
@@ -93,14 +104,18 @@ public sealed class CommandlineArguments : IReadOnlyList<Token>
     /// </remarks>
     public bool HasFlag(char? shortName, string? longName = null)
     {
-        if (shortName is not null && tokens.OfType<ShortOption>().Any(f => f.Character == shortName))
+        foreach (var token in tokens)
         {
-            return true;
-        }
+            if (token.Type is not TokenType.Option)
+            {
+                continue;
+            }
 
-        if (longName is not null  && tokens.OfType<LongOption>().Any(f => f.Text == longName))
-        {
-            return true;
+            if (shortName.HasValue && token.Value == new string(shortName.Value, 1)
+                || longName is not null && token.Value == longName)
+            {
+                return true;
+            }
         }
 
         return false;
@@ -132,48 +147,24 @@ public sealed class CommandlineArguments : IReadOnlyList<Token>
     /// </remarks>
     public bool HasOption(char? shortName, [MaybeNullWhen(false)] out string value, string? longName = null)
     {
-        if (shortName is not null)
+        for (var i = 0; i < tokens.Length; i++)
         {
-            var foundOption = tokens.OfType<ShortOption>().FirstOrDefault(f => f.Character == shortName);
-            if (foundOption is not null)
+            var token = tokens[i];
+            if (token.Type is not TokenType.Option)
             {
-                var index = tokens.IndexOf(foundOption);
-                if (index is not -1)
-                {
-                    var nextToken = tokens.ElementAtOrDefault(index + 1);
-                    if (nextToken is ParameterOrOptionValue parameterOrOptionValue)
-                    {
-                        value = parameterOrOptionValue.Value;
-                        return true;
-                    }
-
-                    if (nextToken is OptionValue optionValue)
-                    {
-                        value = optionValue.Value;
-                        return true;
-                    }
-                }
+                continue;
             }
-        }
 
-        if (longName is not null)
-        {
-            var foundOption = tokens.OfType<LongOption>().FirstOrDefault(f => f.Text == longName);
-            if (foundOption is not null)
+            if (shortName.HasValue && token.Value == new string(shortName.Value, 1)
+                || longName is not null && token.Value == longName)
             {
-                var index = tokens.IndexOf(foundOption);
-                if (index is not -1)
+                if (tokens.Length > i)
                 {
-                    var nextToken = tokens.ElementAtOrDefault(index + 1);
-                    if (nextToken is ParameterOrOptionValue parameterOrOptionValue)
+                    var nextToken = tokens[i + 1];
+                    if (nextToken.Type.HasFlag(TokenType.OptionValue))
                     {
-                        value = parameterOrOptionValue.Value;
-                        return true;
-                    }
 
-                    if (nextToken is OptionValue optionValue)
-                    {
-                        value = optionValue.Value;
+                        value = nextToken.Value;
                         return true;
                     }
                 }
@@ -186,33 +177,30 @@ public sealed class CommandlineArguments : IReadOnlyList<Token>
 
     internal static CommandlineArguments From(string[] args)
     {
-        var arguments = new List<Token>();
+        var arguments = new List<Token>(args.Length);
 
         foreach (var argument in args)
         {
-            if (argument is ['-', var letter] && char.IsLetter(letter))
+            switch (argument)
             {
-                arguments.Add(new ShortOption(letter));
-                continue;
-            }
+                case ['-', var letter] when char.IsLetter(letter):
+                    arguments.Add(Token.Option(letter));
+                    continue;
 
-            if (argument is ['-', '-', .. var name])
-            {
-                arguments.Add(new LongOption(name));
-                continue;
-            }
+                case ['-', '-', .. var name]:
+                    arguments.Add(Token.Option(name));
+                    continue;
 
-            var lastArgument = arguments.LastOrDefault();
-            if (lastArgument is ShortOption or LongOption)
-            {
-                arguments.Add(new ParameterOrOptionValue(argument));
-            }
-            else
-            {
-                arguments.Add(new Parameter(argument));
+                default:
+                    var lastToken = arguments.LastOrDefault();
+                    arguments.Add(
+                        lastToken is { Type: TokenType.Option }
+                            ? Token.ParameterOrOptionValue(argument)
+                            : Token.Parameter(argument));
+                    break;
             }
         }
 
-        return new CommandlineArguments(arguments);
+        return new CommandlineArguments(arguments.ToArray());
     }
 }
