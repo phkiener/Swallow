@@ -1,6 +1,5 @@
 namespace Swallow.Validation;
 
-using FluentAssertions;
 using NUnit.Framework;
 using TestUtils;
 
@@ -64,6 +63,6 @@ public sealed class ConditionableExtensionsTest
             .Result();
 
         var expectedNumberOfCalls = asserterShouldBeCalled ? 1 : 0;
-        asserter.TimesCalled.Should().Be(expectedNumberOfCalls);
+        Assert.That(asserter.TimesCalled, Is.EqualTo(expectedNumberOfCalls));
     }
 }

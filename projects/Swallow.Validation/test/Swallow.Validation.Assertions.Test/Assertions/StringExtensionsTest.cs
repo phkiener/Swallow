@@ -6,7 +6,7 @@ using NUnit.Framework;
 using Utils;
 
 [TestFixture]
-public class StringExtensionsTest
+public sealed class StringExtensionsTest
 {
     [Test]
     public void NotEmpty_PassAssertion_WhenStringIsNotEmpty()

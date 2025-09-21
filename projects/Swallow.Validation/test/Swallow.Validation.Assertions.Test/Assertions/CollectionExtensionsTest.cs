@@ -7,7 +7,7 @@ using NUnit.Framework;
 using Utils;
 
 [TestFixture]
-public class CollectionExtensionsTest
+public sealed class CollectionExtensionsTest
 {
     [Test]
     public void HasAll_FailAssertion_WhenNoValuesSatisfyInnerAssertion()

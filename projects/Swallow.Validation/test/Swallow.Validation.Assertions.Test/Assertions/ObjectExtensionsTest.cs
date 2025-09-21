@@ -6,7 +6,7 @@ using NUnit.Framework;
 using Utils;
 
 [TestFixture]
-public class ObjectExtensionsTest
+public sealed class ObjectExtensionsTest
 {
     [Test]
     public void IsType_PassAssertion_WhenObjectHasCorrectType()
