@@ -36,7 +36,7 @@ public sealed partial class ReactiveBoundary(
     /// <summary>
     /// Whether to prerender this component.
     /// </summary>
-    [Parameter, EditorRequired]
+    [Parameter]
     public bool Prerender { get; set; } = false;
 
     /// <summary>
@@ -139,4 +139,3 @@ public sealed partial class ReactiveBoundary(
         }
     }
 }
-

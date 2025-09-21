@@ -21,7 +21,7 @@ public static class Arguments
     /// <param name="input">The input text to parse.</param>
     /// <returns>An object to query the arguments in a structured manner.</returns>
     /// <remarks>
-    /// The input is split on whitespace and then passed into <see cref="Parse(string[])"/>.
+    /// The input is split on whitespace and then passed into <see cref="Parse(IReadOnlyList{string})"/>.
     /// Whitespace will be ignored if it is inside quotes (<c>"</c> or <c>'</c>). Escape sequences
     /// are supported and will be transformed, i.e. <c>\n</c> will be turned into a newline character.
     /// A backslash-escaped space will not be used to separate the arguments and instead be copied
