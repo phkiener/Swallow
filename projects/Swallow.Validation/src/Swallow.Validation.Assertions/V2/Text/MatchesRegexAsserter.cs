@@ -1,9 +1,7 @@
 #nullable enable
-using System.Diagnostics.CodeAnalysis;
 using System.Text.RegularExpressions;
-using Swallow.Validation.Errors;
 
-namespace Swallow.Validation.Assertions.Text;
+namespace Swallow.Validation.V2.Text;
 
 /// <summary>
 /// An error signaling that the asserted string does not conform to an expected format.
@@ -17,7 +15,7 @@ public sealed class DoesNotMatchRegex(string regex) : ValidationError
     public string? Regex { get; } = regex;
 
     /// <inheritdoc />
-    public override string Message => $"{PropertyName} does not match {Regex}";
+    public override string Message => $"Value does not match {Regex}";
 }
 
 /// <summary>
@@ -32,21 +30,14 @@ public sealed class MatchesRegexAsserter(Regex regex) : IAsserter<string>
     /// a <see cref="Regex"/>.
     /// </summary>
     /// <param name="regex">The regex that the value must conform to.</param>
-    public MatchesRegexAsserter(string regex) : this(new Regex(regex))
-    {
+    public MatchesRegexAsserter(string regex) : this(new Regex(regex)) { }
 
+    /// <inheritdoc />
+    public bool IsValid(string value)
+    {
+        return regex.IsMatch(value);
     }
 
     /// <inheritdoc />
-    public bool Check(INamedValueProvider<string> valueProvider, [NotNullWhen(false)] out ValidationError? error)
-    {
-        if (regex.IsMatch(valueProvider.Value))
-        {
-            error = null;
-            return true;
-        }
-
-        error = new DoesNotMatchRegex(regex.ToString());
-        return false;
-    }
+    public ValidationError Error { get; } = new DoesNotMatchRegex(regex.ToString());
 }

@@ -1,8 +1,6 @@
 #nullable enable
-using System.Diagnostics.CodeAnalysis;
-using Swallow.Validation.Errors;
 
-namespace Swallow.Validation.Assertions.Comparison;
+namespace Swallow.Validation.V2.Comparison;
 
 /// <summary>
 /// An error signaling that a value was outside of a given range.
@@ -22,7 +20,7 @@ public sealed class NotInRange<T>(ComparisonBoundary<T>? lowerBoundary = null, C
     public ComparisonBoundary<T>? UpperBound { get; } = upperBoundary;
 
     /// <inheritdoc />
-    public override string Message => $"{PropertyName} is outside of the valid range";
+    public override string Message => "Value is outside of the valid range";
 }
 
 /// <summary>
@@ -58,19 +56,13 @@ public enum BoundsType
 public sealed class IsInRangeAsserter<T>(ComparisonBoundary<T>? lowerBoundary = null, ComparisonBoundary<T>? upperBoundary = null) : IAsserter<T> where T : IComparable<T>
 {
     /// <inheritdoc />
-    public bool Check(INamedValueProvider<T> valueProvider, [NotNullWhen(false)] out ValidationError? error)
+    public bool IsValid(T value)
     {
-        if (MatchesLowerBound(valueProvider.Value) && MatchesUpperBound(valueProvider.Value))
-        {
-            error = null;
-            return true;
-        }
-
-        error = new NotInRange<T>(lowerBoundary, upperBoundary);
-        return false;
+        return MatchesLowerBound(value) && MatchesUpperBound(value);
     }
 
-
+    /// <inheritdoc />
+    public ValidationError Error { get; } = new NotInRange<T>(lowerBoundary, upperBoundary);
 
     private bool MatchesLowerBound(T value)
     {

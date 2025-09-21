@@ -1,9 +1,7 @@
 #nullable enable
-using System.Diagnostics.CodeAnalysis;
-using Swallow.Validation.Errors;
 using Swallow.Validation.Internal;
 
-namespace Swallow.Validation.Assertions.Text;
+namespace Swallow.Validation.V2.Types;
 
 /// <summary>
 /// An error signaling that the asserted value has the wrong type.
@@ -11,7 +9,7 @@ namespace Swallow.Validation.Assertions.Text;
 public sealed class WrongType(Type expectedType) : ValidationError
 {
     /// <inheritdoc />
-    public override string Message => $"{PropertyName} is not of type {expectedType.FriendlyName()}";
+    public override string Message => $"Value is not of type {expectedType.FriendlyName()}";
 }
 
 /// <summary>
@@ -25,23 +23,15 @@ public sealed class WrongType(Type expectedType) : ValidationError
 public sealed class IsInstanceOfAsserter(Type expectedType, bool allowDerivedTypes = false) : IAsserter<object>
 {
     /// <inheritdoc />
-    public bool Check(INamedValueProvider<object> valueProvider, [NotNullWhen(false)] out ValidationError? error)
+    public bool IsValid(object value)
     {
-        if (valueProvider.Value.GetType() == expectedType)
-        {
-            error = null;
-            return true;
-        }
+        var type = value.GetType();
 
-        if (allowDerivedTypes && valueProvider.Value.GetType().IsAssignableTo(expectedType))
-        {
-            error = null;
-            return true;
-        }
-
-        error = new WrongType(expectedType);
-        return false;
+        return type == expectedType || allowDerivedTypes && type.IsAssignableTo(expectedType);
     }
+
+    /// <inheritdoc />
+    public ValidationError Error { get; } = new WrongType(expectedType);
 
     /// <summary>
     /// Return a new instance of <see cref="IsInstanceOfAsserter"/> that expects the asserted object

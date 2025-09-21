@@ -1,8 +1,6 @@
 #nullable enable
-using System.Diagnostics.CodeAnalysis;
-using Swallow.Validation.Errors;
 
-namespace Swallow.Validation.Assertions.Times;
+namespace Swallow.Validation.V2.Times;
 
 /// <summary>
 /// An error signaling that a <see cref="DateTime"/> has the wrong <see cref="DateTimeKind"/>.
@@ -16,7 +14,7 @@ public sealed class WrongDateTimeKind(DateTimeKind expected) : ValidationError
     public DateTimeKind Expected { get; } = expected;
 
     /// <inheritdoc />
-    public override string Message => $"{PropertyName} is not of kind {Expected}";
+    public override string Message => $"Value is not of kind {Expected}";
 }
 
 /// <summary>
@@ -27,15 +25,11 @@ public sealed class WrongDateTimeKind(DateTimeKind expected) : ValidationError
 public sealed class IsDateTimeKindAsserter(DateTimeKind expected) : IAsserter<DateTime>
 {
     /// <inheritdoc />
-    public bool Check(INamedValueProvider<DateTime> valueProvider, [NotNullWhen(false)] out ValidationError? error)
+    public bool IsValid(DateTime value)
     {
-        if (valueProvider.Value.Kind == expected)
-        {
-            error = null;
-            return true;
-        }
-
-        error = new WrongDateTimeKind(expected);
-        return false;
+        return value.Kind == expected;
     }
+
+    /// <inheritdoc />
+    public ValidationError Error { get; } = new WrongDateTimeKind(expected);
 }

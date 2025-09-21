@@ -1,8 +1,6 @@
 #nullable enable
-using System.Diagnostics.CodeAnalysis;
-using Swallow.Validation.Errors;
 
-namespace Swallow.Validation.Assertions.Comparison;
+namespace Swallow.Validation.V2.Comparison;
 
 /// <summary>
 /// An error signaling that a value was not equal to an expected value.
@@ -16,7 +14,7 @@ public sealed class NotEqualTo<T>(T expectedValue) : ValidationError
     public T ExpectedValue { get; } = expectedValue;
 
     /// <inheritdoc />
-    public override string Message => $"{PropertyName} is not equal to the expected value";
+    public override string Message => $"Value should be {ExpectedValue}";
 }
 
 /// <summary>
@@ -27,15 +25,11 @@ public sealed class NotEqualTo<T>(T expectedValue) : ValidationError
 public sealed class IsEqualToAsserter<T>(T expectedValue) : IAsserter<T> where T : IEquatable<T>
 {
     /// <inheritdoc />
-    public bool Check(INamedValueProvider<T> valueProvider, [NotNullWhen(false)] out ValidationError? error)
+    public bool IsValid(T value)
     {
-        if (expectedValue.Equals(valueProvider.Value))
-        {
-            error = null;
-            return true;
-        }
-
-        error = new NotEqualTo<T>(expectedValue);
-        return false;
+        return expectedValue.Equals(value);
     }
+
+    /// <inheritdoc />
+    public ValidationError Error { get; } = new NotEqualTo<T>(expectedValue);
 }

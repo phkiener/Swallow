@@ -1,8 +1,7 @@
 #nullable enable
 using NUnit.Framework;
-using Swallow.Validation.Utils;
 
-namespace Swallow.Validation.Assertions.Text;
+namespace Swallow.Validation.V2.Text;
 
 [TestFixture]
 public sealed class MatchesRegexAsserterTest
@@ -12,25 +11,19 @@ public sealed class MatchesRegexAsserterTest
     [Test]
     public void ReportsSuccess_WhenValueMatchesPattern()
     {
-        var result = AssertionTester.Assert("hello", Asserter, out _);
-
-        Assert.That(result, Is.True);
+        Assert.That(Asserter.IsValid("hello"), Is.True);
     }
 
     [Test]
     public void ReportsError_WhenValueDoesNotMatchPattern()
     {
-        var result = AssertionTester.Assert("    ", Asserter, out _);
-
-        Assert.That(result, Is.False);
+        Assert.That(Asserter.IsValid("    "), Is.False);
     }
 
     [Test]
     public void ReportedError_HasCorrectMessage()
     {
-        AssertionTester.Assert("    ", Asserter, out var error);
-
-        var typedError = error as DoesNotMatchRegex;;
+        var typedError = Asserter.Error as DoesNotMatchRegex;;
         Assert.That(typedError?.Regex, Is.EqualTo("^\\w+$"));
         Assert.That(typedError?.Message, Is.EqualTo("value does not match ^\\w+$"));
     }
