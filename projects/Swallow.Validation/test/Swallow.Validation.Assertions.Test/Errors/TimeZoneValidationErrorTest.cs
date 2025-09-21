@@ -1,23 +1,16 @@
 namespace Swallow.Validation.Errors;
 
 using System;
-using FluentAssertions;
 using NUnit.Framework;
 
 [TestFixture]
-internal sealed class TimeZoneValidationErrorShould
+public sealed class TimeZoneValidationErrorTest
 {
     [Test]
     public void HaveMessageWithExpectedTimeZone()
     {
-        // Arrange
         var error = new TimeZoneValidationError(TimeZoneInfo.Utc) { PropertyName = "Time" };
-
-        // Act
-        var message = error.Message;
-
-        // Assert
-        message.Should().Be("Time should be in UTC+00:00");
+        Assert.That(error.Message, Is.EqualTo("Time should be in UTC+00:00"));
     }
 
     [Test]
@@ -31,11 +24,6 @@ internal sealed class TimeZoneValidationErrorShould
             standardDisplayName: null);
 
         var error = new TimeZoneValidationError(requiredTimeZone: TimeZoneInfo.Utc, actualTimeZone: customTimeZone) { PropertyName = "Time" };
-
-        // Act
-        var message = error.Message;
-
-        // Assert
-        message.Should().Be("Time should be in UTC+00:00 but was in UTC-02:30");
+        Assert.That(error.Message, Is.EqualTo("Time should be in UTC+00:00 but was in UTC-02:30"));
     }
 }
