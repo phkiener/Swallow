@@ -26,6 +26,6 @@ public sealed class IsNotEmptyOrWhitespaceAsserterTest
     public void ReportedError_HasCorrectMessage()
     {
         var typedError = Asserter.Error as OnlyWhitespaceString;
-        Assert.That(typedError?.Message, Is.EqualTo("value contains only whitespace characters"));
+        Assert.That(typedError?.Message, Is.EqualTo("Value contains only whitespace characters"));
     }
 }

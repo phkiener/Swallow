@@ -17,13 +17,13 @@ public sealed class IsNotEmptyAsserterTest
     [Test]
     public void ReportsError_WhenValueIsEmpty()
     {
-        Assert.That(Asserter.IsValid(""), Is.True);
+        Assert.That(Asserter.IsValid(""), Is.False);
     }
 
     [Test]
     public void ReturnsExpectedError()
     {
         var typedError = Asserter.Error as EmptyString;
-        Assert.That(typedError?.Message, Is.EqualTo("value is empty"));
+        Assert.That(typedError?.Message, Is.EqualTo("Value is empty"));
     }
 }
