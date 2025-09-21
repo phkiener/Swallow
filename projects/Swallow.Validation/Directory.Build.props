@@ -1,8 +1,8 @@
 <Project>
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework> <!-- TODO: .NET 10 once ready -->
     <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>disable</Nullable>
+    <Nullable>disable</Nullable> <!-- TODO: Make nullable the default -->
   </PropertyGroup>
 
   <PropertyGroup>
