@@ -1,7 +1,7 @@
 # Swallow.Validation
 
 `Swallow.Validation` is a lightweight, fluent-style validation library for C#. But what does that mean? It means minimal dependencies (none, actually)
-and great developer experience. If you've seen [Fluent Assertions](https://fluentassertions.com/), you might find some similarities.
+and great developer experience. If you've seen [Fluent Validation](https://github.com/FluentValidation/FluentValidation), you might find some similarities.
 
 ## Usage
 
