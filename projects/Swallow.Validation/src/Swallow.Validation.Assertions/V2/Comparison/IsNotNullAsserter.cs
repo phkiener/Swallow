@@ -8,7 +8,7 @@ namespace Swallow.Validation.V2.Comparison;
 public sealed class ValueIsNull : ValidationError
 {
     /// <inheritdoc />
-    public override string Message => "Value is null";
+    public override string Message => "be not null";
 }
 
 /// <summary>

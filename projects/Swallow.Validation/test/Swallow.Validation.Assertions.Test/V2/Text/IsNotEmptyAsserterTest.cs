@@ -24,6 +24,6 @@ public sealed class IsNotEmptyAsserterTest
     public void ReturnsExpectedError()
     {
         var typedError = Asserter.Error as EmptyString;
-        Assert.That(typedError?.Message, Is.EqualTo("Value is empty"));
+        Assert.That(typedError?.Message, Is.EqualTo("be not empty"));
     }
 }

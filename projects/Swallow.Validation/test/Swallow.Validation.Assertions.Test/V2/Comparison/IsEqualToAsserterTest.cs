@@ -25,6 +25,6 @@ public sealed class IsEqualToAsserterTest
     {
         var typedError = Asserter.Error as NotEqualTo<int>;
         Assert.That(typedError?.ExpectedValue, Is.EqualTo(1));
-        Assert.That(typedError?.Message, Is.EqualTo("Value should be 1"));
+        Assert.That(typedError?.Message, Is.EqualTo("be 1"));
     }
 }

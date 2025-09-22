@@ -20,7 +20,7 @@ public sealed class NotInRange<T>(ComparisonBoundary<T>? lowerBoundary = null, C
     public ComparisonBoundary<T>? UpperBound { get; } = upperBoundary;
 
     /// <inheritdoc />
-    public override string Message => "Value is outside of the valid range";
+    public override string Message => "be in range";
 }
 
 /// <summary>

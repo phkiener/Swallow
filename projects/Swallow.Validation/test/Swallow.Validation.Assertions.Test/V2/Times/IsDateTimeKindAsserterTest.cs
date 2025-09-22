@@ -24,6 +24,6 @@ public sealed class IsDateTimeKindAsserterTest
     public void ReturnsExpectedError()
     {
         var typedError = Asserter.Error as WrongDateTimeKind;
-        Assert.That(typedError?.Message, Is.EqualTo("Value is not of kind Utc"));
+        Assert.That(typedError?.Message, Is.EqualTo("have kind Utc"));
     }
 }

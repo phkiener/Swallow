@@ -14,7 +14,7 @@ public sealed class NotEqualTo<T>(T expectedValue) : ValidationError
     public T ExpectedValue { get; } = expectedValue;
 
     /// <inheritdoc />
-    public override string Message => $"Value should be {ExpectedValue}";
+    public override string Message => $"be {ExpectedValue}";
 }
 
 /// <summary>

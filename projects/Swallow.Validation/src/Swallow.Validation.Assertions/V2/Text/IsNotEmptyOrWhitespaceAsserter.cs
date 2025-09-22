@@ -8,7 +8,7 @@ namespace Swallow.Validation.V2.Text;
 public sealed class OnlyWhitespaceString : ValidationError
 {
     /// <inheritdoc />
-    public override string Message => "Value contains only whitespace characters";
+    public override string Message => "be not only whitespace";
 }
 
 /// <summary>

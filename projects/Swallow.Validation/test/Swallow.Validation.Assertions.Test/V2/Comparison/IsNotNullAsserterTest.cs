@@ -24,6 +24,6 @@ public sealed class IsNotNullAsserterTest
     public void ReturnsExpectedError()
     {
         var typedError = Asserter.Error as ValueIsNull;
-        Assert.That(typedError?.Message, Is.EqualTo("Value is null"));
+        Assert.That(typedError?.Message, Is.EqualTo("be not null"));
     }
 }

@@ -6,7 +6,7 @@ namespace Swallow.Validation.V2;
 public abstract class ValidationError
 {
     /// <summary>
-    /// A simple message describing the error; should be used when no other message is available.
+    /// A simple message describing the error; should only be used when no other message is available.
     /// </summary>
     public abstract string Message { get; }
 }

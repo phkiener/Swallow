@@ -8,7 +8,7 @@ namespace Swallow.Validation.V2.Text;
 public sealed class EmptyString : ValidationError
 {
     /// <inheritdoc />
-    public override string Message => "Value is empty";
+    public override string Message => "be not empty";
 }
 
 /// <summary>

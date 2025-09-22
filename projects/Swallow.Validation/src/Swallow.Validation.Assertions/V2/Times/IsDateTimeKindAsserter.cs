@@ -14,7 +14,7 @@ public sealed class WrongDateTimeKind(DateTimeKind expected) : ValidationError
     public DateTimeKind Expected { get; } = expected;
 
     /// <inheritdoc />
-    public override string Message => $"Value is not of kind {Expected}";
+    public override string Message => $"have kind {Expected}";
 }
 
 /// <summary>

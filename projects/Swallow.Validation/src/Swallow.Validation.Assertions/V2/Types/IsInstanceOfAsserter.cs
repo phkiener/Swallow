@@ -9,7 +9,7 @@ namespace Swallow.Validation.V2.Types;
 public sealed class WrongType(Type expectedType) : ValidationError
 {
     /// <inheritdoc />
-    public override string Message => $"Value is not of type {expectedType.FriendlyName()}";
+    public override string Message => $"have type {expectedType.FriendlyName()}";
 }
 
 /// <summary>

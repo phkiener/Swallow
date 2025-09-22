@@ -25,6 +25,6 @@ public sealed class MatchesRegexAsserterTest
     {
         var typedError = Asserter.Error as DoesNotMatchRegex;;
         Assert.That(typedError?.Regex, Is.EqualTo("^\\w+$"));
-        Assert.That(typedError?.Message, Is.EqualTo("Value does not match ^\\w+$"));
+        Assert.That(typedError?.Message, Is.EqualTo("match ^\\w+$"));
     }
 }

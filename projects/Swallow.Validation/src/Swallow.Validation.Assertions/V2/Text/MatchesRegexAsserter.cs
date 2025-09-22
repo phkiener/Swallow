@@ -15,7 +15,7 @@ public sealed class DoesNotMatchRegex(string regex) : ValidationError
     public string? Regex { get; } = regex;
 
     /// <inheritdoc />
-    public override string Message => $"Value does not match {Regex}";
+    public override string Message => $"match {Regex}";
 }
 
 /// <summary>

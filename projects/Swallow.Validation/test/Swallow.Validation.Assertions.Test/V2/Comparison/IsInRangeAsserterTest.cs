@@ -64,6 +64,6 @@ public sealed class IsInRangeAsserterTest
         Assert.That(typedError?.LowerBound?.IsInclusive, Is.True);
         Assert.That(typedError?.UpperBound?.Value, Is.EqualTo(AboveLowerBound));
         Assert.That(typedError?.UpperBound?.IsInclusive, Is.False);
-        Assert.That(typedError?.Message, Is.EqualTo("Value is outside of the valid range"));
+        Assert.That(typedError?.Message, Is.EqualTo("be in range"));
     }
 }
