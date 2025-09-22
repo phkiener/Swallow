@@ -1,4 +1,5 @@
 using NUnit.Framework;
+using Swallow.Validation.Next.Asserters;
 using Swallow.Validation.Next.Asserters.Text;
 using Swallow.Validation.Next.Helpers;
 

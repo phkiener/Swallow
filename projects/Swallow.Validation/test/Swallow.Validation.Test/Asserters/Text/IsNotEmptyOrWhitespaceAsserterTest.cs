@@ -5,26 +5,24 @@ namespace Swallow.Validation.Next.Asserters.Text;
 [TestFixture]
 public sealed class IsNotEmptyOrWhitespaceAsserterTest
 {
-    private static readonly IsNotEmptyOrWhitespaceAsserter Asserter = new();
-
     [Test]
     public void ReportsSuccess_WhenValueIsNotEmpty()
     {
-        Assert.That(Asserter.IsValid("hello"), Is.True);
+        Assert.That(Satisfies.NotEmptyOrWhitespace.IsValid("hello"), Is.True);
     }
 
     [Test]
     public void ReportsError_WhenValueIsEmpty()
     {
-        Assert.That(Asserter.IsValid(""), Is.False);
-        Assert.That(Asserter.IsValid("   "), Is.False);
-        Assert.That(Asserter.IsValid("\n\r\t"), Is.False);
+        Assert.That(Satisfies.NotEmptyOrWhitespace.IsValid(""), Is.False);
+        Assert.That(Satisfies.NotEmptyOrWhitespace.IsValid("   "), Is.False);
+        Assert.That(Satisfies.NotEmptyOrWhitespace.IsValid("\n\r\t"), Is.False);
     }
 
     [Test]
     public void ReportedError_HasCorrectMessage()
     {
-        var typedError = Asserter.Error as OnlyWhitespaceString;
+        var typedError = Satisfies.NotEmptyOrWhitespace.Error as OnlyWhitespaceString;
         Assert.That(typedError?.Message, Is.EqualTo("be not only whitespace"));
     }
 }

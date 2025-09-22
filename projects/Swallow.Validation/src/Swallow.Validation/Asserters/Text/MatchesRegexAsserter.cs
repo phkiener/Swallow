@@ -24,13 +24,6 @@ public sealed class DoesNotMatchRegex(string regex) : ValidationError
 /// <param name="regex">The regex that the value must conform to.</param>
 public sealed class MatchesRegexAsserter(Regex regex) : IAsserter<string>
 {
-    /// <summary>
-    /// Create a new <see cref="MatchesRegexAsserter"/> by compiling <paramref name="regex"/> into
-    /// a <see cref="Regex"/>.
-    /// </summary>
-    /// <param name="regex">The regex that the value must conform to.</param>
-    public MatchesRegexAsserter(string regex) : this(new Regex(regex)) { }
-
     /// <inheritdoc />
     public bool IsValid(string value)
     {

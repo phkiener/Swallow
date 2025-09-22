@@ -8,37 +8,31 @@ public sealed class IsInstanceOfAsserterTest
     [Test]
     public void ReportsSuccess_WhenValueIsOfCorrectType()
     {
-        var asserter = IsInstanceOfAsserter.Equals<string>();
-        Assert.That(asserter.IsValid("hello"), Is.True);
+        Assert.That(Satisfies.IsType<string>().IsValid("hello"), Is.True);
     }
 
     [Test]
     public void ReportsError_WhenValueIsOfDifferentType()
     {
-        var asserter = IsInstanceOfAsserter.Equals<string>();
-        Assert.That(asserter.IsValid(123), Is.False);
+        Assert.That(Satisfies.IsType<string>().IsValid(123), Is.False);
     }
 
     [Test]
     public void ReportsSuccess_WhenValueIsOfDerivedType_OnAllowDerivedTypes()
     {
-        var asserter = IsInstanceOfAsserter.AssignableTo<BaseType>();
-        Assert.That(asserter.IsValid(new DerivedType()), Is.True);
+        Assert.That(Satisfies.IsAssignableTo<BaseType>().IsValid(new DerivedType()), Is.True);
     }
 
     [Test]
     public void ReportsError_WhenValueIsOfDerivedType_OnDisallowDerivedTypes()
     {
-        var asserter = IsInstanceOfAsserter.Equals<BaseType>();
-        Assert.That(asserter.IsValid(new DerivedType()), Is.False);
+        Assert.That(Satisfies.IsType<BaseType>().IsValid(new DerivedType()), Is.False);
     }
 
     [Test]
     public void ReturnsExpectedError()
     {
-        var asserter = IsInstanceOfAsserter.Equals<string>();
-
-        var typedError = asserter.Error as WrongType;
+        var typedError = Satisfies.IsType<string>().Error as WrongType;
         Assert.That(typedError?.Message, Is.EqualTo("have type string"));
     }
 

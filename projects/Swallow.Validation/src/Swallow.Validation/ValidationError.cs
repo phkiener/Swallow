@@ -9,4 +9,7 @@ public abstract class ValidationError
     /// A simple message describing the error; should only be used when no other message is available.
     /// </summary>
     public abstract string Message { get; }
+
+    /// <inheritdoc />
+    public override string ToString() => Message;
 }

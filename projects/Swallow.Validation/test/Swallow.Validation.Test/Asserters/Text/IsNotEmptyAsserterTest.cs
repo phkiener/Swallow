@@ -5,24 +5,22 @@ namespace Swallow.Validation.Next.Asserters.Text;
 [TestFixture]
 public sealed class IsNotEmptyAsserterTest
 {
-    private static readonly IsNotEmptyAsserter Asserter = new();
-
     [Test]
     public void ReportsSuccess_WhenValueIsNotEmpty()
     {
-        Assert.That(Asserter.IsValid("hello"), Is.True);
+        Assert.That(Satisfies.NotEmpty.IsValid("hello"), Is.True);
     }
 
     [Test]
     public void ReportsError_WhenValueIsEmpty()
     {
-        Assert.That(Asserter.IsValid(""), Is.False);
+        Assert.That(Satisfies.NotEmpty.IsValid(""), Is.False);
     }
 
     [Test]
     public void ReturnsExpectedError()
     {
-        var typedError = Asserter.Error as EmptyString;
+        var typedError = Satisfies.NotEmpty.Error as EmptyString;
         Assert.That(typedError?.Message, Is.EqualTo("be not empty"));
     }
 }

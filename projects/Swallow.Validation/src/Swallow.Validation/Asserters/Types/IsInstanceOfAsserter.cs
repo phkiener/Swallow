@@ -31,26 +31,4 @@ public sealed class IsInstanceOfAsserter(Type expectedType, bool allowDerivedTyp
 
     /// <inheritdoc />
     public ValidationError Error { get; } = new WrongType(expectedType);
-
-    /// <summary>
-    /// Return a new instance of <see cref="IsInstanceOfAsserter"/> that expects the asserted object
-    /// to have type <typeparamref name="T"/>.
-    /// </summary>
-    /// <typeparam name="T">The type which the asserted value should have.</typeparam>
-    /// <returns>A constructed asserter.</returns>
-    public static IsInstanceOfAsserter Equals<T>()
-    {
-        return new IsInstanceOfAsserter(typeof(T), allowDerivedTypes: false);
-    }
-
-    /// <summary>
-    /// Return a new instance of <see cref="IsInstanceOfAsserter"/> that expects the asserted object
-    /// to have type <typeparamref name="T"/> or be derived from it.
-    /// </summary>
-    /// <typeparam name="T">The type which the asserted value should have or derive from.</typeparam>
-    /// <returns>A constructed asserter.</returns>
-    public static IsInstanceOfAsserter AssignableTo<T>()
-    {
-        return new IsInstanceOfAsserter(typeof(T), allowDerivedTypes: true);
-    }
 }

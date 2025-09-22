@@ -12,7 +12,7 @@ public sealed class IsInRangeAsserterTest
     [Test]
     public void MatchesLowerBound_Exclusive()
     {
-        var asserter = IsInRangeAsserter.After(OnLowerBound, boundsType: BoundsType.Exclusive);
+        var asserter = Satisfies.IsAfter(OnLowerBound, boundsType: BoundsType.Exclusive);
 
         Assert.That(asserter.IsValid(BelowLowerBound), Is.False);
         Assert.That(asserter.IsValid(OnLowerBound), Is.False);
@@ -22,7 +22,7 @@ public sealed class IsInRangeAsserterTest
     [Test]
     public void MatchesLowerBound_Inclusive()
     {
-        var asserter = IsInRangeAsserter.After(OnLowerBound, boundsType: BoundsType.Inclusive);
+        var asserter = Satisfies.IsAfter(OnLowerBound, boundsType: BoundsType.Inclusive);
 
         Assert.That(asserter.IsValid(BelowLowerBound), Is.False);
         Assert.That(asserter.IsValid(OnLowerBound), Is.True);
@@ -32,7 +32,7 @@ public sealed class IsInRangeAsserterTest
     [Test]
     public void MatchesUpperBound_Exclusive()
     {
-        var asserter = IsInRangeAsserter.Before(OnLowerBound, boundsType: BoundsType.Exclusive);
+        var asserter = Satisfies.IsBefore(OnLowerBound, boundsType: BoundsType.Exclusive);
 
         Assert.That(asserter.IsValid(BelowLowerBound), Is.True);
         Assert.That(asserter.IsValid(OnLowerBound), Is.False);
@@ -42,7 +42,7 @@ public sealed class IsInRangeAsserterTest
     [Test]
     public void MatchesUpperBound_Inclusive()
     {
-        var asserter = IsInRangeAsserter.Before(OnLowerBound, boundsType: BoundsType.Inclusive);
+        var asserter = Satisfies.IsBefore(OnLowerBound, boundsType: BoundsType.Inclusive);
 
         Assert.That(asserter.IsValid(BelowLowerBound), Is.True);
         Assert.That(asserter.IsValid(OnLowerBound), Is.True);
@@ -52,7 +52,7 @@ public sealed class IsInRangeAsserterTest
     [Test]
     public void ReturnsExpectedError()
     {
-        var asserter = IsInRangeAsserter.Between(
+        var asserter = Satisfies.IsBetween(
             start: OnLowerBound,
             startBoundsType: BoundsType.Inclusive,
             end: AboveLowerBound,
