@@ -36,12 +36,6 @@ By the way, **Swallow** refers to the [bird](https://en.wikipedia.org/wiki/Swall
 * [Swallow.ChainOfInjection](./projects/Swallow.ChainOfInjection/README.md) - declarative registration of decorators for `ServiceCollection` and `SimpleInjector`
 * [Swallow.TaskRunner](./projects/Swallow.TaskRunner/README.md) - miss `npm run $MYTASK` or similar tools? How'd you like `dotnet task $MYTASK`?
 * [Swallow.Flux](./projects/Swallow.Flux/README.md) - no-nonsense Flux pattern, completely framework-agnostic
-* Work in progress; unstable, unreleased and unfinished
-  * [Swallow.Localization](./projects/Swallow.Localization/README.md) - addition tooling built on `IStringLocalizer`
-  * [Swallow.Console](./projects/Swallow.Console/README.md) - the convenience of ASP.NET - inside your terminal
-  * [Swallow.Charts](./projects/Swallow.Charts/README.md) - statically rendered charts for Blazor applications
-  * [Swallow.Build](./projects/Swallow.Build/README.md) - miscellaneous goodness to smoothen your builds using only MSBuild
-* Tooling for the monorepo
   * [Swallow.Manager](./tooling/Swallow.Manager) - create and publish projects
 
 ## Why should I use these?

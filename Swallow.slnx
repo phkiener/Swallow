@@ -24,12 +24,14 @@
   </Folder>
   <Folder Name="/Swallow.Blazor/Example/">
     <Project Path="projects/Swallow.Blazor/example/Swallow.Blazor.ExampleProject/Swallow.Blazor.ExampleProject.csproj" />
+    <Project Path="projects\Swallow.Charts\example\Swallow.Blazor.ExampleCharts\Swallow.Blazor.ExampleCharts.csproj" />
   </Folder>
   <Folder Name="/Swallow.Blazor/Library/">
     <Project Path="projects/Swallow.Blazor/src/Swallow.Blazor.AdvancedStyleIsolation/Swallow.Blazor.AdvancedStyleIsolation.csproj" />
     <Project Path="projects/Swallow.Blazor/src/Swallow.Blazor.Reactive.Abstractions/Swallow.Blazor.Reactive.Abstractions.csproj" />
     <Project Path="projects/Swallow.Blazor/src/Swallow.Blazor.Reactive/Swallow.Blazor.Reactive.csproj" />
     <Project Path="projects/Swallow.Blazor/src/Swallow.Blazor.StaticAssetPaths/Swallow.Blazor.StaticAssetPaths.csproj" />
+    <Project Path="projects\Swallow.Charts\src\Swallow.Blazor.Charts\Swallow.Blazor.Charts.csproj" />
   </Folder>
   <Folder Name="/Swallow.Blazor/Test/">
     <Project Path="projects/Swallow.Blazor/test/Swallow.Blazor.AdvancedStyleIsolation.Test/Swallow.Blazor.AdvancedStyleIsolation.Test.csproj" />
@@ -50,20 +52,6 @@
   </Folder>
   <Folder Name="/Swallow.ChainOfInjection/Test/">
     <Project Path="projects/Swallow.ChainOfInjection/test/Swallow.ChainOfInjection.Test/Swallow.ChainOfInjection.Test.csproj" />
-  </Folder>
-  <Folder Name="/Swallow.Charts/" />
-  <Folder Name="/Swallow.Charts/Additional items/">
-    <File Path="projects/Swallow.Charts/Directory.Build.props" />
-    <File Path="projects/Swallow.Charts/Directory.Packages.props" />
-    <File Path="projects/Swallow.Charts/README.md" />
-    <File Path="projects/Swallow.Charts/RELEASE_NOTES.md" />
-    <File Path="projects/Swallow.Charts/LICENSE.txt" />
-  </Folder>
-  <Folder Name="/Swallow.Charts/Example/">
-    <Project Path="projects/Swallow.Charts/example/Swallow.Charts.Example/Swallow.Charts.Example.csproj" />
-  </Folder>
-  <Folder Name="/Swallow.Charts/Library/">
-    <Project Path="projects/Swallow.Charts/src/Swallow.Charts/Swallow.Charts.csproj" />
   </Folder>
   <Folder Name="/Swallow.Console/" />
   <Folder Name="/Swallow.Console/Additional items/">

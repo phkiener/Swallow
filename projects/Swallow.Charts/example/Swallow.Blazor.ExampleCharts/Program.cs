@@ -1,4 +1,4 @@
-using Swallow.Charts.Example;
+using Swallow.Blazor.ExampleCharts;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorComponents()

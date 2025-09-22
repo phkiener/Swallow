@@ -1,5 +1,0 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
-  <ItemGroup>
-    <ProjectReference Include="..\..\src\Swallow.Charts\Swallow.Charts.csproj" />
-  </ItemGroup>
-</Project>

@@ -1,7 +1,7 @@
 ﻿using System.Numerics;
 using Microsoft.AspNetCore.Components;
 
-namespace Swallow.Charts;
+namespace Swallow.Blazor.Charts;
 
 /// <summary>
 /// </summary>

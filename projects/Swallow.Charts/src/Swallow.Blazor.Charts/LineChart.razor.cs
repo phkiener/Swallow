@@ -1,7 +1,7 @@
 ﻿using System.Numerics;
 using Microsoft.AspNetCore.Components;
 
-namespace Swallow.Charts;
+namespace Swallow.Blazor.Charts;
 
 public enum Interpolation
 {
@@ -36,4 +36,3 @@ public sealed partial class LineChart<TKey, TValue> : ComponentBase
         valueCount = Data.Max(static series => series.Values.Count());
     }
 }
-
