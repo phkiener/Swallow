@@ -157,12 +157,14 @@
     <Project Path="projects/Swallow.Validation/src/Swallow.Validation.Assertions/Swallow.Validation.Assertions.csproj" />
     <Project Path="projects/Swallow.Validation/src/Swallow.Validation.Core/Swallow.Validation.Core.csproj" />
     <Project Path="projects/Swallow.Validation/src/Swallow.Validation.ServiceCollection/Swallow.Validation.ServiceCollection.csproj" />
+    <Project Path="projects\Swallow.Validation\src\Swallow.Validation\Swallow.Validation.csproj" Type="Classic C#" />
   </Folder>
   <Folder Name="/Swallow.Validation/Test/">
     <Project Path="projects/Swallow.Validation/test/Swallow.Validation.Assertions.Test/Swallow.Validation.Assertions.Test.csproj" />
     <Project Path="projects/Swallow.Validation/test/Swallow.Validation.Core.Test/Swallow.Validation.Core.Test.csproj" />
     <Project Path="projects/Swallow.Validation/test/Swallow.Validation.ServiceCollection.Test/Swallow.Validation.ServiceCollection.Test.csproj" />
     <Project Path="projects/Swallow.Validation/test/Swallow.Validation.TestUtils/Swallow.Validation.TestUtils.csproj" />
+    <Project Path="projects\Swallow.Validation\test\Swallow.Validation.Test\Swallow.Validation.Test.csproj" Type="Classic C#" />
   </Folder>
   <Folder Name="/Tooling/">
     <Project Path="tooling/Swallow.Manager/Swallow.Manager.csproj" />
