@@ -14,19 +14,6 @@ public static class Generate
             .OrderBy(static p => p.Name)
             .ToList();
 
-        foreach (var project in projects)
-        {
-            var projectPath = Path.Combine(projectsPath, project.Name);
-
-            var additionalItems = GetFileFolder(project.AdditionalItems, "Additional items", projectPath);
-            var exampleProjects = GetProjectFolder(project.ExampleProjects, "Example", projectPath);
-            var sourceProjects = GetProjectFolder(project.SourceProjects, "Library", projectPath);
-            var testProjects = GetProjectFolder(project.TestProjects, "Test", projectPath);
-
-            var solutionContent = new XDocument(new XElement("Solution", additionalItems, exampleProjects, sourceProjects, testProjects));
-            WriteXml(solutionContent, Path.Combine(projectPath, $"{project.Name}.slnx"));
-        }
-
         var projectFolders = new List<XElement?>
         {
             new XElement("Folder",
