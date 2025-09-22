@@ -1,4 +1,4 @@
-namespace Swallow.Validation.V2;
+namespace Swallow.Validation.Next;
 
 /// <summary>
 /// An <see cref="Exception"/> signalling that validation has failed.

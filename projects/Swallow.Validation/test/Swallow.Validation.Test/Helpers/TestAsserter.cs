@@ -1,6 +1,6 @@
-using Swallow.Validation.V2.Text;
+using Swallow.Validation.Next.Asserters.Text;
 
-namespace Swallow.Validation.V2;
+namespace Swallow.Validation.Next.Helpers;
 
 internal sealed class TestAsserter<T>(bool fail, Action? onAssert) : IAsserter<T>
 {

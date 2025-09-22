@@ -1,4 +1,4 @@
-namespace Swallow.Validation.V2;
+namespace Swallow.Validation.Next;
 
 /// <summary>
 /// A validation error produced by an <see cref="IAsserter{T}"/>.

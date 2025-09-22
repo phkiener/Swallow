@@ -1,6 +1,7 @@
 using System.Runtime.CompilerServices;
+using Swallow.Validation.Next.Internal;
 
-namespace Swallow.Validation.V2;
+namespace Swallow.Validation.Next;
 
 /// <summary>
 /// How the <see cref="Validator"/> should behave when an asserter reports an error.

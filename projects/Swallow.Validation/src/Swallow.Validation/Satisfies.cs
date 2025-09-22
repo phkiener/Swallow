@@ -1,6 +1,6 @@
-using Swallow.Validation.V2.Text;
+using Swallow.Validation.Next.Asserters.Text;
 
-namespace Swallow.Validation.V2;
+namespace Swallow.Validation.Next;
 
 /// <summary>
 /// Convenience helpers to produce a plethora of different <see cref="IAsserter{T}"/>s.

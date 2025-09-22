@@ -2,7 +2,8 @@
   <Import Project="../../../../build/Publish.props" />
 
   <PropertyGroup>
-    <AssemblyName>Swallow.Validation.Preview</AssemblyName>
+    <AssemblyName>Swallow.Validation.Next</AssemblyName>
+    <RootNamespace>Swallow.Validation.Next</RootNamespace>
     <Nullable>enable</Nullable>
   </PropertyGroup>
 

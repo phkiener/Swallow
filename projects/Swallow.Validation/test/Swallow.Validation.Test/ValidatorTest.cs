@@ -1,7 +1,8 @@
 using NUnit.Framework;
-using Swallow.Validation.V2.Text;
+using Swallow.Validation.Next.Asserters.Text;
+using Swallow.Validation.Next.Helpers;
 
-namespace Swallow.Validation.V2;
+namespace Swallow.Validation.Next;
 
 [TestFixture]
 public sealed class ValidatorTest

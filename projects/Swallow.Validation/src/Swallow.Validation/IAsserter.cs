@@ -1,4 +1,4 @@
-namespace Swallow.Validation.V2;
+namespace Swallow.Validation.Next;
 
 /// <summary>
 /// An asserter to check if a value is satisfying a certain constraint.
