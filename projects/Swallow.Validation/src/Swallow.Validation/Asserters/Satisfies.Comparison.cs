@@ -1,4 +1,5 @@
 using Swallow.Validation.Next.Asserters.Comparison;
+using Swallow.Validation.Next.Asserters.Utility;
 
 namespace Swallow.Validation.Next.Asserters;
 
@@ -12,9 +13,14 @@ partial class Satisfies
     public static IAsserter<T> EqualTo<T>(T value) where T : IEquatable<T> => new IsEqualToAsserter<T>(value);
 
     /// <summary>
-    /// Returns a new <see cref="IsNotNullAsserter{T}"/> that checks whether a given object is <c>null</c>.
+    /// Returns an asserter that passes when a given object is not <c>null</c>.
     /// </summary>
     public static IAsserter<object?> NotNull => new IsNotNullAsserter<object?>();
+
+    /// <summary>
+    /// Returns an asserter that passes when a given object is <c>null</c>.
+    /// </summary>
+    public static IAsserter<object?> Null => new InvertedAsserter<object?>(NotNull);
 
     /// <summary>
     /// Return a new instance of <see cref="IsInRangeAsserter{T}"/> which asserts that a value
