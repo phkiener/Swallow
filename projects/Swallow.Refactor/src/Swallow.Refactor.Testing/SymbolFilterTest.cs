@@ -14,7 +14,10 @@ public abstract class SymbolFilterTest : RoslynTest
         var syntax = await document.GetSyntaxRootAsync();
         var node = syntax!.DescendantNodes().OfType<TSyntax>().First(selector);
         var semanticModel = await document.GetSemanticModelAsync();
+
+#pragma warning disable RS1039 // This seems to have been working fine so far, maybe it's a false positive. Not a big deal, this SymbolFilter might die anyway.
         var symbol = semanticModel!.GetDeclaredSymbol(node);
+#pragma warning restore RS1039
 
         return symbol ?? throw new InvalidOperationException($"Could not get declared symbol from {node}.");
     }

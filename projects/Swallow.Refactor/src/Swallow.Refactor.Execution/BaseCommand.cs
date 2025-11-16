@@ -48,9 +48,15 @@ public abstract class BaseCommand<TSettings> : AsyncCommand<TSettings> where TSe
     /// </summary>
     protected IAnsiConsole Console => FeatureCollection.Get<IConsoleFeature>()?.Console ?? Console;
 
-    public sealed override async Task<int> ExecuteAsync(CommandContext context, TSettings settings)
+    /// <summary>
+    ///     A <see cref="CancellationToken"/> to abort any asynchronous operation.
+    /// </summary>
+    protected CancellationToken CancellationToken { get; private set; }
+
+    public sealed override async Task<int> ExecuteAsync(CommandContext context, TSettings settings, CancellationToken cancellationToken)
     {
         FeatureCollection = context.Data as IFeatureCollection ?? new NullFeatureCollection();
+        CancellationToken = cancellationToken;
 
         await ExecuteAsync(settings);
 

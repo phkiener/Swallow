@@ -2,7 +2,6 @@
 
   <PropertyGroup>
     <RootNamespace>Swallow.Refactor</RootNamespace>
-    <TargetFramework>net9.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>

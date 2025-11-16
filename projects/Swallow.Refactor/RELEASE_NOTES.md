@@ -1,5 +1,15 @@
 # Release Notes
 
+## 5.0.0
+
+- Upgrade to .NET 10 and Roslyn 4.14.0
+
+### Execution
+
+- Add a `CancellationToken` as field to `BaseCommand`
+
+---
+
 ## 4.0.1
 
 - Re-add the `-v` and `--version` options that have gone missing
