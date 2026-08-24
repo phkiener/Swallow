@@ -69,21 +69,6 @@
     <Project Path="projects/Swallow.Console/test/Swallow.Console.Arguments.Test/Swallow.Console.Arguments.Test.csproj" />
     <Project Path="projects/Swallow.Console/test/Swallow.Console.Test/Swallow.Console.Test.csproj" />
   </Folder>
-  <Folder Name="/Swallow.Flux/" />
-  <Folder Name="/Swallow.Flux/Additional items/">
-    <File Path="projects/Swallow.Flux/Directory.Build.props" />
-    <File Path="projects/Swallow.Flux/Directory.Packages.props" />
-    <File Path="projects/Swallow.Flux/Directory.Build.targets" />
-    <File Path="projects/Swallow.Flux/README.md" />
-    <File Path="projects/Swallow.Flux/RELEASE_NOTES.md" />
-    <File Path="projects/Swallow.Flux/LICENSE.txt" />
-  </Folder>
-  <Folder Name="/Swallow.Flux/Library/">
-    <Project Path="projects/Swallow.Flux/src/Swallow.Flux/Swallow.Flux.csproj" />
-  </Folder>
-  <Folder Name="/Swallow.Flux/Test/">
-    <Project Path="projects/Swallow.Flux/test/Swallow.Flux.Test/Swallow.Flux.Test.csproj" />
-  </Folder>
   <Folder Name="/Swallow.Localization/" />
   <Folder Name="/Swallow.Localization/Additional items/">
     <File Path="projects/Swallow.Localization/Directory.Build.props" />
