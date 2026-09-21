@@ -8,8 +8,6 @@
 &nbsp;
 [![Swallow.ChainOfInjection](https://img.shields.io/nuget/v/Swallow.ChainOfInjection?style=for-the-badge&logo=nuget&label=Swallow.ChainOfInjection)](./projects/Swallow.ChainOfInjection/README.md)
 &nbsp;
-[![Swallow.TaskRunner](https://img.shields.io/nuget/v/Swallow.TaskRunner?style=for-the-badge&logo=nuget&label=Swallow.TaskRunner)](./projects/Swallow.TaskRunner/README.md)
-&nbsp;
 ![MIT license](https://img.shields.io/badge/license-mit-brightgreen?style=for-the-badge)
 
 ---
@@ -32,7 +30,6 @@ By the way, **Swallow** refers to the [bird](https://en.wikipedia.org/wiki/Swall
 * [Swallow.Validation](./projects/Swallow.Validation/README.md) - fluent and extendable validations for your invariants
 * [Swallow.Refactor](./projects/Swallow.Refactor/README.md) - automatic refactoring goes BRRR!
 * [Swallow.ChainOfInjection](./projects/Swallow.ChainOfInjection/README.md) - declarative registration of decorators for `ServiceCollection` and `SimpleInjector`
-* [Swallow.TaskRunner](./projects/Swallow.TaskRunner/README.md) - miss `npm run $MYTASK` or similar tools? How'd you like `dotnet task $MYTASK`?
 * [Swallow.Manager](./tooling/Swallow.Manager) - create and publish projects
 
 ## Why should I use these?
