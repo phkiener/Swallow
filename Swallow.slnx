@@ -17,26 +17,6 @@
     <File Path="build/build-package.sh" />
     <File Path="build/Publish.props" />
   </Folder>
-  <Folder Name="/Swallow.Blazor/" />
-  <Folder Name="/Swallow.Blazor/Additional items/">
-    <File Path="projects/Swallow.Blazor/README.md" />
-    <File Path="projects/Swallow.Blazor/LICENSE.txt" />
-  </Folder>
-  <Folder Name="/Swallow.Blazor/Example/">
-    <Project Path="projects/Swallow.Blazor/example/Swallow.Blazor.ExampleProject/Swallow.Blazor.ExampleProject.csproj" />
-    <Project Path="projects/Swallow.Blazor/example/Swallow.Blazor.ExampleCharts/Swallow.Blazor.ExampleCharts.csproj" />
-  </Folder>
-  <Folder Name="/Swallow.Blazor/Library/">
-    <Project Path="projects/Swallow.Blazor/src/Swallow.Blazor.AdvancedStyleIsolation/Swallow.Blazor.AdvancedStyleIsolation.csproj" />
-    <Project Path="projects/Swallow.Blazor/src/Swallow.Blazor.Reactive.Abstractions/Swallow.Blazor.Reactive.Abstractions.csproj" />
-    <Project Path="projects/Swallow.Blazor/src/Swallow.Blazor.Reactive/Swallow.Blazor.Reactive.csproj" />
-    <Project Path="projects/Swallow.Blazor/src/Swallow.Blazor.StaticAssetPaths/Swallow.Blazor.StaticAssetPaths.csproj" />
-    <Project Path="projects/Swallow.Blazor/src/Swallow.Blazor.Charts/Swallow.Blazor.Charts.csproj" />
-  </Folder>
-  <Folder Name="/Swallow.Blazor/Test/">
-    <Project Path="projects/Swallow.Blazor/test/Swallow.Blazor.AdvancedStyleIsolation.Test/Swallow.Blazor.AdvancedStyleIsolation.Test.csproj" />
-    <Project Path="projects/Swallow.Blazor/test/Swallow.Blazor.StaticAssetPaths.Test/Swallow.Blazor.StaticAssetPaths.Test.csproj" />
-  </Folder>
   <Folder Name="/Swallow.Console/" />
   <Folder Name="/Swallow.Console/Additional items/">
     <File Path="projects/Swallow.Console/Directory.Build.props" />
