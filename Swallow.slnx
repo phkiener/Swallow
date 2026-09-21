@@ -73,7 +73,4 @@
     <Project Path="projects/Swallow.Validation/test/Swallow.Validation.TestUtils/Swallow.Validation.TestUtils.csproj" />
     <Project Path="projects/Swallow.Validation/test/Swallow.Validation.Test/Swallow.Validation.Test.csproj" />
   </Folder>
-  <Folder Name="/Tooling/">
-    <Project Path="tooling/Swallow.Manager/Swallow.Manager.csproj" />
-  </Folder>
 </Solution>
