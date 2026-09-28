@@ -1,3 +1,0 @@
-# Swallow.Console
-
-An experiment.

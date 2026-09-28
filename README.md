@@ -4,8 +4,6 @@
 
 [![Swallow.Validation](https://img.shields.io/nuget/v/Swallow.Validation?style=for-the-badge&logo=nuget&label=Swallow.Validation)](./projects/Swallow.Validation/README.md)
 &nbsp;
-[![Swallow.Refactor](https://img.shields.io/nuget/v/Swallow.Refactor?style=for-the-badge&logo=nuget&label=Swallow.Refactor)](./projects/Swallow.Refactor/README.md)
-&nbsp;
 ![MIT license](https://img.shields.io/badge/license-mit-brightgreen?style=for-the-badge)
 
 ---
@@ -26,8 +24,6 @@ By the way, **Swallow** refers to the [bird](https://en.wikipedia.org/wiki/Swall
 ## Projects
 
 * [Swallow.Validation](./projects/Swallow.Validation/README.md) - fluent and extendable validations for your invariants
-* [Swallow.Refactor](./projects/Swallow.Refactor/README.md) - automatic refactoring goes BRRR!
-* [Swallow.Manager](./tooling/Swallow.Manager) - create and publish projects
 
 ## Why should I use these?
 
