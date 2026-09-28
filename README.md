@@ -2,44 +2,24 @@
 
 ---
 
-[![Swallow.Validation](https://img.shields.io/nuget/v/Swallow.Validation?style=for-the-badge&logo=nuget&label=Swallow.Validation)](./projects/Swallow.Validation/README.md)
-&nbsp;
-![MIT license](https://img.shields.io/badge/license-mit-brightgreen?style=for-the-badge)
-
----
-
 # Swallow
 
 A collection of low-dependency packages to be used in any scenario.
 
-They don't strive to be the best-in-class or the most performant. Instead, they all aim to be simple and agnostic of any framework or context; just
-plug these libraries into your code and work with them however you want. They carry as few dependencies as possible, leaving only a tiny footprint
-behind.
+There used to be a monorepo for all the projects here, but they have now moved to
+their respective own repositories.
 
-There's no common theme to these - it's simply a big potluck of stuff that I've either used multiple times or simply wanted to build for the fun of
-it.
+## List of repositories
 
-By the way, **Swallow** refers to the [bird](https://en.wikipedia.org/wiki/Swallow). That's also what the logo is trying to depict.
+- [Swallow.Validation](https://github.com/phkiener/Swallow.Validation)
+- [Swallow.Refactor](https://github.com/phkiener/Swallow.Refactor)
+- [Swallow.ChainOfInjection](https://github.com/phkiener/Swallow.ChainOfInjection)
+- [Swallow.Console](https://github.com/phkiener/Swallow.Console)
+- [Swallow.TaskRunner](https://github.com/phkiener/Swallow.TaskRunner)
+- [Swallow.Flux](https://github.com/phkiener/Swallow.Flux)
 
-## Projects
+## Other Swallow repositories
 
-* [Swallow.Validation](./projects/Swallow.Validation/README.md) - fluent and extendable validations for your invariants
-
-## Why should I use these?
-
-Eh, you probably don't want to. If you want to rely on bulletproof, battle-tested, production-grade and high-performance libraries, you'll not find
-them in here. But: They're all MIT licensed and will not do a "thank you for using my stuff, now pay up" years down the line. It's a hobby, not
-something to extract value from.
-
-But if you want a library that does what you need, stays out of your way and doesn't add a swath of transitive dependencies - why not give it a try?
-
-## License
-
-Each project has its own license, but they all are and will always be released under the MIT license. Which means you're free to use all of these
-projects however you see fit, as long as you include the original license when redistributing. What does "redistributing" include? I don't know, just
-don't claim that you invented the stuff and you're good. I'm a dev, not a lawyer.
-
-## Contributing
-
-There's no process or whatever. Just create an issue or submit your pull request and I'll take a look... eventually.
-Seriously, there's no guarantees. You might get a response right away, you might have to wait a few months. Don't expect anything.
+- [Swallow.Components](https://github.com/phkiener/Swallow.Components)
+- [Swallow.ContentSecurityPolicy](https://github.com/phkiener/Swallow.ContentSecurityPolicy)
+- [Swallow.MSBuild.Node](https://github.com/phkiener/Swallow.MSBuild.Node)

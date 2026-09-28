@@ -4,7 +4,6 @@
     <File Path=".gitattributes" />
     <File Path=".gitignore" />
     <File Path="README.md" />
-    <File Path="NuGet.config" />
     <File Path="icon.png" />
   </Folder>
   <Folder Name="/Additional items/Assets/">
