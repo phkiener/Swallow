@@ -5,16 +5,17 @@ jobs:
   sync-general-settings:
     runs-on: ubuntu-latest
     strategy:
+      max-parallel: 4
       matrix:
         include:
           - repository: "phkiener/Swallow.Validation"
-          #- repository: "phkiener/Swallow.Refactor"
-          #- repository: "phkiener/Swallow.ChainOfInjection"
-          #- repository: "phkiener/Swallow.Console"
-          #- repository: "phkiener/Swallow.TaskRunner"
-          #- repository: "phkiener/Swallow.Flux"
-          #- repository: "phkiener/Swallow.ContentSecurityPolicy"
-          #- repository: "phkiener/Swallow.MSBuild.Node"
+          - repository: "phkiener/Swallow.Refactor"
+          - repository: "phkiener/Swallow.ChainOfInjection"
+          - repository: "phkiener/Swallow.Console"
+          - repository: "phkiener/Swallow.TaskRunner"
+          - repository: "phkiener/Swallow.Flux"
+          - repository: "phkiener/Swallow.ContentSecurityPolicy"
+          - repository: "phkiener/Swallow.MSBuild.Node"
     steps:
       - name: Generate GH token
         id: generate-token
@@ -23,6 +24,7 @@ jobs:
           client-id: ${{ vars.SYNC_APP_CLIENT_ID }}
           private-key: ${{ secrets.SYNC_APP_PRIVATE_KEY }}
           owner: ${{ github.repository_owner }}
+          repositories: ${{ matrix.repository }}
 
       - name: Apply settings to repository
         env:
