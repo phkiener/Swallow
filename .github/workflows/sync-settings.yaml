@@ -1,6 +1,7 @@
-name: Sync general settings
+name: Sync repository settings
 on:
   workflow_dispatch:
+
 jobs:
   sync-general-settings:
     runs-on: ubuntu-latest
@@ -26,7 +27,7 @@ jobs:
           owner: ${{ github.repository_owner }}
           repositories: ${{ matrix.repository }}
 
-      - name: Apply settings to repository
+      - name: Set general settings
         env:
           GH_TOKEN: ${{ steps.generate-token.outputs.token }}
         run: |
@@ -41,3 +42,40 @@ jobs:
             --enable-squash-merge \
             --squash-merge-commit-message pr-title-description \
             --delete-branch-on-merge
+
+      - name: Set secret for NuGet publish
+        env:
+          GH_TOKEN: ${{ steps.generate-token.outputs.token }}
+        run: |
+            gh secret set NUGET_USER --body ${{ secrets.NUGET_USER }} --repo ${{ matrix.repository }}
+
+      - name: Set actions settings
+        env:
+          GH_TOKEN: ${{ steps.generate-token.outputs.token }}
+        run: |
+            gh api \
+              --method PUT \
+              -H "Accept: application/vnd.github+json" \
+              -H "X-GitHub-Api-Version: 2026-03-10" \
+              /repos/${{ matrix.repository }}/actions/permissions/artifact-and-log-retention \
+              -F "days=7"
+
+            gh api \
+              --method PUT \
+              -H "Accept: application/vnd.github+json" \
+              -H "X-GitHub-Api-Version: 2026-03-10" \
+              /repos/${{ matrix.repository }}/actions/permissions/fork-pr-contributor-approval \
+              -f 'approval_policy=all_external_contributors'
+
+            gh api \
+              --method PUT \
+              -H "Accept: application/vnd.github+json" \
+              -H "X-GitHub-Api-Version: 2026-03-10" \
+              /repos/${{ matrix.repository }}/actions/permissions/selected-actions \
+              --input - <<< '{
+              "github_owned_allowed": true,
+              "verified_allowed": false,
+              "patterns_allowed": [
+                "NuGet/*",
+              ]
+            }'
