@@ -3,7 +3,8 @@ on:
   workflow_dispatch:
 
 jobs:
-  sync-general-settings:
+  apply-settings:
+    name: Apply settings to repository ${{ matrix.repository }}
     runs-on: ubuntu-latest
     strategy:
       max-parallel: 4
@@ -75,7 +76,5 @@ jobs:
               --input - <<< '{
               "github_owned_allowed": true,
               "verified_allowed": false,
-              "patterns_allowed": [
-                "NuGet/*",
-              ]
+              "patterns_allowed": ["NuGet/*"]
             }'
