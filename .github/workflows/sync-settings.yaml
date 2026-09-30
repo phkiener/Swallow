@@ -1,0 +1,40 @@
+name: Sync general settings
+on:
+  workflow_dispatch:
+jobs:
+  sync-general-settings:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          - repository: "Swallow.Validation"
+          #- repository: "Swallow.Refactor"
+          #- repository: "Swallow.ChainOfInjection"
+          #- repository: "Swallow.Console"
+          #- repository: "Swallow.TaskRunner"
+          #- repository: "Swallow.Flux"
+          #- repository: "Swallow.ContentSecurityPolicy"
+          #- repository: "Swallow.MSBuild.Node"
+    steps:
+      - name: Generate GH token
+        id: generate-token
+        uses: actions/create-github-app-token@v3
+        with:
+          client-id: ${{ vars.SYNC_APP_CLIENT_ID }}
+          private-key: ${{ secrets.SYNC_APP_PRIVATE_KEY }}
+
+      - name: Apply settings to repository
+        env:
+          GH_TOKEN: ${{ steps.generate-token.outputs.token }}
+        run: |
+          gh repo edit ${{ matrix.repository }} \
+            --enable-discussions=false \
+            --enable-issues \
+            --enable-projects=false \
+            --enable-wiki=false \
+            --enable-rebase-merge=false \
+            --enable-merge-commit=false \
+            --enable-auto-merge=false \
+            --enable-squash-merge \
+            --squash-merge-commit-message pr-title-description \
+            --delete-branch-on-merge
