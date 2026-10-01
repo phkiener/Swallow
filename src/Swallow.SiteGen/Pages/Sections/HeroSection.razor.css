@@ -1,27 +1,11 @@
 section {
-    display: flex;
-    flex-direction: column;
-
-    gap: 24px;
-    align-items: center;
-}
-
-header {
-    text-align: center;
-
-    font-size: 3.2rem;
-    line-height: .8;
-}
-
-p {
-    text-align: center;
-
-    margin: 0;
-    padding: 0;
+    display: grid;
 }
 
 figure {
-    width: 384px;
+    grid-area: logo;
+
+    place-self: center center;
     aspect-ratio: 1/1;
     filter: drop-shadow(16px 16px 8px rgba(0, 0, 0, 0.25));
 
@@ -29,5 +13,42 @@ figure {
         object-fit: contain;
         height: 100%;
         width: 100%;
+    }
+}
+
+header {
+    grid-area: title;
+
+    text-align: center;
+    font-size: 3.2rem;
+    line-height: .8;
+}
+
+p {
+    grid-area: description;
+
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+@media screen and (width >= 900px) {
+    section {
+        grid-template-columns: 384px max-content;
+        grid-template-rows: 1fr 1fr;
+        grid-template-areas:
+                "logo title"
+                "logo description";
+    }
+}
+
+@media screen and (width < 900px) {
+    section {
+        grid-template-columns: 384px;
+        grid-template-rows: 384px max-content max-content;
+        grid-template-areas:
+                "logo"
+                "title"
+                "description";
     }
 }

@@ -1,16 +1,13 @@
 <section>
     @foreach (var package in packageDetails)
     {
-        <article>
-            <header><h3>@package.Name</h3></header>
-
-            <span class="description">@package.Description</span>
-
-            <footer>
-                <a href="@package.NuGetUrl" class="brand nuget">NuGet</a>
+        <Card Title="@package.Name">
+            <Content>@package.Description</Content>
+            <Footer>
+                <BrandLink Brand="Brand.NuGet" Href="@package.NuGetUrl">NuGet</BrandLink>
                 <span class="spacer">•</span>
-                <a href="@package.GitHubUrl" class="brand github">GitHub</a>
-            </footer>
-        </article>
+                <BrandLink Brand="Brand.GitHub" Href="@package.GitHubUrl">GitHub</BrandLink>
+            </Footer>
+        </Card>
     }
 </section>

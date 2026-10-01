@@ -1,0 +1,17 @@
+a::before {
+    content: '';
+    background: var(--brand-logo) center / contain no-repeat;
+
+    height: 16px;
+    width: 16px;
+    margin-right: 6px;
+    display: inline-block;
+}
+
+a.github {
+    --brand-logo: url(logos/github.png);
+}
+
+a.nuget {
+    --brand-logo: url(logos/nuget.png);
+}

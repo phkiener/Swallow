@@ -3,12 +3,11 @@
   "profiles": {
     "Build": {
       "commandName": "Project",
-      "commandLineArgs": "../../site/"
+      "commandLineArgs": "build ../../site/"
     },
     "Serve": {
-      "commandName": "Executable",
-      "executablePath": "dotnet",
-      "commandLineArgs": "miniserv ../../../../../site/"
+      "commandName": "Project",
+      "commandLineArgs": "serve https://localhost:5001"
     }
   }
 }
