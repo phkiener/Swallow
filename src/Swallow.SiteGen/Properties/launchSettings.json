@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json.schemastore.org/launchsettings.json",
+  "profiles": {
+    "Build": {
+      "commandName": "Project",
+      "commandLineArgs": "../../site/"
+    },
+    "Serve": {
+      "commandName": "Executable",
+      "executablePath": "dotnet",
+      "commandLineArgs": "miniserv ../../../../../site/"
+    }
+  }
+}

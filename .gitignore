@@ -1,15 +1,19 @@
-# IDEs and tools
-.idea/
-.vs/
-.vscode/
-
-# Local files
-*.user
-*.DS_STORE
-*.*~
-
 # Build output
 [bB]in/
 [oO]bj/
+[pP]ack/
 [pP]ublish/
-.nupkg
+[pP]ackages/
+[sS]ite/
+TestResults/
+*.binlog
+
+# IDEs
+.vs/
+.vscode/
+.idea/
+
+# User-specific files
+*.user
+*.DS_Store
+*.*~
