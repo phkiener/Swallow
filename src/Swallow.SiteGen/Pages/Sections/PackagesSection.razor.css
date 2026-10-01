@@ -10,3 +10,19 @@ section {
     grid-auto-rows: 256px;
     grid-gap: 36px;
 }
+
+@media screen and (width < 1480px) {
+    section {
+        max-width: 140ch;
+
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media screen and (width < 900px) {
+    section {
+        max-width: 90%;
+
+        grid-template-columns: 1fr;
+    }
+}
