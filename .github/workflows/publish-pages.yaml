@@ -32,7 +32,7 @@ jobs:
         run: dotnet restore
 
       - name: Build page
-        run: dotnet run --project src/Swallow.SiteGen -- ./page-out/
+        run: dotnet run --project src/Swallow.SiteGen --no-launch-profile -- ./page-out/
 
       - name: Setup Pages
         uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d
