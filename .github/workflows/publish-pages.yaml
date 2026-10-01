@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - src/Swallow.SiteGen/**
+      - .github/workflows/publish-pages.yaml
 
 permissions:
   contents: read
