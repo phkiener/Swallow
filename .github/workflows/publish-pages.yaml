@@ -16,12 +16,9 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  deploy:
+  build-page:
+    name: Build static site
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-
     steps:
       - name: Checkout
         uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0
@@ -32,8 +29,32 @@ jobs:
       - name: Restore
         run: dotnet restore
 
-      - name: Build page
-        run: dotnet run --project src/Swallow.SiteGen --no-launch-profile -- ./page-out/
+      - name: Build
+        run: dotnet build --configuration Release --no-restore
+
+      - name: Publish builder
+        run: dotnet publish --configuration Release --no-restore --no-build --output builder/ src/Swallow.SiteGen
+
+      - name: Run builder
+        run: builder/Swallow.SiteGen site/
+
+      - name: Publish site artifact
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        with:
+          name: site-content
+          path: site/
+
+  deploy:
+    name: Deploy built page
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c
+        with:
+          name: site-content
+          path: site/
 
       - name: Setup Pages
         uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d
@@ -41,7 +62,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9
         with:
-          path: ./page-out/
+          path: site/
 
       - name: Deploy to GitHub Pages
         id: deployment
