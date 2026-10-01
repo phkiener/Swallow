@@ -1,0 +1,5 @@
+h2, h3 {
+    margin: unset;
+    padding: unset;
+    font: inherit;
+}

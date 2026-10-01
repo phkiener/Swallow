@@ -1,0 +1,73 @@
+section {
+    box-sizing: border-box;
+    max-width: 160ch;
+
+    border-top: 2px solid currentColor;
+    padding: 24px 48px;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-auto-rows: 256px;
+    grid-gap: 36px;
+}
+
+article {
+    padding: 24px 18px;
+
+    border: 2px solid currentColor;
+    border-radius: 16px;
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.25);
+
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    align-items: stretch;
+    justify-content: flex-start;
+}
+
+article > header {
+    text-align: center;
+
+    font-size: 1.8rem;
+    line-height: 1.2;
+}
+
+article > .description {
+    text-align: center;
+
+    font-size: .95rem;
+    line-height: 1.5;
+
+    text-wrap: balance;
+}
+
+article > footer {
+    margin-top: auto;
+
+    display: flex;
+    flex-direction: row;
+    gap: 2ch;
+
+    align-items: center;
+    justify-content: center;
+}
+
+a.brand {
+    &::before {
+        content: '';
+        background: var(--brand-logo) center / contain no-repeat;
+
+        height: 16px;
+        width: 16px;
+        margin-right: 6px;
+        display: inline-block;
+    }
+
+    &.github {
+        --brand-logo: url(logos/github.png);
+    }
+
+    &.nuget {
+        --brand-logo: url(logos/nuget.png);
+    }
+}

@@ -1,10 +1,11 @@
-<section id="refs">
+<section>
     @foreach (var package in packageDetails)
     {
-        <article class="card">
+        <article>
             <header><h3>@package.Name</h3></header>
 
             <span class="description">@package.Description</span>
+
             <footer>
                 <a href="@package.NuGetUrl" class="brand nuget">NuGet</a>
                 <span class="spacer">•</span>
