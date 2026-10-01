@@ -1,0 +1,15 @@
+<section id="refs">
+    @foreach (var package in packageDetails)
+    {
+        <article class="card">
+            <header><h3>@package.Name</h3></header>
+
+            <span class="description">@package.Description</span>
+            <footer>
+                <a href="@package.NuGetUrl" class="brand nuget">NuGet</a>
+                <span class="spacer">•</span>
+                <a href="@package.GitHubUrl" class="brand github">GitHub</a>
+            </footer>
+        </article>
+    }
+</section>

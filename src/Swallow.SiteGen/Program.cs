@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Hosting.StaticWebAssets;
+using NuGet.Protocol;
+using NuGet.Protocol.Core.Types;
 using Swallow.SiteGen;
 using Swallow.SiteGen.Steps;
 
@@ -11,6 +13,8 @@ builder.Services.AddHostedService<GeneratePages>();
 builder.Services.AddHostedService<CopyAssets>();
 builder.Services.AddHostedService<ShutdownHost>();
 builder.Services.AddRazorComponents();
+builder.Services.AddSingleton<SourceCacheContext>();
+builder.Services.AddSingleton<SourceRepository>(static _ => Repository.Factory.GetCoreV3("https://api.nuget.org/v3/index.json"));
 
 var buildOptions = new BuildOptions(targetPath: args[0]);
 builder.Services.AddSingleton(buildOptions);
