@@ -1,7 +1,7 @@
 using System.ComponentModel;
 using Microsoft.AspNetCore.Components;
 
-namespace Swallow.SiteGen.Components;
+namespace Swallow.Site.Components;
 
 public enum Brand { GitHub, NuGet }
 

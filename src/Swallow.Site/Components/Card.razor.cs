@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Components;
 
-namespace Swallow.SiteGen.Components;
+namespace Swallow.Site.Components;
 
 public sealed partial class Card : ComponentBase
 {

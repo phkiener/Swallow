@@ -1,11 +1,15 @@
 using Microsoft.AspNetCore.Components;
 using NuGet.Common;
+using NuGet.Protocol;
 using NuGet.Protocol.Core.Types;
 
-namespace Swallow.SiteGen.Pages.Sections;
+namespace Swallow.Site.Pages.Sections;
 
-public sealed partial class PackagesSection(SourceCacheContext cache, SourceRepository repository) : ComponentBase
+public sealed partial class PackagesSection : ComponentBase
 {
+    private static readonly SourceCacheContext cache = new();
+    private static readonly SourceRepository repository = Repository.Factory.GetCoreV3("https://api.nuget.org/v3/index.json");
+
     [Parameter]
     [EditorRequired]
     public required IEnumerable<string> Packages { get; set; }

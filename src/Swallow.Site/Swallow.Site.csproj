@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <PackageReference Include="NuGet.Protocol" Version="7.9.0" />
+    <PackageReference Include="Swallow.SiteGen" Version="0.0.1" />
   </ItemGroup>
 
 </Project>
