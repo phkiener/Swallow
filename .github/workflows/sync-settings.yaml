@@ -18,6 +18,7 @@ jobs:
           - repository: "phkiener/Swallow.Flux"
           - repository: "phkiener/Swallow.ContentSecurityPolicy"
           - repository: "phkiener/Swallow.MSBuild.Node"
+          - repository: "phkiener/Swallow.SiteGen"
     steps:
       - name: Generate GH token
         id: generate-token
