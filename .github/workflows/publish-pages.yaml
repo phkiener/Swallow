@@ -36,7 +36,10 @@ jobs:
         run: dotnet publish --configuration Release --no-restore --no-build --output builder/ src/Swallow.Site
 
       - name: Run builder
-        run: builder/Swallow.Site build site/
+        run: |
+          cd builder/
+          ./Swallow.Site build ../site/
+          cd ../
 
       - name: Publish site artifact
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
