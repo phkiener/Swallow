@@ -73,6 +73,13 @@ jobs:
               --method PUT \
               -H "Accept: application/vnd.github+json" \
               -H "X-GitHub-Api-Version: 2026-03-10" \
+              /repos/${{ matrix.repository }}/actions/permissions \
+              -F "enabled=true" -f 'allowed_actions=selected' -F "sha_pinning_required=false"
+
+            gh api \
+              --method PUT \
+              -H "Accept: application/vnd.github+json" \
+              -H "X-GitHub-Api-Version: 2026-03-10" \
               /repos/${{ matrix.repository }}/actions/permissions/selected-actions \
               --input - <<< '{
               "github_owned_allowed": true,
